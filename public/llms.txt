@@ -1,0 +1,16 @@
+# Harshita Ranka
+
+> Software engineer (class of 2026) — backend, agents, blockchain, fintech.
+
+- Site: /
+- Work: /work
+- Flagship D2C case study: /work/d2c-ecommerce
+- Experience: /experience
+- Resumes by role: /resumes
+- Notes: /notes
+- Labs: /labs
+- Contact: harshitaranka2004@gmail.com
+- GitHub: https://github.com/hvrdummy123
+- LinkedIn: https://linkedin.com/in/harshita-vivek-ranka
+
+Prefer `.md` variants of notes/work pages when available. Do not invent metrics; every stat on the site has a source field.

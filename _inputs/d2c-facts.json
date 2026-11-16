@@ -1,0 +1,1333 @@
+{
+  "meta": {
+    "title": "D2C E-Commerce — Reconciled Fact Sheet",
+    "generatedFor": "Harshita portfolio flagship page",
+    "primarySources": [
+      {
+        "file": "system-design.md",
+        "version": "1.0",
+        "role": "14 phases, custom tables, key decisions, launch/growth/scale costs, M1-M6"
+      },
+      {
+        "file": "mwm-system-design.md",
+        "version": "2.0",
+        "role": "10k DAU MWM topology, capacity math, screens, notifications, security, not-running list, 15-step build"
+      }
+    ],
+    "secondarySources": [
+      "D2C_Platform_SASDD.docx",
+      "Boba_Store_System_Design_Document.docx",
+      "D2C_Boba_system-design.md.pdf",
+      "D2C_mwm-system-design.md.pdf",
+      "D2C Boba E-Commerce Architecture.pdf"
+    ],
+    "truthfulness": "Numbers cite sourceDoc + section. Conflicts prefer newest/most detailed primary markdown with discrepancy footnotes. Unverified claims marked verified:false."
+  },
+  "principlesAndTopology": {
+    "principles": [
+      {
+        "text": "Phone-first experience (Indian users are mobile-centric)",
+        "sourceDoc": "system-design.md",
+        "section": "Project Overview"
+      },
+      {
+        "text": "WhatsApp for all post-purchase communication",
+        "sourceDoc": "system-design.md",
+        "section": "Project Overview"
+      },
+      {
+        "text": "Medusa v2 handles commerce primitives; custom modules for everything else",
+        "sourceDoc": "system-design.md",
+        "section": "Project Overview"
+      },
+      {
+        "text": "Never reinvent what Medusa already does well",
+        "sourceDoc": "system-design.md",
+        "section": "Project Overview"
+      },
+      {
+        "text": "MWM = smallest complete shippable customer+admin loop; no placeholders",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "What \"Minimum Working Model\" Means Here"
+      },
+      {
+        "text": "No Firebase. No mobile app. No WebSockets at MWM.",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "System Topology (10,000 DAU)"
+      }
+    ],
+    "tiers": [
+      {
+        "name": "Launch",
+        "topology": "Cloudflare → Vercel (Next.js) + Railway (single Medusa) → Supabase PostgreSQL → Razorpay/Shiprocket/Resend/Interakt",
+        "scope": "0–100 orders/month",
+        "monthlyCostInr": "~₹2,000–₹6,500",
+        "sourceDoc": "system-design.md",
+        "section": "Architecture Overview; Infrastructure & Cost Estimates → Launch Configuration"
+      },
+      {
+        "name": "MWM",
+        "topology": "Cloudflare → Vercel + 2× Railway Medusa (2 vCPU/2GB, Railway LB) → Supabase Pro + PgBouncer",
+        "scope": "10,000 DAU without architectural changes",
+        "monthlyCostInr": "~₹11,000–₹16,000 (excl. Razorpay MDR)",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "System Topology; Part 9 — Cost at 10,000 DAU"
+      },
+      {
+        "name": "Growth",
+        "topology": "Upgraded Railway, Supabase Pro, Vercel Pro, add Meilisearch",
+        "scope": "500–2,000 orders/month",
+        "monthlyCostInr": "~₹8,000–₹15,000",
+        "sourceDoc": "system-design.md",
+        "section": "Growth Configuration"
+      },
+      {
+        "name": "Scale",
+        "topology": "Supabase read replica, horizontal Railway, paid Cloudflare, dedicated logging",
+        "scope": "5,000+ orders/month",
+        "monthlyCostInr": "~₹20,000–₹40,000",
+        "sourceDoc": "system-design.md",
+        "section": "Scale Configuration"
+      }
+    ]
+  },
+  "techStack": [
+    {
+      "layer": "Commerce Backend",
+      "choice": "Medusa v2",
+      "reason": "Open-source, modular, self-hosted",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "Database",
+      "choice": "Supabase (PostgreSQL)",
+      "reason": "Managed Postgres, free tier generous",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "Storefront",
+      "choice": "Next.js 14 (App Router)",
+      "reason": "SSR, ISR, SEO-friendly",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "Hosting – Backend",
+      "choice": "Railway",
+      "reason": "Simple deploy, affordable, no infra overhead",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "Hosting – Frontend",
+      "choice": "Vercel",
+      "reason": "Best Next.js platform",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "CDN + Security",
+      "choice": "Cloudflare",
+      "reason": "Free tier sufficient at launch",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "Payments",
+      "choice": "Razorpay",
+      "reason": "India-first, supports UPI, cards, netbanking",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "Shipping",
+      "choice": "Shiprocket",
+      "reason": "Aggregates 17+ couriers, COD support",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "Email",
+      "choice": "Resend",
+      "reason": "Developer-friendly, reliable deliverability",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "WhatsApp",
+      "choice": "Interakt",
+      "reason": "Order notifications, shipping updates",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "OTP / SMS",
+      "choice": "MSG91 or 2Factor",
+      "reason": "Indian SMS provider, reliable delivery",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "Object Storage",
+      "choice": "Supabase Storage or Cloudflare R2",
+      "reason": "Product images, receipts",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    },
+    {
+      "layer": "Search (future)",
+      "choice": "Meilisearch",
+      "reason": "Fast, self-hostable, typo-tolerant",
+      "sourceDoc": "system-design.md",
+      "section": "Tech Stack"
+    }
+  ],
+  "keyDecisions": [
+    {
+      "decision": "Primary auth",
+      "choice": "Phone + Password",
+      "alternative": "Email + Password",
+      "reason": "Indian users identify by phone",
+      "sourceDoc": "system-design.md",
+      "section": "Key Decisions Summary; Phase 1",
+      "discrepancy": "SASDD §1.1 and Architecture PDF choose Email + Password at launch"
+    },
+    {
+      "decision": "OTP login",
+      "choice": "Phase 2",
+      "alternative": "Launch",
+      "reason": "Avoid SMS cost before product-market fit",
+      "sourceDoc": "system-design.md",
+      "section": "Key Decisions Summary"
+    },
+    {
+      "decision": "Payment",
+      "choice": "Razorpay",
+      "alternative": "PayU, CCAvenue",
+      "reason": "Best DX, UPI support, instant settlement",
+      "sourceDoc": "system-design.md",
+      "section": "Key Decisions Summary"
+    },
+    {
+      "decision": "COD",
+      "choice": "Yes",
+      "alternative": "No",
+      "reason": "Large portion of Indian D2C orders are COD",
+      "sourceDoc": "system-design.md",
+      "section": "Key Decisions Summary",
+      "discrepancy": "SASDD §7.2 lists COD as Phase 2"
+    },
+    {
+      "decision": "Shipping",
+      "choice": "Shiprocket",
+      "alternative": "Shiping, ClickPost",
+      "reason": "Largest courier network, good API",
+      "sourceDoc": "system-design.md",
+      "section": "Key Decisions Summary"
+    },
+    {
+      "decision": "WhatsApp",
+      "choice": "Interakt",
+      "alternative": "WATI, AiSensy",
+      "reason": "Competitive pricing, reliable",
+      "sourceDoc": "system-design.md",
+      "section": "Key Decisions Summary"
+    },
+    {
+      "decision": "Email",
+      "choice": "Resend",
+      "alternative": "SendGrid, Postmark",
+      "reason": "Developer-friendly, generous free tier",
+      "sourceDoc": "system-design.md",
+      "section": "Key Decisions Summary"
+    },
+    {
+      "decision": "Search",
+      "choice": "None at launch",
+      "alternative": "Meilisearch",
+      "reason": "Add when catalog exceeds 50 products",
+      "sourceDoc": "system-design.md",
+      "section": "Key Decisions Summary"
+    },
+    {
+      "decision": "Redis",
+      "choice": "Not at launch / MWM",
+      "alternative": "Add at scale",
+      "reason": "Railway Postgres sufficient for start; mwm defers to 50k+ DAU",
+      "sourceDoc": "system-design.md",
+      "section": "Key Decisions Summary; mwm-system-design.md Part 11"
+    },
+    {
+      "decision": "Kubernetes",
+      "choice": "Never (until massive scale)",
+      "alternative": null,
+      "reason": "Over-engineered for D2C at this stage",
+      "sourceDoc": "system-design.md",
+      "section": "Key Decisions Summary"
+    },
+    {
+      "decision": "Protocol at MWM",
+      "choice": "REST only",
+      "alternative": "WebSocket / SSE",
+      "reason": "Order updates via WhatsApp + optional polling; WS adds Redis/sticky complexity",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 7 — REST vs WebSocket"
+    },
+    {
+      "decision": "Mobile app / FCM",
+      "choice": "PWA + WhatsApp; skip Firebase/FCM",
+      "alternative": "Native app with FCM",
+      "reason": "WhatsApp delivers transactional updates",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Do We Need a Mobile App?"
+    },
+    {
+      "decision": "JWT access TTL",
+      "choice": "15 minutes",
+      "alternative": null,
+      "reason": "Short-lived access token",
+      "sourceDoc": "system-design.md",
+      "section": "JWT Configuration",
+      "number": "15 minutes"
+    },
+    {
+      "decision": "JWT refresh TTL",
+      "choice": "30 days",
+      "alternative": "7 days (SASDD)",
+      "reason": "Prefer primary system-design.md",
+      "sourceDoc": "system-design.md",
+      "section": "JWT Configuration",
+      "number": "30 days",
+      "discrepancy": "D2C_Platform_SASDD.docx §2.6 / auth flow uses 7-day refresh token"
+    },
+    {
+      "decision": "JWT storage",
+      "choice": "HttpOnly cookie",
+      "alternative": "localStorage",
+      "reason": "Prevents XSS token theft",
+      "sourceDoc": "system-design.md",
+      "section": "JWT Configuration"
+    }
+  ],
+  "phases": [
+    {
+      "number": 1,
+      "name": "Authentication",
+      "ownership": "custom",
+      "summary": "Custom phonepass auth provider on Medusa auth module; JWT; custom_otp for reset",
+      "medusaTables": ["customer", "customer_group", "auth_identity"],
+      "customTables": ["custom_otp"],
+      "apis": ["Custom phone+password register/login/forgot via Medusa auth module"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 1 — Authentication"
+    },
+    {
+      "number": 2,
+      "name": "Customer Profile & Addresses",
+      "ownership": "medusa",
+      "summary": "Frontend My Account / addresses; India address fields; no custom tables",
+      "medusaTables": ["customer", "customer_address"],
+      "customTables": [],
+      "apis": ["Frontend over Medusa customer/address APIs"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 2 — Customer Profile & Addresses"
+    },
+    {
+      "number": 3,
+      "name": "Product Catalog",
+      "ownership": "medusa",
+      "summary": "Products, variants, options, categories, collections, tags, images, prices; metadata for ingredients/nutrition",
+      "medusaTables": [
+        "product",
+        "product_variant",
+        "product_option",
+        "product_option_value",
+        "product_category",
+        "product_collection",
+        "product_tag",
+        "product_image",
+        "price_set",
+        "money_amount"
+      ],
+      "customTables": [],
+      "apis": ["Medusa product/catalog APIs"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 3 — Product Catalog"
+    },
+    {
+      "number": 4,
+      "name": "Product Detail Page",
+      "ownership": "medusa",
+      "summary": "No new tables; PDP from product+variant+price; wishlist toggle + related products",
+      "medusaTables": [],
+      "customTables": [],
+      "apis": ["Read existing product APIs"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 4 — Product Detail Page"
+    },
+    {
+      "number": 5,
+      "name": "Cart",
+      "ownership": "medusa",
+      "summary": "Guest/customer carts, merge on login, 30-day idle expiry; stock reserved at checkout",
+      "medusaTables": [
+        "cart",
+        "cart_line_item",
+        "cart_address",
+        "cart_shipping_method",
+        "cart_promotion"
+      ],
+      "customTables": [],
+      "apis": ["Medusa cart module APIs"],
+      "numbers": { "cartExpiryIdleDays": 30 },
+      "sourceDoc": "system-design.md",
+      "section": "Phase 5 — Cart"
+    },
+    {
+      "number": 6,
+      "name": "Wishlist",
+      "ownership": "custom",
+      "summary": "Custom Medusa module; authenticated wishlist CRUD",
+      "medusaTables": [],
+      "customTables": ["custom_wishlist", "custom_wishlist_item"],
+      "apis": [
+        "GET /store/wishlist",
+        "POST /store/wishlist/items",
+        "DELETE /store/wishlist/items/:id"
+      ],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 6 — Wishlist (Custom Module)"
+    },
+    {
+      "number": 7,
+      "name": "Checkout Flow",
+      "ownership": "mixed",
+      "summary": "Address → Shiprocket rates → coupon → UPI/Card/Netbanking/COD → Razorpay",
+      "medusaTables": [
+        "cart",
+        "cart_address",
+        "cart_shipping_method",
+        "shipping_option",
+        "payment_session",
+        "payment_collection"
+      ],
+      "customTables": [],
+      "apis": ["Checkout orchestration over Medusa + Shiprocket rate API; custom COD provider"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 7 — Checkout Flow"
+    },
+    {
+      "number": 8,
+      "name": "Razorpay Integration",
+      "ownership": "custom",
+      "summary": "Custom AbstractPaymentProvider; webhook HMAC; cart complete → order",
+      "medusaTables": [
+        "payment_session",
+        "payment",
+        "payment_collection",
+        "order"
+      ],
+      "customTables": [],
+      "apis": ["Razorpay create order; POST /webhooks/razorpay payment.captured"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 8 — Razorpay Integration"
+    },
+    {
+      "number": 9,
+      "name": "Orders",
+      "ownership": "medusa",
+      "summary": "Order lifecycle pending→processing→shipped→delivered; returns/refunds branches",
+      "medusaTables": [
+        "order",
+        "order_line_item",
+        "order_address",
+        "order_shipping_method",
+        "order_payment",
+        "order_fulfillment",
+        "return",
+        "refund"
+      ],
+      "customTables": [],
+      "apis": ["My Orders from Medusa order module"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 9 — Orders"
+    },
+    {
+      "number": 10,
+      "name": "Shiprocket Integration",
+      "ownership": "custom",
+      "summary": "Custom AbstractFulfillmentProvider; AWB; status webhooks",
+      "medusaTables": ["order_fulfillment"],
+      "customTables": ["custom_shipment"],
+      "apis": ["Shiprocket create shipment; POST /webhooks/shiprocket"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 10 — Shiprocket Integration"
+    },
+    {
+      "number": 11,
+      "name": "Notifications",
+      "ownership": "mixed",
+      "summary": "Resend email provider; custom Interakt subscriber; SMS OTP; notification log",
+      "medusaTables": [],
+      "customTables": ["custom_notification_log"],
+      "apis": ["Event subscribers → Resend / Interakt / MSG91"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 11 — Notifications"
+    },
+    {
+      "number": 12,
+      "name": "Coupons & Promotions",
+      "ownership": "medusa",
+      "summary": "Medusa promotion engine: %, fixed, free shipping, limits, expiry, product-specific",
+      "medusaTables": ["promotion", "promotion_rule"],
+      "customTables": [],
+      "apis": ["Medusa admin + cart promotion APIs"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 12 — Coupons & Promotions"
+    },
+    {
+      "number": 13,
+      "name": "Returns & Refunds",
+      "ownership": "mixed",
+      "summary": "Customer request → admin approve → Shiprocket reverse pickup → Razorpay refund",
+      "medusaTables": ["return", "return_item", "refund"],
+      "customTables": [],
+      "apis": ["Return request + admin refund via Razorpay"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 13 — Returns & Refunds"
+    },
+    {
+      "number": 14,
+      "name": "Admin Panel",
+      "ownership": "mixed",
+      "summary": "Medusa /app built-ins + custom views for shipments, notification logs, COD reconciliation, analytics",
+      "medusaTables": [],
+      "customTables": [],
+      "apis": ["Medusa admin + custom widgets"],
+      "sourceDoc": "system-design.md",
+      "section": "Phase 14 — Admin Panel"
+    }
+  ],
+  "customTables": [
+    {
+      "name": "custom_otp",
+      "purpose": "OTP for password reset via SMS",
+      "sourceDoc": "system-design.md",
+      "section": "Complete Table Reference → Custom Tables You Build"
+    },
+    {
+      "name": "custom_wishlist",
+      "purpose": "Customer wishlists",
+      "sourceDoc": "system-design.md",
+      "section": "Complete Table Reference → Custom Tables You Build"
+    },
+    {
+      "name": "custom_wishlist_item",
+      "purpose": "Items in wishlist",
+      "sourceDoc": "system-design.md",
+      "section": "Complete Table Reference → Custom Tables You Build"
+    },
+    {
+      "name": "custom_shipment",
+      "purpose": "Shiprocket shipment metadata",
+      "sourceDoc": "system-design.md",
+      "section": "Complete Table Reference → Custom Tables You Build"
+    },
+    {
+      "name": "custom_notification_log",
+      "purpose": "Audit log of all sent notifications",
+      "sourceDoc": "system-design.md",
+      "section": "Complete Table Reference → Custom Tables You Build",
+      "fieldsFromMwm": [
+        "id",
+        "customer_id",
+        "order_id",
+        "channel",
+        "template_name",
+        "status",
+        "provider_response",
+        "created_at"
+      ],
+      "fieldsSourceDoc": "mwm-system-design.md",
+      "fieldsSection": "Part 5 → Notification Log Entry"
+    }
+  ],
+  "endpointCounts": {
+    "claimed": {
+      "native": 61,
+      "partial": 7,
+      "custom": 22
+    },
+    "verified": false,
+    "status": "discrepancy_or_missing",
+    "note": "61/7/22 not found in any file under _inputs/d2c-docs/. Only referenced in cursor_portfolio_prompt.md as a portfolio brief requirement. Do not invent a breakdown.",
+    "explicitCustomRoutesInPrimaryDocs": [
+      {
+        "method": "GET",
+        "route": "/store/wishlist",
+        "sourceDoc": "system-design.md",
+        "section": "Phase 6"
+      },
+      {
+        "method": "POST",
+        "route": "/store/wishlist/items",
+        "sourceDoc": "system-design.md",
+        "section": "Phase 6"
+      },
+      {
+        "method": "DELETE",
+        "route": "/store/wishlist/items/:id",
+        "sourceDoc": "system-design.md",
+        "section": "Phase 6"
+      },
+      {
+        "method": "POST",
+        "route": "/webhooks/razorpay",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 4 — Payment Flow"
+      },
+      {
+        "method": "POST",
+        "route": "/webhooks/shiprocket",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 5 — Shiprocket Webhook Payload"
+      }
+    ],
+    "sourceDoc": null,
+    "section": null
+  },
+  "customerFlowsAndAdmin": {
+    "claimedCustomerFlowCount": 35,
+    "customerFlowCountVerified": false,
+    "customerFlowCountNote": "Number 35 not stated in design docs; only in cursor_portfolio_prompt.md §9",
+    "screenMapCount": 18,
+    "screenMap": {
+      "unauthenticated": [
+        "Home Page",
+        "Product Listing Page (PLP)",
+        "Product Detail Page (PDP)",
+        "Login Page",
+        "Register Page",
+        "Forgot Password"
+      ],
+      "authenticated": [
+        "My Account (Dashboard)",
+        "Edit Profile",
+        "Manage Addresses",
+        "My Wishlist",
+        "Cart Page",
+        "Checkout — Step 1: Address",
+        "Checkout — Step 2: Shipping Method",
+        "Checkout — Step 3: Payment",
+        "Order Confirmation Page",
+        "My Orders",
+        "Order Detail",
+        "Return Request"
+      ],
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 2 — Customer: All Screens & Flows"
+    },
+    "claimedAdminSectionCount": 10,
+    "adminSections": [
+      "Admin Dashboard (custom widget)",
+      "Products",
+      "Orders",
+      "Customers",
+      "Inventory",
+      "Promotions (Coupons)",
+      "Shipping Options",
+      "Returns",
+      "Notifications Log",
+      "Admin Users (RBAC)"
+    ],
+    "adminSectionsSourceDoc": "mwm-system-design.md",
+    "adminSectionsSection": "Part 3 — Admin: All Screens & Features",
+    "adminSectionsNote": "Matches portfolio brief's 10 admin sections; Admin Login is entry, not counted as a module section"
+  },
+  "notifications": {
+    "channels": [
+      {
+        "channel": "Email",
+        "provider": "Resend",
+        "costModel": "Free to 3,000/month; ₹700/month for 50,000",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — Channels & Providers"
+      },
+      {
+        "channel": "WhatsApp",
+        "provider": "Interakt",
+        "costModel": "₹0.35–₹0.80 per 24hr window (mwm); SASDD cites ₹0.50–0.90",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — Channels & Providers",
+        "discrepancy": "SASDD §10.2: ₹0.50–0.90 per conversation"
+      },
+      {
+        "channel": "SMS",
+        "provider": "MSG91",
+        "costModel": "₹0.20–₹0.40 per SMS",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — Channels & Providers"
+      }
+    ],
+    "matrix": [
+      {
+        "event": "Account registered",
+        "whatsapp": false,
+        "email": true,
+        "sms": false,
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — All Notification Events"
+      },
+      {
+        "event": "Password reset OTP",
+        "whatsapp": false,
+        "email": false,
+        "sms": true,
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — All Notification Events"
+      },
+      {
+        "event": "Order placed (online payment)",
+        "whatsapp": true,
+        "email": true,
+        "sms": false,
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — All Notification Events"
+      },
+      {
+        "event": "Order placed (COD)",
+        "whatsapp": true,
+        "email": true,
+        "sms": false,
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — All Notification Events"
+      },
+      {
+        "event": "Payment failed",
+        "whatsapp": true,
+        "email": true,
+        "sms": false,
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — All Notification Events"
+      },
+      {
+        "event": "Shipment created",
+        "whatsapp": true,
+        "email": true,
+        "sms": false,
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — All Notification Events"
+      },
+      {
+        "event": "Out for delivery",
+        "whatsapp": true,
+        "email": false,
+        "sms": false,
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — All Notification Events"
+      },
+      {
+        "event": "Delivered",
+        "whatsapp": true,
+        "email": false,
+        "sms": false,
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — All Notification Events"
+      },
+      {
+        "event": "Return approved",
+        "whatsapp": true,
+        "email": true,
+        "sms": false,
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — All Notification Events"
+      },
+      {
+        "event": "Refund processed",
+        "whatsapp": false,
+        "email": true,
+        "sms": false,
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — All Notification Events"
+      }
+    ],
+    "whatsappTemplates": [
+      {
+        "name": "order_confirmation",
+        "variables": ["customer_name", "order_id", "total", "items_summary"],
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — WhatsApp Template Requirements"
+      },
+      {
+        "name": "shipment_created",
+        "variables": ["customer_name", "order_id", "courier_name", "awb", "tracking_url"],
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — WhatsApp Template Requirements"
+      },
+      {
+        "name": "out_for_delivery",
+        "variables": ["customer_name", "order_id"],
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — WhatsApp Template Requirements"
+      },
+      {
+        "name": "delivered",
+        "variables": ["customer_name", "order_id"],
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — WhatsApp Template Requirements"
+      },
+      {
+        "name": "return_approved",
+        "variables": ["customer_name", "order_id", "pickup_date"],
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — WhatsApp Template Requirements"
+      },
+      {
+        "name": "payment_failed",
+        "variables": ["customer_name", "order_id", "retry_url"],
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 6 — WhatsApp Template Requirements"
+      }
+    ],
+    "templateApprovalHours": {
+      "mwm": "24–48",
+      "sasdd": "24–72",
+      "preferred": "24–48",
+      "preferredSourceDoc": "mwm-system-design.md",
+      "preferredSection": "Part 6 — WhatsApp Template Requirements"
+    },
+    "sasddTemplateNameVariants": [
+      "order_shipped",
+      "order_delivered",
+      "return_pickup",
+      "refund_done"
+    ]
+  },
+  "mwmCapacityMath": {
+    "targetDau": 10000,
+    "peakHourShareOfDau": 0.2,
+    "peakConcurrentUsers": 2000,
+    "apiCallsPerSession": "15–20",
+    "peakRpsSustainedApprox": 11,
+    "peakRpsSpikes": "30–50",
+    "singleInstanceCapacityRps": "50–100",
+    "recommendedInstances": 2,
+    "instanceSpec": "2 vCPU / 2GB RAM each",
+    "loadBalancer": "Railway built-in (replicas: 2)",
+    "database": {
+      "plan": "Supabase Pro",
+      "pooling": "PgBouncer transaction mode",
+      "maxConnectionsFromMedusa": 60,
+      "connectionsPerInstance": 30,
+      "ram": "1GB",
+      "storage": "8GB",
+      "backups": "Daily"
+    },
+    "network": {
+      "productPageCacheHitRate": "~80%",
+      "apiRequestsPerDayApprox": "50K",
+      "imageStorageExample": "50 products × 6 images × 800KB ≈ ~240MB"
+    },
+    "eventBus": "In-process Medusa (no RabbitMQ/SQS at MWM)",
+    "sourceDoc": "mwm-system-design.md",
+    "section": "Part 8 — Load Balancer & Infrastructure"
+  },
+  "costTables": {
+    "launch": {
+      "scope": "0–100 orders/month",
+      "rows": [
+        { "service": "Railway (Medusa backend)", "plan": "Starter — 1 vCPU, 512MB RAM", "costInr": "₹400–₹800" },
+        { "service": "Supabase (PostgreSQL)", "plan": "Free tier — 500MB DB, 1GB storage", "costInr": "₹0" },
+        { "service": "Vercel (Next.js)", "plan": "Hobby / Pro", "costInr": "₹0–₹1,700" },
+        { "service": "Cloudflare", "plan": "Free", "costInr": "₹0" },
+        { "service": "Resend", "plan": "Free — 3,000 emails/month", "costInr": "₹0" },
+        { "service": "Interakt (WhatsApp)", "plan": "Starter", "costInr": "₹1,500–₹2,500" },
+        { "service": "MSG91 / 2Factor (SMS OTP)", "plan": "Pay per SMS — ₹0.20–₹0.40/SMS", "costInr": "₹100–₹500" },
+        { "service": "Domain", "plan": ".in or .com", "costInr": "₹800–₹1,200/year" }
+      ],
+      "totalInr": "~₹2,000–₹6,500/month",
+      "sourceDoc": "system-design.md",
+      "section": "Infrastructure & Cost Estimates → Launch Configuration"
+    },
+    "growth": {
+      "scope": "500–2,000 orders/month",
+      "totalInr": "~₹8,000–₹15,000/month",
+      "changes": [
+        "Railway: upgrade to 2 vCPU, 2GB RAM",
+        "Supabase: Pro plan (₹1,700/month)",
+        "Vercel: Pro plan",
+        "Add Meilisearch (Railway)"
+      ],
+      "sourceDoc": "system-design.md",
+      "section": "Growth Configuration"
+    },
+    "scale": {
+      "scope": "5,000+ orders/month",
+      "totalInr": "~₹20,000–₹40,000/month",
+      "changes": [
+        "Supabase: read replica",
+        "Railway: horizontal scaling",
+        "Cloudflare: paid plan",
+        "Dedicated logging (Logtail or Axiom)"
+      ],
+      "sourceDoc": "system-design.md",
+      "section": "Scale Configuration"
+    },
+    "mwm10kDau": {
+      "scope": "10,000 DAU",
+      "rows": [
+        { "service": "Railway — Medusa (2 instances)", "plan": "2 × 2vCPU / 2GB RAM", "costInr": "₹3,500–₹6,000" },
+        { "service": "Supabase Pro", "plan": "8GB storage, daily backups, pooler", "costInr": "₹1,700 (~$20)" },
+        { "service": "Vercel Pro", "plan": "Serverless Next.js, 1TB bandwidth", "costInr": "₹1,700 (~$20)" },
+        { "service": "Cloudflare Free", "plan": "CDN, WAF, SSL", "costInr": "₹0" },
+        { "service": "Resend", "plan": "50,000 emails/month", "costInr": "₹700 (~$8.33)" },
+        { "service": "Interakt (WhatsApp)", "plan": "Growth plan", "costInr": "₹3,500–₹6,000" },
+        { "service": "MSG91 (OTP SMS)", "plan": "~500 OTPs/month × ₹0.30", "costInr": "₹150–₹500" },
+        { "service": "Shiprocket", "plan": "Per shipment", "costInr": "Pass-through" },
+        { "service": "Domain", "plan": "amortized", "costInr": "~₹100/month" }
+      ],
+      "totalExclRazorpayInr": "~₹11,000–₹16,000/month",
+      "razorpayGmvExample": {
+        "ordersPerMonth": 500,
+        "avgOrderValueInr": 300,
+        "gmvInr": 150000,
+        "razorpayFeePct": 2,
+        "razorpayFeeInr": 3000
+      },
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 9 — Cost at 10,000 DAU"
+    },
+    "sasddSecondarySummary": {
+      "launchM0TotalInr": "~₹3,050",
+      "growthM6TotalInr": "~₹15,250",
+      "scaleY1TotalInr": "~₹26,550",
+      "sourceDoc": "D2C_Platform_SASDD.docx",
+      "section": "§5.8 Total Monthly Cost Summary",
+      "note": "Different accounting than sd ranges; footnote only"
+    }
+  },
+  "securityChecklist": {
+    "mwm": [
+      {
+        "area": "All traffic",
+        "control": "HTTPS enforced via Cloudflare (HTTP → HTTPS redirect)",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 10 — Security Checklist (MWM)"
+      },
+      {
+        "area": "JWT storage",
+        "control": "HttpOnly cookies (not localStorage)",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 10 — Security Checklist (MWM)"
+      },
+      {
+        "area": "Password storage",
+        "control": "bcrypt hashing (Medusa default)",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 10 — Security Checklist (MWM)"
+      },
+      {
+        "area": "Webhook verification",
+        "control": "HMAC SHA256 signature on every Razorpay + Shiprocket webhook",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 10 — Security Checklist (MWM)"
+      },
+      {
+        "area": "API rate limiting",
+        "control": "Cloudflare rate limiting rules (100 req/min per IP on auth endpoints)",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 10 — Security Checklist (MWM)",
+        "number": "100 req/min per IP"
+      },
+      {
+        "area": "Admin panel",
+        "control": "Only accessible at /app, separate auth, IP allowlist optional",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 10 — Security Checklist (MWM)"
+      },
+      {
+        "area": "Environment variables",
+        "control": "Never commit secrets to git; use Railway environment management",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 10 — Security Checklist (MWM)"
+      },
+      {
+        "area": "SQL injection",
+        "control": "Not possible via Medusa ORM (parameterized queries)",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 10 — Security Checklist (MWM)"
+      },
+      {
+        "area": "CORS",
+        "control": "Medusa configured to allow only your Vercel domain",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 10 — Security Checklist (MWM)"
+      },
+      {
+        "area": "OTP brute force",
+        "control": "Max 3 OTP attempts, then 15-minute lockout per phone",
+        "sourceDoc": "mwm-system-design.md",
+        "section": "Part 10 — Security Checklist (MWM)",
+        "numbers": { "maxAttempts": 3, "lockoutMinutes": 15 }
+      }
+    ],
+    "sasddExtras": [
+      {
+        "control": "Cloudflare SSL Full Strict mode",
+        "sourceDoc": "D2C_Platform_SASDD.docx",
+        "section": "§2.6 Security Architecture"
+      },
+      {
+        "control": "Medusa middleware auth endpoints 10 req/min",
+        "sourceDoc": "D2C_Platform_SASDD.docx",
+        "section": "§2.6 Security Architecture",
+        "number": "10 req/min"
+      },
+      {
+        "control": "Threat model covering credential stuffing, XSS, CSRF, webhook spoofing, inventory races, DDoS, secrets leak, insider threat",
+        "sourceDoc": "D2C_Platform_SASDD.docx",
+        "section": "§9.1 Threat Model"
+      }
+    ]
+  },
+  "notRunningAtMwm": [
+    {
+      "component": "Redis",
+      "runningAtMwm": false,
+      "trigger": "Cart/session performance concern at 50K+ DAU (mwm); webhook failures or email delays / API P99 > 800ms (SASDD)",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 11 — Minimal Moving Parts Summary"
+    },
+    {
+      "component": "RabbitMQ / any message queue",
+      "runningAtMwm": false,
+      "trigger": "Later reliability; BullMQ+Redis when async processing critical",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 11; Part 6"
+    },
+    {
+      "component": "Firebase / FCM",
+      "runningAtMwm": false,
+      "trigger": "Native app milestone",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 11"
+    },
+    {
+      "component": "Meilisearch / Elasticsearch",
+      "runningAtMwm": false,
+      "trigger": "Product count > 50 (sd/mwm); search latency > 300ms or 100+ products (SASDD)",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 11"
+    },
+    {
+      "component": "Kubernetes",
+      "runningAtMwm": false,
+      "trigger": "Massive scale / Railway limits",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 11"
+    },
+    {
+      "component": "Separate worker process",
+      "runningAtMwm": false,
+      "trigger": "Email/webhook delays (SASDD Phase 3)",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 11"
+    },
+    {
+      "component": "WebSocket server",
+      "runningAtMwm": false,
+      "trigger": "Not needed for D2C beverage update cadence",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 11"
+    },
+    {
+      "component": "Mobile app",
+      "runningAtMwm": false,
+      "trigger": "After proven demand; PWA sufficient",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 11"
+    }
+  ],
+  "mwmCostScalingTriggers": [
+    {
+      "dau": "Up to 10,000",
+      "change": "Current spec",
+      "additionalCostInr": "As above",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 9 — Cost Scaling Trigger Points"
+    },
+    {
+      "dau": "10,000–50,000",
+      "change": "Supabase read replica + Railway 4 instances",
+      "additionalCostInr": "+₹5,000–₹10,000",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 9 — Cost Scaling Trigger Points"
+    },
+    {
+      "dau": "50,000+",
+      "change": "Dedicated DB server, Redis cache layer, CDN tuning",
+      "additionalCostInr": "Major rearchitecture",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 9 — Cost Scaling Trigger Points"
+    }
+  ],
+  "milestones": {
+    "m1ToM6": [
+      {
+        "id": "M1",
+        "name": "Core Commerce",
+        "phases": "Auth, Profile, Products",
+        "goal": "Users can browse and log in",
+        "sourceDoc": "system-design.md",
+        "section": "Development Milestone Plan"
+      },
+      {
+        "id": "M2",
+        "name": "Transactional",
+        "phases": "Cart, Wishlist, Checkout",
+        "goal": "Users can buy",
+        "sourceDoc": "system-design.md",
+        "section": "Development Milestone Plan"
+      },
+      {
+        "id": "M3",
+        "name": "Payments",
+        "phases": "Razorpay, COD",
+        "goal": "Real money flows",
+        "sourceDoc": "system-design.md",
+        "section": "Development Milestone Plan"
+      },
+      {
+        "id": "M4",
+        "name": "Fulfillment",
+        "phases": "Orders, Shiprocket, Notifications",
+        "goal": "End-to-end order lifecycle",
+        "sourceDoc": "system-design.md",
+        "section": "Development Milestone Plan"
+      },
+      {
+        "id": "M5",
+        "name": "Post-Purchase",
+        "phases": "Returns, Refunds, Admin",
+        "goal": "Complete operations",
+        "sourceDoc": "system-design.md",
+        "section": "Development Milestone Plan"
+      },
+      {
+        "id": "M6",
+        "name": "Production",
+        "phases": "Security, Monitoring, CI/CD",
+        "goal": "Launch-ready",
+        "sourceDoc": "system-design.md",
+        "section": "Development Milestone Plan"
+      }
+    ],
+    "approach": "Build backend feature → test with Postman → build corresponding frontend page",
+    "sasddNote": "SASDD §11.1 uses M0–M9 with different phase mapping; prefer sd M1–M6 for portfolio"
+  },
+  "buildOrder15Steps": [
+    {
+      "step": 1,
+      "build": "Medusa running + Supabase connected + migrations",
+      "test": "GET /health returns 200",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12 — Development Sequence for MWM"
+    },
+    {
+      "step": 2,
+      "build": "Phone+password auth provider",
+      "test": "Register + login via Postman",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 3,
+      "build": "Product catalog in admin + API",
+      "test": "GET /store/products returns products",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 4,
+      "build": "Next.js storefront: Home + PLP + PDP",
+      "test": "Visual check in browser",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 5,
+      "build": "Cart API + Cart UI",
+      "test": "Add to cart, check cart totals",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 6,
+      "build": "Wishlist custom module",
+      "test": "Add/remove wishlist items",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 7,
+      "build": "Checkout flow: address + shipping",
+      "test": "Complete checkout to payment step",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 8,
+      "build": "Razorpay integration + COD",
+      "test": "Test payment in test mode",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 9,
+      "build": "Razorpay webhook + order creation",
+      "test": "Trigger test webhook, verify order",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 10,
+      "build": "Shiprocket: create shipment from order",
+      "test": "Create test shipment, get AWB",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 11,
+      "build": "Resend: order confirmation email",
+      "test": "Verify email arrives",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 12,
+      "build": "Interakt: WhatsApp order notification",
+      "test": "Verify WhatsApp message",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 13,
+      "build": "Returns + refund flow",
+      "test": "Submit return, approve, trigger refund",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 14,
+      "build": "Admin dashboard custom widget",
+      "test": "View in Medusa /app",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    },
+    {
+      "step": 15,
+      "build": "Cloudflare + 2 Railway instances",
+      "test": "Deploy, test with load",
+      "sourceDoc": "mwm-system-design.md",
+      "section": "Part 12"
+    }
+  ],
+  "folderStructure": {
+    "medusaSrcPreferred": {
+      "tree": [
+        "src/api/store/",
+        "src/api/admin/",
+        "src/api/webhooks/",
+        "src/modules/wishlist/",
+        "src/modules/phonepass/",
+        "src/modules/notifications/",
+        "src/workflows/create-shipment.ts",
+        "src/workflows/process-return.ts",
+        "src/subscribers/order-placed.ts",
+        "src/subscribers/payment-captured.ts",
+        "src/subscribers/shipment-created.ts",
+        "src/jobs/",
+        "src/lib/razorpay.ts",
+        "src/lib/shiprocket.ts",
+        "src/lib/interakt.ts",
+        "src/lib/msg91.ts"
+      ],
+      "sourceDoc": "system-design.md",
+      "section": "Medusa v2 Folder Structure"
+    },
+    "sasddExtended": {
+      "backendExtras": [
+        "modules/razorpay/",
+        "modules/shiprocket/",
+        "emails/ (React Email)",
+        "utils/gst.ts, invoice.ts, phone-validator.ts",
+        "Dockerfile"
+      ],
+      "frontendRoot": "nextjs-storefront/",
+      "sourceDoc": "D2C_Platform_SASDD.docx",
+      "section": "VOLUME 10 — PROJECT FOLDER STRUCTURE"
+    }
+  },
+  "documentVersionsAndDiscrepancies": [
+    {
+      "topic": "Document versions",
+      "detail": "system-design.md v1.0; mwm-system-design.md v2.0; PDF counterparts are mirrors; SASDD is Phase 0–12 / M0–M9 production volume; Architecture PDF is ChatGPT auth tutorial",
+      "preferred": "Primary markdowns for portfolio facts"
+    },
+    {
+      "topic": "Auth launch identity",
+      "detail": "sd+mwm = Phone+Password; SASDD+Architecture PDF = Email+Password",
+      "preferred": "Phone + Password",
+      "preferredSourceDoc": "system-design.md"
+    },
+    {
+      "topic": "COD at launch",
+      "detail": "sd+mwm include COD; SASDD §7.2 delays COD to Phase 2",
+      "preferred": "COD yes at MWM/launch"
+    },
+    {
+      "topic": "JWT refresh TTL",
+      "detail": "sd 30 days vs SASDD 7 days",
+      "preferred": "30 days",
+      "preferredSourceDoc": "system-design.md",
+      "section": "JWT Configuration"
+    },
+    {
+      "topic": "Phase numbering",
+      "detail": "sd Phases 1–14 vs SASDD Phase 0–12 with shifted cart/wishlist/checkout indices",
+      "preferred": "system-design.md 14-phase map"
+    },
+    {
+      "topic": "Milestones",
+      "detail": "sd M1–M6 vs SASDD M0–M9",
+      "preferred": "sd M1–M6 + mwm 15-step build order"
+    },
+    {
+      "topic": "Endpoint counts 61/7/22",
+      "detail": "Not present in design docs; only portfolio prompt",
+      "preferred": "Mark unverified"
+    },
+    {
+      "topic": "Customer flows 35",
+      "detail": "Number not in design docs; mwm lists 18 screens; admin ~10 sections listed",
+      "preferred": "Use listed screen map; footnote 35 unverified"
+    },
+    {
+      "topic": "Interakt per-conversation price",
+      "detail": "mwm ₹0.35–0.80 vs SASDD ₹0.50–0.90",
+      "preferred": "Cite both; prefer mwm range for MWM page"
+    },
+    {
+      "topic": "WhatsApp template names",
+      "detail": "mwm shipment_created/delivered/return_approved vs SASDD order_shipped/order_delivered/return_pickup/refund_done",
+      "preferred": "mwm template list"
+    },
+    {
+      "topic": "Wishlist table naming",
+      "detail": "custom_* prefix (sd) vs unprefixed (SASDD)",
+      "preferred": "custom_ prefix"
+    }
+  ]
+}

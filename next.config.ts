@@ -1,9 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Static-first portfolio; deploy to Vercel / Cloudflare Pages / GitHub Pages.
+  output: "export",
+  images: { unoptimized: true },
   reactCompiler: true,
   turbopack: {
     rules: {

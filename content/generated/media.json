@@ -1,0 +1,256 @@
+{
+  "paybench": [
+    {
+      "path": "docs/assets/architecture.svg",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Agent-Pro-Paybench/main/docs/assets/architecture.svg",
+      "size": 3736
+    },
+    {
+      "path": "docs/assets/compare.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Agent-Pro-Paybench/main/docs/assets/compare.png",
+      "size": 103445
+    },
+    {
+      "path": "docs/assets/compare_timeout.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Agent-Pro-Paybench/main/docs/assets/compare_timeout.png",
+      "size": 103044
+    },
+    {
+      "path": "docs/assets/demo.gif",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Agent-Pro-Paybench/main/docs/assets/demo.gif",
+      "size": 345931
+    },
+    {
+      "path": "docs/assets/failures.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Agent-Pro-Paybench/main/docs/assets/failures.png",
+      "size": 33054
+    },
+    {
+      "path": "docs/assets/leaderboard.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Agent-Pro-Paybench/main/docs/assets/leaderboard.png",
+      "size": 60783
+    },
+    {
+      "path": "docs/assets/methodology.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Agent-Pro-Paybench/main/docs/assets/methodology.png",
+      "size": 134778
+    },
+    {
+      "path": "docs/assets/playground.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Agent-Pro-Paybench/main/docs/assets/playground.png",
+      "size": 123111
+    },
+    {
+      "path": "docs/assets/playground_start.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Agent-Pro-Paybench/main/docs/assets/playground_start.png",
+      "size": 88996
+    },
+    {
+      "path": "docs/assets/tasks.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Agent-Pro-Paybench/main/docs/assets/tasks.png",
+      "size": 61821
+    }
+  ],
+  "zkp-kyc": [
+    {
+      "path": "docs/demo-frames/01.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/docs/demo-frames/01.png",
+      "size": 26080
+    },
+    {
+      "path": "docs/demo-frames/02.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/docs/demo-frames/02.png",
+      "size": 32812
+    },
+    {
+      "path": "docs/demo-frames/03.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/docs/demo-frames/03.png",
+      "size": 32836
+    },
+    {
+      "path": "docs/demo-frames/04.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/docs/demo-frames/04.png",
+      "size": 26458
+    },
+    {
+      "path": "docs/demo-frames/05.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/docs/demo-frames/05.png",
+      "size": 32174
+    },
+    {
+      "path": "docs/demo-frames/06.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/docs/demo-frames/06.png",
+      "size": 27843
+    },
+    {
+      "path": "docs/demo.gif",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/docs/demo.gif",
+      "size": 113766
+    },
+    {
+      "path": "frontend/public/demo.gif",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/frontend/public/demo.gif",
+      "size": 113766
+    },
+    {
+      "path": "frontend/public/file.svg",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/frontend/public/file.svg",
+      "size": 391
+    },
+    {
+      "path": "frontend/public/globe.svg",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/frontend/public/globe.svg",
+      "size": 1035
+    },
+    {
+      "path": "frontend/public/next.svg",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/frontend/public/next.svg",
+      "size": 1375
+    },
+    {
+      "path": "frontend/public/vercel.svg",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/frontend/public/vercel.svg",
+      "size": 128
+    },
+    {
+      "path": "frontend/public/window.svg",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/ZKP-KYC-System-Blockchain/main/frontend/public/window.svg",
+      "size": 385
+    }
+  ],
+  "mandarin-teacher": [
+    {
+      "path": "docs/portfolio/01-conversation.gif",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/01-conversation.gif",
+      "size": 835081
+    },
+    {
+      "path": "docs/portfolio/01-conversation.mp4",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/01-conversation.mp4",
+      "size": 246431
+    },
+    {
+      "path": "docs/portfolio/01-conversation.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/01-conversation.png",
+      "size": 210953
+    },
+    {
+      "path": "docs/portfolio/02-topics.gif",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/02-topics.gif",
+      "size": 1002484
+    },
+    {
+      "path": "docs/portfolio/02-topics.mp4",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/02-topics.mp4",
+      "size": 308392
+    },
+    {
+      "path": "docs/portfolio/02-topics.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/02-topics.png",
+      "size": 324712
+    },
+    {
+      "path": "docs/portfolio/03-tour.gif",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/03-tour.gif",
+      "size": 731600
+    },
+    {
+      "path": "docs/portfolio/03-tour.mp4",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/03-tour.mp4",
+      "size": 237111
+    },
+    {
+      "path": "docs/portfolio/03-tour.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/03-tour.png",
+      "size": 196244
+    },
+    {
+      "path": "docs/portfolio/04-review-before-send.gif",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/04-review-before-send.gif",
+      "size": 636119
+    },
+    {
+      "path": "docs/portfolio/04-review-before-send.mp4",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/04-review-before-send.mp4",
+      "size": 139887
+    },
+    {
+      "path": "docs/portfolio/04-review-before-send.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/04-review-before-send.png",
+      "size": 301185
+    },
+    {
+      "path": "docs/portfolio/05-mobile.gif",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/05-mobile.gif",
+      "size": 1229273
+    },
+    {
+      "path": "docs/portfolio/05-mobile.mp4",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/05-mobile.mp4",
+      "size": 199548
+    },
+    {
+      "path": "docs/portfolio/05-mobile.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/05-mobile.png",
+      "size": 134702
+    },
+    {
+      "path": "docs/portfolio/still-chat.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/still-chat.png",
+      "size": 232979
+    },
+    {
+      "path": "docs/portfolio/still-progress.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/still-progress.png",
+      "size": 188553
+    },
+    {
+      "path": "docs/portfolio/still-topics.png",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Mandarin-Teacher/main/docs/portfolio/still-topics.png",
+      "size": 286640
+    }
+  ],
+  "incident-logger": [
+    {
+      "path": "portfolio/01-architecture-diagram.jpg",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Incident-Logger/main/portfolio/01-architecture-diagram.jpg",
+      "size": 214898
+    },
+    {
+      "path": "portfolio/02-demo-login-to-investigate.gif",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Incident-Logger/main/portfolio/02-demo-login-to-investigate.gif",
+      "size": 1284421
+    },
+    {
+      "path": "portfolio/03-demo-investigate-to-report.gif",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Incident-Logger/main/portfolio/03-demo-investigate-to-report.gif",
+      "size": 1389151
+    },
+    {
+      "path": "portfolio/04-demo-full-loop.gif",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Incident-Logger/main/portfolio/04-demo-full-loop.gif",
+      "size": 1173995
+    },
+    {
+      "path": "portfolio/05-demo-walkthrough.mp4",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Incident-Logger/main/portfolio/05-demo-walkthrough.mp4",
+      "size": 609672
+    },
+    {
+      "path": "portfolio/frames/01-login.jpg",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Incident-Logger/main/portfolio/frames/01-login.jpg",
+      "size": 187365
+    },
+    {
+      "path": "portfolio/frames/02-investigate.jpg",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Incident-Logger/main/portfolio/frames/02-investigate.jpg",
+      "size": 273026
+    },
+    {
+      "path": "portfolio/frames/03-report.jpg",
+      "url": "https://raw.githubusercontent.com/hvrdummy123/Incident-Logger/main/portfolio/frames/03-report.jpg",
+      "size": 261196
+    }
+  ],
+  "job-finder": []
+}

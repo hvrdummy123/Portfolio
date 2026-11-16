@@ -1,0 +1,63 @@
+Harshita Ranka +91 77180 05243
+B.Tech Computer Engineering, MPSTME, NMIMS Mumbai harshitaranka2004@gmail.com
+3.95/4 CGPA · Class of 2026 linkedin.com/in/harshita-vivek-ranka
+github.com/hvrdummy123
+Work Experience
+SDE | Atrium - E-Commerce Startup (Pre-launch) Aug 2026 – Present
+TypeScript, React (Vite), Next.js, Node.js, PostgreSQL, Redis, Python, Centrifugo, Better Auth, Docker, GCP;
+AI-assisted development (Claude Code, Codex)
+• Built the authentication module on Better Auth for a template-driven marketplace platform (Shopify-style),
+implementing separate merchant and consumer auth planes with Postgres-backed sessions and accounts.
+• Engineered a real-time chat pipeline using a PostgreSQL transactional outbox, relay service, Centrifugo, and
+Redis, designed and tested against 25 failure and edge-case scenarios so messages are persisted atomically
+before delivery and not lost if the relay or broker restarts; built the React + Vite chat interface on top.
+• Helped build the internal admin dashboard in Next.js (App Router) and TypeScript, packaged as a standalone
+non-root container on a private GCP runtime; implemented the charts as hand-rolled SVG with no chart libraries,
+and used postgres for data access and jose for JWT verification.
+• Built an AI chatroom CLI for multi-agent planning: one shared Markdown transcript across a human and two
+agents (Claude in plan mode, Codex in a read-only sandbox), with explicit @claude/@codex/@both routing and no
+agent-to-agent loops.
+ITD Intern | Nomura Services India Pvt. Ltd. Jan 2026 – Jun 2026
+Java, Spring Boot, React.js, Python, Jenkins, Liquibase, Docker, Ansible, Playwright, Git
+• IntegratedSpring Boot backend services with React interfaces for an enterprise real estate platform, driving design
+decisions across distributed, multi-tiered systems.
+• Built Python batch pipelines with algorithmic validation and retry logic for scheduled data processing; container-
+ized the workflow with Docker, cutting execution time from 240 min to 58 min (76% faster).
+• Automated database versioning and deployment via Liquibase and Jenkins CI/CD, and established containerized,
+tested release pipelines with Ansible and Playwright, improving deployment speed and release consistency across
+environments.
+Projects
+• D2C E-Commerce Platform 2026
+Tools: Medusa.js, Node.js, React.js, PostgreSQL, REST APIs
+– Architectedandbuiltafullfeaturedheadlesse-commerceplatformonMedusa.jswithadecoupledReactstorefront
+and Node.js backend, separating catalog, cart, checkout, order, and fulfillment domains.
+– Extended Medusa’s core commerce framework with custom backend workflows and REST APIs, implementing end-
+to-end cart/checkout flows – variant handling, pricing, validation, order state transitions – backed by a relational
+PostgreSQL data model.
+– Designed configurable, multi-region shipping and fulfillment workflows and structured the system for extensibility
+(payments, auth, promotions, notifications) without major architectural rework.
+• Privacy-Preserving KYC Verification Platform 2026
+Tools: React.js, Node.js, Express.js, Solidity, Ethereum, ZoKrates, IPFS, MetaMask
+– Designed a full-stack KYC platform separating credential issuance, zero-knowledge proof generation, and verifica-
+tion into modular services for privacy-preserving identity verification.
+– Built Solidity smart contracts for credential issuance, revocation, and zk-SNARK verification with immutable
+on-chain auditability on Ethereum and used Circom circuits for proofs.
+– Integrated React workflows with Node.js APIs and ZoKrates-generated proofs, enabling selective attribute dis-
+closure with proof generation under 2 seconds.
+• ETF Backtesting Framework 2025
+Tools: Python, Node.js, Express.js, React.js, Redux, REST APIs, MongoDB, SQLite, Jest, Plotly
+– Built a backtesting platform combining a React/Redux frontend, Express backend, and Python engine over
+MongoDB and SQLite, evaluating strategies across 180,000+ historical NSE records.
+– Built a market-data pipeline normalizing OHLCV datasets, executing full strategy simulations in under 3 seconds.
+– Engineered REST APIs (~120 ms avg latency) surfacing results through Plotly dashboards, covered by Jest tests,
+rendering in under 700 ms.
+Technical Skills
+• Programming: Java, Python, C++, JavaScript (ES6/ES7), TypeScript, SQL, HTML/CSS
+• Frameworks & Technologies: Spring Boot, React.js, Git, Angular, Node.js, Redis, Better Auth,
+Express.js, Centrifugo, PostgresSQL, Solidity, MongoDB, Firebase, Jenkins, Docker, Ansible, Liquibase,
+Playwright
+• Cloud: GCP (private runtime, containerized deployments); AWS Certified Cloud Practitioner – EC2,
+S3, IAM
+• Achievements: Winner, Code for Good – JPMorgan Chase; Finalist, Flipkart Grid; Finalist, IVP
+• Course Work: Data Structures & Algorithms, Microservices & Distributed Systems, DBMS (NoSQL &
+Relational), Operating Systems, Computer Networks, AI / Machine Learning

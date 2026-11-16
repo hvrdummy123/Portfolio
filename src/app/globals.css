@@ -1,26 +1,274 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Flat pastel — calm, readable */
+  --bg: #f6f3ef;
+  --surface: #f6f3ef;
+  --surface-2: #efeae4;
+  --blush: #f0ddd8;
+  --lavender: #e7e0ea;
+  --mint: #dde8e2;
+  --butter: #efe6d2;
+  --sky: #dde6ef;
+  --peach: #efdfd4;
+  --ink: #2a2a28;
+  --ink-soft: #5c5a56;
+  --line: #ddd7cf;
+  --accent: #8f4a52;
+  --accent-2: #5f6b58;
+  --shadow: transparent;
+  --radius: 8px;
+}
+
+[data-theme="dark"] {
+  --bg: #1e1e1c;
+  --surface: #1e1e1c;
+  --surface-2: #2a2a27;
+  --blush: #5a4548;
+  --lavender: #4a4650;
+  --mint: #3f4a44;
+  --butter: #4a463a;
+  --sky: #3d4650;
+  --peach: #4a4038;
+  --ink: #f2efe9;
+  --ink-soft: #b0ada6;
+  --line: #3a3834;
+  --accent: #d48a92;
+  --accent-2: #a3b396;
+  --shadow: transparent;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-blush: var(--blush);
+  --color-lavender: var(--lavender);
+  --color-mint: var(--mint);
+  --color-butter: var(--butter);
+  --color-sky: var(--sky);
+  --color-peach: var(--peach);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --font-display: var(--font-outfit);
+  --font-sans: var(--font-dm-sans);
+  --font-mono: var(--font-jetbrains);
+  --font-accent: var(--font-pixelify);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  font-variant-numeric: tabular-nums;
+  min-height: 100vh;
+}
+
+::selection {
+  background: var(--mint);
+  color: var(--ink);
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--accent-2);
+}
+
+/* Kept for old classnames — no more boxed tiles */
+.pixel-border,
+.card {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+.pixel-label,
+.eyebrow {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--ink-soft);
+}
+
+.pixel-accent {
+  font-family: var(--font-pixelify), monospace;
+}
+
+.display {
+  font-family: var(--font-outfit), var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-value {
+  font-family: var(--font-outfit), var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.prose-narrow {
+  max-width: 680px;
+}
+
+.container-site {
+  width: min(820px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  background: var(--bg);
+  color: var(--ink);
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--line);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.tag {
+  display: inline;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  background: transparent;
+  color: var(--ink-soft);
+}
+
+.tag + .tag::before {
+  content: " · ";
+  color: var(--line);
+}
+
+.tag-backend,
+.tag-ai,
+.tag-blockchain,
+.tag-frontend,
+.tag-infra,
+.tag-fintech {
+  background: transparent;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 500;
+  box-shadow: none;
+  text-decoration: none;
+  transition: opacity 120ms ease;
+}
+
+.btn:hover {
+  opacity: 0.88;
+  color: var(--bg);
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.btn-secondary:hover {
+  color: var(--ink);
+  background: var(--surface-2);
+}
+
+.btn-ghost {
+  background: transparent;
+  box-shadow: none;
+  color: var(--ink-soft);
+  border-color: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border-radius: 0;
+  padding-inline: 0.25rem;
+}
+
+.btn-ghost:hover {
+  color: var(--ink);
+  opacity: 1;
+}
+
+.section-pad {
+  padding-block: 2.75rem;
+}
+
+.list-row {
+  display: block;
+  padding-block: 1.25rem;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: inherit;
+}
+
+.list-row:first-child {
+  border-top: 1px solid var(--line);
+}
+
+.list-row:hover .list-row-title {
+  color: var(--accent);
+}
+
+.paw-divider {
+  height: 1px;
+  background: var(--line);
+  margin-block: 1.5rem;
 }
