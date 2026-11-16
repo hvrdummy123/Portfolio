@@ -22,6 +22,7 @@ export const projects: Project[] = [
       { name: "Medusa.js", layer: "commerce", why: "Open-source modular commerce primitives" },
       { name: "Node.js", layer: "backend" },
       { name: "React.js", layer: "frontend" },
+      { name: "TypeScript", layer: "language" },
       { name: "PostgreSQL", layer: "data" },
       { name: "REST APIs", layer: "api" },
     ],
@@ -73,7 +74,10 @@ export const projects: Project[] = [
     },
     stack: [
       { name: "Python 3.11+", layer: "runtime" },
+      { name: "TypeScript", layer: "language" },
+      { name: "Node.js", layer: "backend" },
       { name: "Double-entry ledger", layer: "domain" },
+      { name: "Mutation-tested graders", layer: "eval" },
       { name: "GitHub Actions", layer: "ci" },
     ],
     stats: [
@@ -140,10 +144,12 @@ export const projects: Project[] = [
       "quant-fintech": 40,
     },
     stack: [
-      { name: "Circom + snarkJS (Groth16)", layer: "zk" },
+      { name: "Circom + snarkJS", layer: "zk" },
       { name: "Solidity / Hardhat", layer: "blockchain" },
-      { name: "React", layer: "frontend" },
-      { name: "Node", layer: "backend" },
+      { name: "React.js", layer: "frontend" },
+      { name: "Node.js / Express", layer: "backend" },
+      { name: "Ethereum", layer: "blockchain" },
+      { name: "ZoKrates / IPFS", layer: "zk" },
     ],
     stats: [
       {
@@ -240,10 +246,12 @@ export const projects: Project[] = [
       "quant-fintech": 10,
     },
     stack: [
-      { name: "React / Vite / TypeScript", layer: "frontend" },
+      { name: "TypeScript", layer: "language" },
+      { name: "React / Vite", layer: "frontend" },
       { name: "FastAPI / SQLite", layer: "backend" },
-      { name: "Whisper / Edge TTS", layer: "speech" },
-      { name: "OpenRouter / Gemini / Ollama", layer: "llm" },
+      { name: "Whisper (STT)", layer: "speech" },
+      { name: "Edge TTS", layer: "speech" },
+      { name: "LLM tutors", layer: "llm" },
     ],
     stats: [],
     links: { repo: "https://github.com/hvrdummy123/Mandarin-Teacher" },
@@ -284,10 +292,12 @@ export const projects: Project[] = [
       "quant-fintech": 20,
     },
     stack: [
+      { name: "TypeScript", layer: "language" },
       { name: "FastAPI", layer: "backend" },
       { name: "React / Vite", layer: "frontend" },
       { name: "Postgres + RLS", layer: "data" },
       { name: "Parquet / DuckDB", layer: "logs" },
+      { name: "Log-to-hypothesis", layer: "domain" },
     ],
     stats: [
       {
@@ -340,10 +350,12 @@ export const projects: Project[] = [
       "quant-fintech": 20,
     },
     stack: [
-      { name: "Python / FastAPI", layer: "backend" },
+      { name: "Python", layer: "language" },
+      { name: "FastAPI", layer: "backend" },
       { name: "Postgres 16", layer: "data" },
       { name: "Playwright", layer: "scrape" },
       { name: "React / Vite", layer: "frontend" },
+      { name: "ATS adapters", layer: "domain" },
     ],
     stats: [],
     links: { repo: "https://github.com/hvrdummy123/Job-Finder" },
@@ -365,6 +377,61 @@ export const projects: Project[] = [
     roadmap: [],
   },
   {
+    slug: "atrium-engineering",
+    title: "Atrium: Auth, Chat & Admin",
+    pitch:
+      "SDE at an AI-powered e-commerce startup — Better Auth marketplace planes, transactional outbox chat, Next.js admin, multi-agent CLI.",
+    year: 2026,
+    status: "shipped",
+    kind: "work",
+    roles: ["backend", "fullstack", "ai-agents"],
+    weight: {
+      backend: 98,
+      fullstack: 92,
+      "ai-agents": 95,
+      blockchain: 25,
+      "quant-fintech": 40,
+    },
+    stack: [
+      { name: "TypeScript", layer: "language" },
+      { name: "Next.js", layer: "frontend" },
+      { name: "React (Vite)", layer: "frontend" },
+      { name: "Node.js", layer: "backend" },
+      { name: "PostgreSQL", layer: "data" },
+      { name: "Redis", layer: "infra" },
+      { name: "Centrifugo", layer: "realtime" },
+      { name: "Better Auth", layer: "auth" },
+      { name: "Docker", layer: "infra" },
+      { name: "GCP", layer: "cloud" },
+    ],
+    stats: [
+      {
+        label: "Chat failure scenarios",
+        value: "25",
+        source: "Résumé · Atrium",
+        href: "/work/atrium-engineering",
+      },
+    ],
+    links: {},
+    domainTags: ["backend", "frontend", "ai"],
+    featured: true,
+    sourceNote: "Source is private / proprietary.",
+    qa: [
+      {
+        q: "What did you ship at Atrium?",
+        a: "Better Auth for separate merchant and consumer planes, a PostgreSQL transactional outbox chat pipeline tested against 25 failure scenarios, a Next.js admin dashboard on GCP, and a multi-agent planning CLI.",
+      },
+    ],
+    decisions: [
+      {
+        context: "Realtime chat must not lose messages if the relay or broker restarts.",
+        decision: "Persist via a PostgreSQL transactional outbox before delivery through Centrifugo/Redis.",
+        consequence: "Messages survive relay crashes; 25 failure/edge-case scenarios covered in testing.",
+      },
+    ],
+    roadmap: [],
+  },
+  {
     slug: "nomura-engineering",
     title: "Nomura: Platform + Pipelines",
     pitch:
@@ -381,7 +448,8 @@ export const projects: Project[] = [
       "quant-fintech": 70,
     },
     stack: [
-      { name: "Java / Spring Boot", layer: "backend" },
+      { name: "Java", layer: "language" },
+      { name: "Spring Boot", layer: "backend" },
       { name: "React.js", layer: "frontend" },
       { name: "Python", layer: "pipelines" },
       { name: "Docker", layer: "infra" },
@@ -400,7 +468,7 @@ export const projects: Project[] = [
     ],
     links: {},
     domainTags: ["backend", "infra", "frontend"],
-    featured: false,
+    featured: true,
     sourceNote: "Source is private / proprietary.",
     qa: [
       {
@@ -440,7 +508,7 @@ export const recruiterStats = [
     label: "Chat outbox",
     value: "25 scenarios",
     source: "Résumé · Atrium",
-    href: "/experience",
+    href: "/work/atrium-engineering",
   },
   {
     label: "Scorer mutations",

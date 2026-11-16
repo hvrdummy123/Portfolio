@@ -13,22 +13,7 @@ import { PixelCat } from "@/components/cats/PixelCat";
 import { Button } from "@/components/ui/Button";
 
 function Headline() {
-  const raw = siteConfig.heroHeadline;
-  const parts = raw.split("*");
-  if (parts.length < 3) return <>{raw}</>;
-  return (
-    <>
-      {parts[0]}
-      <span className="relative inline-block">
-        {parts[1]}
-        <span
-          className="absolute inset-x-0 bottom-1 -z-10 h-3 bg-blush/80"
-          aria-hidden
-        />
-      </span>
-      {parts[2]}
-    </>
-  );
+  return <>{siteConfig.heroHeadline.replaceAll("*", "")}</>;
 }
 
 export default function HomePage() {

@@ -17,13 +17,9 @@ export function SiteFooter() {
             <p className="display text-lg text-ink">{siteConfig.name}</p>
           </div>
           <p className="mt-2 max-w-xs text-sm text-ink-soft">
-            Pastel pixel cats · serious systems. Class of {siteConfig.classOf}.
+            Software Engineer · Class of {siteConfig.classOf}.
           </p>
           <p className="mt-3 text-xs text-ink-soft">
-            <Link href="/about#colophon" className="text-ink-soft">
-              Colophon
-            </Link>
-            {" · "}
             <Link href="/arcade" className="text-ink-soft">
               Arcade
             </Link>

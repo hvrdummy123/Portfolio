@@ -3,13 +3,9 @@ export const siteConfig = {
   fullName: "Harshita Vivek Ranka",
   title: "Software Engineer",
   roleLine: "Software Engineer · Backend · Agents · Blockchain · Fintech",
-  // Alternates for the hero headline (edit freely):
-  // 1. "Building things that don't *break.*"
-  // 2. "Shipping systems that survive *failure.*"
-  // 3. "Reliability first. Pixel cats *second.*"
-  heroHeadline: "I build software that *keeps working* when things go wrong.",
+  heroHeadline: "I like creating software that stays up when everything else fails.",
   valueProp:
-    "Backend systems, agent evals, and commerce platforms — designed around failure modes, not demos that only work on the happy path.",
+    "Backend systems, agent evaluations, and commerce platforms — designed around failure modes, not demos that only work on the happy path.",
   location: "Mumbai, India",
   education: "B.Tech Computer Engineering, MPSTME, NMIMS Mumbai",
   classOf: 2026,

@@ -114,18 +114,22 @@ export const resume = {
         {
           id: "atrium-auth",
           text: "Built the authentication module on Better Auth for a template-driven marketplace platform (Shopify-style), implementing separate merchant and consumer auth planes with Postgres-backed sessions and accounts.",
+          projectSlug: "atrium-engineering",
         },
         {
           id: "atrium-chat",
           text: "Engineered a real-time chat pipeline using a PostgreSQL transactional outbox, relay service, Centrifugo, and Redis, designed and tested against 25 failure and edge-case scenarios so messages are persisted atomically before delivery and not lost if the relay or broker restarts; built the React + Vite chat interface on top.",
+          projectSlug: "atrium-engineering",
         },
         {
           id: "atrium-admin",
           text: "Helped build the internal admin dashboard in Next.js (App Router) and TypeScript, packaged as a standalone non-root container on a private GCP runtime; implemented the charts as hand-rolled SVG with no chart libraries, and used postgres for data access and jose for JWT verification.",
+          projectSlug: "atrium-engineering",
         },
         {
           id: "atrium-cli",
           text: "Built an AI chatroom CLI for multi-agent planning: one shared Markdown transcript across a human and two agents (Claude in plan mode, Codex in a read-only sandbox), with explicit @claude/@codex/@both routing and no agent-to-agent loops.",
+          projectSlug: "atrium-engineering",
         },
       ],
       aiDisclosure: "",

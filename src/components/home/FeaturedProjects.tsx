@@ -1,17 +1,81 @@
 "use client";
 
 import Link from "next/link";
-import { projectsForRole } from "@/content/data/projects";
+import { getProject, projectsForRole } from "@/content/data/projects";
+import { resume } from "@/content/data/resume";
 import { STATUS_LABELS } from "@/content/data/types";
 import { usePrefs } from "@/components/providers/PrefsProvider";
 import { getNarrative } from "@/content/data/projectNarratives";
 import { Window } from "@/components/ui/Window";
 import { Chip } from "@/components/ui/Chip";
+import type { Project } from "@/content/data/types";
+
+const STACK_LIMIT = 6;
+
+/** Always surface both employers first so the timeline doesn't look like a Nomura-only gap. */
+const WORK_SLUGS = ["atrium-engineering", "nomura-engineering"] as const;
+
+const WORK_EXP_ID: Record<(typeof WORK_SLUGS)[number], string> = {
+  "atrium-engineering": "atrium",
+  "nomura-engineering": "nomura",
+};
+
+function stackTags(project: Project): string[] {
+  const expId = WORK_EXP_ID[project.slug as (typeof WORK_SLUGS)[number]];
+  if (expId) {
+    const exp = resume.experience.find((e) => e.id === expId);
+    if (exp?.stack?.length) return exp.stack.slice(0, STACK_LIMIT);
+  }
+  return project.stack.map((s) => s.name).slice(0, STACK_LIMIT);
+}
+
+function featuredForRole(role: Project["roles"][number]): {
+  work: Project[];
+  rest: Project[];
+} {
+  const work = WORK_SLUGS.map((s) => getProject(s)).filter(Boolean) as Project[];
+  const rest = projectsForRole(role)
+    .filter((p) => !WORK_SLUGS.includes(p.slug as (typeof WORK_SLUGS)[number]))
+    .slice(0, 4);
+  return { work, rest };
+}
+
+function ProjectStack({ project }: { project: Project }) {
+  const tags = stackTags(project);
+  if (!tags.length) return null;
+  return (
+    <div className="mt-3 flex flex-wrap gap-1.5">
+      {tags.map((name) => (
+        <Chip key={name} tone="backend">
+          {name}
+        </Chip>
+      ))}
+    </div>
+  );
+}
+
+function WorkCard({ project }: { project: Project }) {
+  return (
+    <Link href={`/work/${project.slug}`} className="no-underline md:col-span-3">
+      <Window title={`${project.slug}.app`} status={STATUS_LABELS[project.status]}>
+        <div className="mb-3 flex flex-wrap gap-2">
+          <Chip tone="fintech">Work experience</Chip>
+        </div>
+        <h3 className="display text-xl text-ink md:text-2xl">{project.title}</h3>
+        <p className="mt-2 text-sm text-ink-soft">
+          {getNarrative(project.slug)?.impact ??
+            getNarrative(project.slug)?.solution ??
+            project.pitch}
+        </p>
+        <ProjectStack project={project} />
+      </Window>
+    </Link>
+  );
+}
 
 export function FeaturedProjects() {
   const { role } = usePrefs();
-  const ranked = projectsForRole(role).slice(0, 6);
-  const [flagship, midA, midB, ...rest] = ranked;
+  const { work, rest } = featuredForRole(role);
 
   return (
     <section className="section-pad">
@@ -22,64 +86,16 @@ export function FeaturedProjects() {
         </Link>
       </div>
       <div className="grid gap-4 md:grid-cols-6">
-        {flagship ? (
-          <Link
-            href={`/work/${flagship.slug}`}
-            className="no-underline md:col-span-4 md:row-span-2"
-          >
-            <Window
-              title={`${flagship.slug}.app`}
-              status={flagship.stack
-                .slice(0, 4)
-                .map((s) => s.name)
-                .join(" · ")}
-              className="h-full"
-              bodyClassName="min-h-[200px]"
-            >
-              <div className="mb-3 flex flex-wrap gap-2">
-                <Chip>{STATUS_LABELS[flagship.status]}</Chip>
-                {flagship.domainTags.slice(0, 2).map((d) => (
-                  <Chip key={d} tone="fintech">
-                    {d}
-                  </Chip>
-                ))}
-              </div>
-              <h3 className="display text-2xl text-ink md:text-3xl">{flagship.title}</h3>
-              <p className="mt-2 text-sm text-ink-soft">
-                {getNarrative(flagship.slug)?.impact ??
-                  getNarrative(flagship.slug)?.solution ??
-                  flagship.pitch}
-              </p>
-              <div className="mt-4 h-28 rounded-lg border-2 border-ink bg-gradient-to-br from-mint via-sky to-lavender" />
-            </Window>
-          </Link>
-        ) : null}
-
-        {[midA, midB].filter(Boolean).map((p) => (
-          <Link key={p!.slug} href={`/work/${p!.slug}`} className="no-underline md:col-span-2">
-            <Window title={`${p!.slug}.exe`} status={STATUS_LABELS[p!.status]} className="h-full">
-              <h3 className="display text-lg text-ink">{p!.title}</h3>
-              <p className="mt-2 line-clamp-3 text-sm text-ink-soft">
-                {getNarrative(p!.slug)?.impact ??
-                  getNarrative(p!.slug)?.solution ??
-                  p!.pitch}
-              </p>
-              <div className="mt-3 flex flex-wrap gap-1">
-                {p!.stack.slice(0, 3).map((s) => (
-                  <Chip key={s.name} tone="backend">
-                    {s.name}
-                  </Chip>
-                ))}
-              </div>
-            </Window>
-          </Link>
+        {work.map((p) => (
+          <WorkCard key={p.slug} project={p} />
         ))}
 
         {rest.map((p) => (
           <Link key={p.slug} href={`/work/${p.slug}`} className="no-underline md:col-span-2">
-            <Window title={p.slug} status={STATUS_LABELS[p.status]} className="h-full">
+            <Window title={p.slug} status={STATUS_LABELS[p.status]}>
               <h3 className="display text-base text-ink">{p.title}</h3>
               <p className="mt-1 line-clamp-2 text-xs text-ink-soft">{p.pitch}</p>
+              <ProjectStack project={p} />
             </Window>
           </Link>
         ))}

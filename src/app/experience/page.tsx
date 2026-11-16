@@ -11,7 +11,10 @@ export const metadata: Metadata = {
 };
 
 const BULLET_LINKS: Record<string, string> = {
-  "atrium-chat": "/labs/outbox-playground",
+  "atrium-auth": "/work/atrium-engineering",
+  "atrium-chat": "/work/atrium-engineering",
+  "atrium-admin": "/work/atrium-engineering",
+  "atrium-cli": "/work/atrium-engineering",
   "nomura-platform": "/work/nomura-engineering",
   "nomura-batch": "/work/nomura-engineering",
   "nomura-cicd": "/work/nomura-engineering",

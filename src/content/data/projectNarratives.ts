@@ -70,6 +70,15 @@ export const projectNarratives: Record<string, ProjectNarrative> = {
       "One local radar for open roles with source health signals — Apply opens the original posting (no auto-apply).",
     relatedNotes: [],
   },
+  "atrium-engineering": {
+    problem:
+      "A pre-launch marketplace needed solid auth planes, chat that survives relay crashes, and an internal admin — without losing messages or mixing merchant and consumer sessions.",
+    solution:
+      "Better Auth with separate merchant/consumer planes; PostgreSQL transactional outbox + Centrifugo/Redis chat tested against 25 failure scenarios; Next.js admin on GCP; multi-agent planning CLI.",
+    impact:
+      "Current SDE role: auth, realtime chat, admin dashboard, and agent tooling shipped on TypeScript / Postgres / GCP.",
+    relatedNotes: ["chat-outbox-25-failures"],
+  },
   "nomura-engineering": {
     problem:
       "Enterprise real-estate workflows needed reliable Spring/React integration plus batch jobs that were too slow and fragile for the release cadence.",

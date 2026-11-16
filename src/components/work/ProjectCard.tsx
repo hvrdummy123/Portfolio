@@ -5,6 +5,8 @@ import { getNarrative } from "@/content/data/projectNarratives";
 import { Window } from "@/components/ui/Window";
 import { Chip } from "@/components/ui/Chip";
 
+const STACK_LIMIT = 6;
+
 const LAB_FOR: Record<string, string> = {
   paybench: "/labs/paybench-timeout",
   "zkp-kyc": "/labs/zk-cats",
@@ -16,19 +18,17 @@ export function ProjectCard({ project }: { project: Project }) {
   const story = getNarrative(project.slug);
   const lab = LAB_FOR[project.slug];
   const outcome = story?.impact ?? project.pitch;
+  const stack = project.stack.slice(0, STACK_LIMIT);
 
   return (
     <Link href={`/work/${project.slug}`} className="block no-underline">
       <Window
         title={`${project.slug}.${project.kind === "github" ? "git" : "app"}`}
-        status={project.stack
-          .slice(0, 4)
-          .map((s) => s.name)
-          .join(" · ")}
+        status={STATUS_LABELS[project.status]}
         className="h-full transition-transform hover:-translate-x-px hover:-translate-y-px"
       >
         <div className="mb-2 flex flex-wrap gap-2">
-          <Chip>{STATUS_LABELS[project.status]}</Chip>
+          {project.kind === "work" ? <Chip tone="fintech">Work experience</Chip> : null}
           {project.domainTags.slice(0, 2).map((t) => (
             <Chip key={t} tone={t === "ai" ? "ai" : "backend"}>
               {t}
@@ -38,22 +38,13 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
         <h2 className="display text-xl text-ink">{project.title}</h2>
         <p className="mt-2 line-clamp-3 text-sm text-ink-soft">{outcome}</p>
-        {project.stats.length > 0 ? (
-          <div className="mt-3 flex flex-wrap gap-2">
-            {project.stats.slice(0, 3).map((s) => (
-              <span
-                key={s.label}
-                className="rounded border border-ink/30 bg-cream px-2 py-0.5 text-xs"
-                title={s.source}
-              >
-                <span className="font-[family-name:var(--font-pixelify)] text-berry">
-                  {s.value}
-                </span>{" "}
-                {s.label}
-              </span>
-            ))}
-          </div>
-        ) : null}
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {stack.map((s) => (
+            <Chip key={s.name} tone="backend">
+              {s.name}
+            </Chip>
+          ))}
+        </div>
       </Window>
     </Link>
   );
