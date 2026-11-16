@@ -23,7 +23,7 @@ Every `TODO_FROM_HARSHITA` and known gap. Clear these before calling the site "f
 - [ ] Nomura: shareable technical detail on 76% speedup (optional)
 - [ ] D2C: mark real M1–M6 / 15-step quest-log statuses
 - [ ] D2C: confirm endpoint counts 61 / 7 / 22 against newest doc
-- [ ] D2C: set `featureFlags.publishDesignDocs` true only if docs may be public
+- [ ] D2C: set `featureFlags.designDocsPublic` true only if docs may be public
 
 ## Notes
 - [ ] Approve draft notes (`draft: false`) before production publish

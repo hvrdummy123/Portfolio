@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { YarnRunner } from "@/components/arcade/YarnRunner";
+import { Window } from "@/components/ui/Window";
 
 export const metadata: Metadata = {
   title: "Cat Arcade",
@@ -9,26 +10,26 @@ export const metadata: Metadata = {
 export default function ArcadePage() {
   return (
     <div className="container-site section-pad">
-      <p className="eyebrow">Showpiece</p>
+      <p className="eyebrow">Arcade</p>
       <h1 className="display text-4xl text-ink">Yarn Runner</h1>
       <p className="mt-2 max-w-xl text-ink-soft">
         Endless runner: jump NullPointers and Race Conditions, collect yarn. Space/tap to jump,
         down to duck.
       </p>
       <div className="mt-4 grid gap-3 sm:grid-cols-3">
-        <div className="pixel-border p-3">
-          <p className="display text-xl">Sprites: 12</p>
-        </div>
-        <div className="pixel-border p-3">
-          <p className="display text-xl">Frames: 4/cat</p>
-        </div>
-        <div className="pixel-border p-3">
-          <p className="display text-xl">Engine: ~300 LOC</p>
-        </div>
+        <Window title="sprites.dat">
+          <p className="display text-xl">12 sprites</p>
+        </Window>
+        <Window title="anim.dat">
+          <p className="display text-xl">4 frames / cat</p>
+        </Window>
+        <Window title="engine.c">
+          <p className="display text-xl">~300 LOC</p>
+        </Window>
       </div>
-      <div className="mt-6">
+      <Window title="yarn-runner.exe" className="mt-6" status="sound off by default">
         <YarnRunner />
-      </div>
+      </Window>
     </div>
   );
 }

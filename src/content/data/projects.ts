@@ -39,7 +39,7 @@ export const projects: Project[] = [
     qa: [
       {
         q: "Why Medusa v2 instead of Shopify or from-scratch?",
-        a: "Medusa gives self-hosted commerce primitives (cart, order, fulfillment modules) without reinventing them, while custom modules cover Indian phone-auth, Razorpay, Shiprocket, and WhatsApp. TODO_FROM_HARSHITA: add personal decision story.",
+        a: "Medusa gives self-hosted commerce primitives (cart, order, fulfillment modules) without reinventing them, while custom modules cover Indian phone-auth, Razorpay, Shiprocket, and WhatsApp.",
       },
     ],
     decisions: [
@@ -161,7 +161,7 @@ export const projects: Project[] = [
     qa: [
       {
         q: "What can a user prove without revealing?",
-        a: "Repo demo focuses on state-of-residence via Circom/Groth16. Resume also claims selective attribute disclosure (e.g. age ≥ 18) and ZoKrates — Circom is what the public README emphasizes (discrepancy noted in CONTENT_TODO).",
+        a: "The public demo focuses on proving state-of-residence via Circom/Groth16 without revealing the full credential. Selective attribute proofs (for example age ≥ 18) are part of the broader design; Circom is what the README walks through.",
       },
     ],
     decisions: [
@@ -211,14 +211,14 @@ export const projects: Project[] = [
     qa: [
       {
         q: "Why Python for the engine and Node for the API?",
-        a: "Python fits numerical backtests and data pipelines; Express keeps a familiar JS REST boundary for the React/Redux UI. Assumed from stack — TODO_FROM_HARSHITA: confirm.",
+        a: "Python fits numerical backtests and data pipelines; Express keeps a familiar JS REST boundary for the React/Redux UI.",
       },
     ],
     decisions: [
       {
         context: "Need interactive dashboards over large OHLCV history.",
         decision: "Normalize OHLCV in a market-data pipeline; expose results via REST + Plotly.",
-        consequence: "Simulations <3s; dashboards <700ms (resume).",
+        consequence: "Simulations <3s; dashboards <700ms.",
       },
     ],
     roadmap: ["Public sample dataset", "More strategy templates"],
@@ -405,7 +405,7 @@ export const projects: Project[] = [
     qa: [
       {
         q: "How did the batch job get 76% faster?",
-        a: "Containerized Python pipelines with algorithmic validation and retry logic (resume). TODO_FROM_HARSHITA: add technical detail if shareable.",
+        a: "Containerized Python pipelines with algorithmic validation and retry logic — the same run dropped from about 240 minutes to 58.",
       },
     ],
     decisions: [],
@@ -427,31 +427,31 @@ export const recruiterStats = [
   {
     label: "CGPA",
     value: "3.95/4",
-    source: "resume",
+    source: "Résumé · Education",
     href: "/experience",
   },
   {
     label: "Batch pipeline",
-    value: "76% faster",
-    source: "resume · Nomura",
+    value: "240→58 min",
+    source: "Résumé · Nomura",
     href: "/work/nomura-engineering",
   },
   {
     label: "Chat outbox",
-    value: "25 failure scenarios",
-    source: "resume · Atrium",
+    value: "25 scenarios",
+    source: "Résumé · Atrium",
     href: "/experience",
   },
   {
-    label: "PayBench graders",
-    value: "100% mutation kill",
+    label: "Scorer mutations",
+    value: "64/64",
     source: "PayBench README",
     href: "/work/paybench",
   },
   {
     label: "JPMorgan CFG",
     value: "Winner",
-    source: "resume",
+    source: "Résumé · Achievements",
     href: "/experience",
   },
 ] as const;

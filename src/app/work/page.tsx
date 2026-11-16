@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { projects } from "@/content/data/projects";
-import { ProjectCard } from "@/components/work/ProjectCard";
+import { WorkIndex } from "@/components/work/WorkIndex";
 
 export const metadata: Metadata = {
   title: "Work",
-  description: "Projects and case studies by Harshita Ranka.",
+  description: "Projects and case studies by Harshita Ranka — backends, agents, commerce, fintech.",
 };
 
 export default function WorkPage() {
@@ -12,14 +11,10 @@ export default function WorkPage() {
     <div className="container-site section-pad pb-16">
       <h1 className="display text-4xl text-ink">Work</h1>
       <p className="mt-3 max-w-xl text-ink-soft">
-        Case studies with the problem, the solution, and why it helped — plus samples where the
-        repos have them.
+        Case studies sorted by the role you&apos;re hiring for. Filter by status or stack, then open
+        a project for architecture, decisions, and try-it labs.
       </p>
-      <div className="mt-8">
-        {projects.map((p) => (
-          <ProjectCard key={p.slug} project={p} />
-        ))}
-      </div>
+      <WorkIndex />
     </div>
   );
 }

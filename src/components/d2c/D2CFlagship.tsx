@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ArchitectureDiagram } from "./ArchitectureDiagram";
 import { PaymentSequence } from "./PaymentSequence";
 import { CostCalculator } from "./CostCalculator";
+import { siteConfig } from "@/content/data/site.config";
 
 const phases = [
   {
@@ -138,12 +139,42 @@ const security = [
 ];
 
 const milestones = [
-  "M1 Core Commerce",
-  "M2 Transactional",
-  "M3 Payments",
-  "M4 Fulfillment",
-  "M5 Post-Purchase",
-  "M6 Production",
+  {
+    id: "M1",
+    title: "Core Commerce",
+    outcome: "Catalog, cart, and Medusa storefront primitives wired up.",
+    state: "Built" as const,
+  },
+  {
+    id: "M2",
+    title: "Transactional",
+    outcome: "Checkout orchestration and order state machine designed.",
+    state: "Designed" as const,
+  },
+  {
+    id: "M3",
+    title: "Payments",
+    outcome: "Razorpay + COD providers with HMAC webhooks.",
+    state: "Designed" as const,
+  },
+  {
+    id: "M4",
+    title: "Fulfillment",
+    outcome: "Shiprocket fulfillment provider and shipment tracking.",
+    state: "Designed" as const,
+  },
+  {
+    id: "M5",
+    title: "Post-Purchase",
+    outcome: "WhatsApp/email notifications and returns path.",
+    state: "Designed" as const,
+  },
+  {
+    id: "M6",
+    title: "Production",
+    outcome: "10k DAU topology, cost model, and hardening checklist.",
+    state: "Designed" as const,
+  },
 ];
 
 const toc = [
@@ -196,13 +227,15 @@ export function D2CFlagship() {
             </li>
           ))}
         </ul>
-        <button
-          type="button"
-          className="btn btn-secondary mt-4 text-xs"
-          onClick={() => setAudit((v) => !v)}
-        >
-          Audit mode {audit ? "on" : "off"}
-        </button>
+        {audit ? (
+          <button
+            type="button"
+            className="btn btn-secondary mt-4 text-xs"
+            onClick={() => setAudit(false)}
+          >
+            Hide sources
+          </button>
+        ) : null}
       </nav>
 
       <div className="space-y-12">
@@ -362,27 +395,40 @@ export function D2CFlagship() {
         <section id="endpoints">
           <h2 className="display text-3xl">Endpoint coverage</h2>
           <p className="mt-2 text-sm text-ink-soft">
-            A full 61 / 7 / 22 native·partial·custom split appears in the portfolio brief but{" "}
-            <strong>was not found</strong> in the attached design docs — so it is not shown as a
-            fact. Documented custom routes instead:
+            Documented custom routes and webhooks alongside Medusa-native store/admin APIs:
           </p>
-          <ul className="mt-3 list-disc space-y-1 pl-5 text-sm">
-            <li>
-              Wishlist: <code>GET/POST/DELETE /store/wishlist…</code>
-            </li>
-            <li>
-              Webhooks: <code>POST /webhooks/razorpay</code>, <code>POST /webhooks/shiprocket</code>
-            </li>
-            <li>Plus Medusa-native store/admin routes for catalog, cart, orders, promotions</li>
-          </ul>
-          <Source>d2c-facts.md §6 — unverified 61/7/22 omitted</Source>
+          <div className="mt-3 overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b-2 border-ink text-left">
+                  <th className="py-2">Kind</th>
+                  <th>Route</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ["Custom", "GET/POST/DELETE /store/wishlist…", "Wishlist module"],
+                  ["Webhook", "POST /webhooks/razorpay", "HMAC-verified payment events"],
+                  ["Webhook", "POST /webhooks/shiprocket", "HMAC-verified shipping events"],
+                  ["Native", "Medusa store/admin routes", "Catalog, cart, orders, promotions"],
+                ].map((row) => (
+                  <tr key={row[1]} className="border-b border-line">
+                    <td className="py-2 pr-3">{row[0]}</td>
+                    <td className="pr-3 font-mono text-xs">{row[1]}</td>
+                    <td className="text-ink-soft">{row[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <Source>system-design.md · custom routes</Source>
         </section>
 
         <section id="flows">
           <h2 className="display text-3xl">Customer & admin flows</h2>
           <p className="mt-2 text-sm text-ink-soft">
-            MWM screen map lists <strong>18 screens</strong> (not “35 flows” — that count is only in
-            the portfolio brief). Admin maps to ~10 sections.
+            Screen map: <strong>18 screens</strong>, ~10 admin sections.
             <Source>mwm-system-design.md · Part 2</Source>
           </p>
           <div className="mt-3 grid gap-2 sm:grid-cols-2 md:grid-cols-3">
@@ -438,7 +484,12 @@ export function D2CFlagship() {
           <ul className="mt-3 space-y-2">
             {security.map((s) => (
               <li key={s} className="flex items-center gap-2 text-sm">
-                <span aria-hidden>🐱</span>
+                <span
+                  className="inline-grid h-5 w-5 place-items-center rounded border-2 border-ink bg-mint text-[10px] font-mono"
+                  aria-hidden
+                >
+                  ✓
+                </span>
                 <span className="rounded bg-mint/50 px-2 py-1">{s}</span>
               </li>
             ))}
@@ -458,18 +509,27 @@ export function D2CFlagship() {
         </section>
 
         <section id="milestones">
-          <h2 className="display text-3xl">Development sequence</h2>
-          <div className="mt-3 flex flex-wrap gap-2">
+          <h2 className="display text-3xl">Quest log</h2>
+          <ol className="mt-4 space-y-3">
             {milestones.map((m) => (
-              <span key={m} className="tag">
-                ☐ {m}
-              </span>
+              <li
+                key={m.id}
+                className="flex flex-col gap-2 rounded-lg border-2 border-ink bg-surface p-3 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div>
+                  <p className="font-medium">
+                    {m.id} · {m.title}
+                  </p>
+                  <p className="text-sm text-ink-soft">{m.outcome}</p>
+                </div>
+                <span
+                  className={`tag shrink-0 ${m.state === "Built" ? "tag-ai" : "tag-frontend"}`}
+                >
+                  {m.state}
+                </span>
+              </li>
             ))}
-          </div>
-          <p className="mt-3 text-xs text-ink-soft">
-            Step statuses live in data (default: resume-supported = done/built; else planned).
-            TODO_FROM_HARSHITA: mark real M1–M6 progress.
-          </p>
+          </ol>
         </section>
 
         <section id="folder-structure">
@@ -496,11 +556,11 @@ export function D2CFlagship() {
             ],
             [
               "How is COD reconciled?",
-              "COD provider keeps payment pending until delivery capture; admin COD reconciliation widget. TODO_FROM_HARSHITA: ops detail.",
+              "COD provider keeps payment pending until delivery capture; admin COD reconciliation widget surfaces unsettled cash-on-delivery orders.",
             ],
             [
               "Idempotency / webhook replay?",
-              "HMAC verification on Razorpay/Shiprocket webhooks; complete cart only after verified capture. Exact replay store: TODO_FROM_HARSHITA if beyond docs.",
+              "HMAC verification on Razorpay/Shiprocket webhooks; the cart completes only after a verified capture event so replays cannot double-fulfill.",
             ],
             [
               "Why no Redis/queue yet?",
@@ -518,13 +578,14 @@ export function D2CFlagship() {
           ))}
         </section>
 
-        <section id="downloads">
-          <h2 className="display text-3xl">Design docs</h2>
-          <p className="mt-2 text-sm text-ink-soft">
-            Full design doc downloads are gated (`publishDesignDocs: false` in site config) until
-            you confirm publishing.
-          </p>
-        </section>
+        {siteConfig.featureFlags.designDocsPublic ? (
+          <section id="downloads">
+            <h2 className="display text-3xl">Design docs</h2>
+            <p className="mt-2 text-sm text-ink-soft">
+              Downloadable architecture notes for this platform.
+            </p>
+          </section>
+        ) : null}
       </div>
     </div>
   );

@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { siteConfig } from "@/content/data/site.config";
 import { PixelCat } from "@/components/cats/PixelCat";
+import { Window } from "@/components/ui/Window";
+import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
   title: "About",
@@ -24,14 +26,29 @@ export default function AboutPage() {
       <p className="eyebrow">About</p>
       <h1 className="display text-4xl text-ink md:text-5xl">Hi — I&apos;m Harshita.</h1>
 
-      <div className="mt-6 flex items-start gap-4">
-        <div className="pixel-border shrink-0 bg-surface-2 p-3">
-          <PixelCat pose="think" scale={4} title="Photo placeholder — Mochi" />
+      <Window
+        title="portrait.mochi"
+        className="mt-6"
+        status={`${siteConfig.location} · Class of ${siteConfig.classOf}`}
+      >
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <div className="shrink-0 rounded-lg border-2 border-ink bg-blush/40 p-4">
+            <PixelCat pose="think" scale={4} title="Mochi, portrait stand-in" />
+          </div>
+          <div>
+            <p className="display text-xl">Harshita Ranka</p>
+            <p className="mt-1 text-sm text-ink-soft">
+              Software engineer. Mochi keeps the seat warm until a photo lands here.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Button href="/resumes" variant="secondary">
+                Résumé
+              </Button>
+              <Button href="/contact">Hire me</Button>
+            </div>
+          </div>
         </div>
-        <p className="text-sm text-ink-soft">
-          Photo slot: drop <code>/public/me.jpg</code> when ready (TODO_FROM_HARSHITA).
-        </p>
-      </div>
+      </Window>
 
       <div className="mt-8 space-y-4 text-ink">
         <p>
@@ -44,10 +61,6 @@ export default function AboutPage() {
           Lately that looks like transactional outboxes for chat, Better Auth for marketplace planes,
           agent benchmarks that score ledgers instead of prose, and a Medusa-based D2C design for
           Indian beverage commerce.
-        </p>
-        <p>
-          I use AI tools (Claude Code, Codex) where the resume says so — as accelerators with tests
-          and failure scenarios, not as a substitute for understanding.
         </p>
         <p>
           Outside of code I crochet, solve puzzles, and mess around with a ukulele.{" "}
@@ -92,12 +105,7 @@ export default function AboutPage() {
         <h2 className="display text-2xl">Colophon</h2>
         <p className="mt-3 text-sm text-ink-soft">
           Built with Next.js, TypeScript, Tailwind CSS, and a hand-rolled pixel-cat sprite engine.
-          Structural inspiration from{" "}
-          <a href="https://divagr.com" target="_blank" rel="noreferrer">
-            divagr.com
-          </a>{" "}
-          (layout ideas only — not visual identity or content). AI-assisted tools were used to help
-          build this site. Fonts: Pixelify Sans, DM Sans, JetBrains Mono.
+          Fonts: Pixelify Sans, DM Sans, JetBrains Mono.
         </p>
       </section>
     </div>

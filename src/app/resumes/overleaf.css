@@ -1,0 +1,159 @@
+/* Classic Overleaf / Jake's Resume look — scoped to .overleaf-resume */
+
+.overleaf-resume {
+  font-family: "Times New Roman", Times, "Liberation Serif", serif;
+  font-size: 10.5pt;
+  line-height: 1.28;
+  color: #000;
+  width: 210mm;
+  max-width: 100%;
+  min-height: 297mm;
+  padding: 0.35cm 1.2cm 0.35cm 1.4cm;
+  box-sizing: border-box;
+  margin: 0 auto;
+  background: #fff;
+}
+
+.overleaf-resume a {
+  color: #000;
+  text-decoration: none;
+}
+
+.or-header {
+  margin-bottom: 0.35rem;
+}
+
+.or-header-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.or-name {
+  font-size: 18pt;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.15;
+}
+
+.or-meta {
+  margin: 0;
+  font-size: 10.5pt;
+}
+
+.or-header-right {
+  text-align: right;
+  font-size: 10.5pt;
+}
+
+.or-header-right p {
+  margin: 0;
+}
+
+.or-section {
+  margin-top: 0.35rem;
+}
+
+.or-h2 {
+  font-size: 12pt;
+  font-variant: small-caps;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+  margin: 0 0 0.2rem;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.1rem;
+  text-transform: lowercase;
+  font-variant-caps: all-small-caps;
+}
+
+.or-job {
+  margin-bottom: 0.45rem;
+}
+
+.or-job-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: baseline;
+}
+
+.or-job-title {
+  margin: 0;
+  font-size: 10.5pt;
+}
+
+.or-job-dates {
+  margin: 0;
+  white-space: nowrap;
+  font-size: 9.5pt;
+}
+
+.or-stack {
+  margin: 0.1rem 0 0.15rem;
+  font-size: 9.5pt;
+}
+
+.or-bullets {
+  margin: 0.1rem 0 0;
+  padding-left: 1.15rem;
+}
+
+.or-bullets li {
+  margin: 0.12rem 0;
+  text-align: justify;
+}
+
+.or-projects {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.or-projects > li {
+  margin-bottom: 0.35rem;
+}
+
+.or-project-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.or-tools {
+  margin: 0.05rem 0 0.1rem;
+  font-size: 9.5pt;
+}
+
+.or-skills {
+  list-style: disc;
+  margin: 0.15rem 0 0;
+  padding-left: 1.15rem;
+}
+
+.or-skills li {
+  margin: 0.12rem 0;
+}
+
+.or-highlight {
+  background: #e8f8ef;
+}
+
+.or-highlight-block {
+  background: #e8f8ef;
+  border-radius: 2px;
+  padding: 0.1rem 0.2rem;
+}
+
+@media print {
+  .overleaf-resume {
+    width: auto;
+    min-height: auto;
+    padding: 0;
+    box-shadow: none !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+}

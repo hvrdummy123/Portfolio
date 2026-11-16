@@ -7,10 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "lint:copy": "node scripts/lint-copy.mjs",
     "gh:sync": "node scripts/gh-sync.mjs",
     "coverage:check": "node scripts/coverage-check.mjs",
     "content:check": "node scripts/content-check.mjs",
-    "resumes:build": "node scripts/resumes-build.mjs"
+    "resumes:build": "tsx scripts/resumes-build.ts",
+    "resumes:install-browser": "playwright install chromium",
+    "prebuild": "pnpm lint:copy"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -35,6 +38,7 @@
     "prettier": "^3.10.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "4.3.3",
+    "tsx": "^4.23.15",
     "typescript": "^5",
     "vitest": "^5.1.0"
   },

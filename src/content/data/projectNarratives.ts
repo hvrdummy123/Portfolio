@@ -40,7 +40,7 @@ export const projectNarratives: Record<string, ProjectNarrative> = {
     solution:
       "Python engine + Express REST + React/Redux UI over MongoDB/SQLite, with an OHLCV normalization pipeline and Plotly-style result views.",
     impact:
-      "180,000+ historical records; full simulations under 3s; REST ~120ms avg; dashboards under 700ms (resume). Sample charts here are synthetic/illustrative.",
+      "180,000+ historical records; full simulations under 3s; REST ~120ms avg; dashboards under 700ms. Sample charts here are synthetic/illustrative.",
     relatedNotes: [],
   },
   "mandarin-teacher": {

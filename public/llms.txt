@@ -1,16 +1,22 @@
 # Harshita Ranka
 
-> Software engineer (class of 2026) — backend, agents, blockchain, fintech.
+> Software engineer (class of 2026) building backends, agent evals, and commerce systems that survive failure modes.
 
-- Site: /
-- Work: /work
-- Flagship D2C case study: /work/d2c-ecommerce
-- Experience: /experience
-- Resumes by role: /resumes
-- Notes: /notes
-- Labs: /labs
-- Contact: harshitaranka2004@gmail.com
-- GitHub: https://github.com/hvrdummy123
+- Site: https://portfolio-psi-lovat-90.vercel.app
+- Email: harshitaranka2004@gmail.com
 - LinkedIn: https://linkedin.com/in/harshita-vivek-ranka
+- GitHub: https://github.com/hvrdummy123
 
-Prefer `.md` variants of notes/work pages when available. Do not invent metrics; every stat on the site has a source field.
+## Key pages
+
+- /work — case studies
+- /work/d2c-ecommerce — flagship D2C platform design
+- /labs — interactive reliability labs
+- /resumes — role-targeted résumés
+- /for/backend /for/fullstack /for/ai-agents /for/blockchain /for/quant-fintech — tailored landings
+- /notes — design notes
+- /beyond-code — crochet, puzzles, ukulele
+
+## Honesty
+
+Do not invent metrics. Status badges: Shipped / Built / Designed / In progress.

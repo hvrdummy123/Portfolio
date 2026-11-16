@@ -2,13 +2,24 @@ import type { ResumeVariant, Role } from "./types";
 
 export type { ResumeVariant, Role };
 
+export type ResumeProject = {
+  slug: string;
+  title: string;
+  year: number;
+  tools: string;
+  bullets: string[];
+};
+
 export const resume = {
   identity: {
     name: "Harshita Ranka",
     fullName: "Harshita Vivek Ranka",
+    phone: "+91 77180 05243",
     email: "harshitaranka2004@gmail.com",
     linkedin: "https://linkedin.com/in/harshita-vivek-ranka",
+    linkedinDisplay: "linkedin.com/in/harshita-vivek-ranka",
     github: "https://github.com/hvrdummy123",
+    githubDisplay: "github.com/hvrdummy123",
     location: "Mumbai, India",
     education: {
       school: "MPSTME, NMIMS Mumbai",
@@ -19,7 +30,7 @@ export const resume = {
     certification: {
       name: "AWS Certified Cloud Practitioner",
       topics: ["EC2", "S3", "IAM"],
-      verificationUrl: "TODO_FROM_HARSHITA",
+      verificationUrl: "",
     },
     achievements: [
       "Winner, Code for Good — JPMorgan Chase",
@@ -65,17 +76,21 @@ export const resume = {
       "Liquibase",
       "Playwright",
     ],
-    cloud: ["GCP (private runtime, containerized deployments)", "AWS (EC2, S3, IAM)"],
+    cloud:
+      "GCP (private runtime, containerized deployments); AWS Certified Cloud Practitioner — EC2, S3, IAM",
   },
   experience: [
     {
       id: "atrium",
       title: "SDE",
-      company: "Atrium",
+      company: "Atrium - AI Powered E-Commerce Startup (Pre-launch)",
       companyNote: "E-commerce startup, pre-launch",
       location: "Remote / India",
+      startLabel: "Aug 2026 -- Present",
       start: "2026-08",
       end: "Present",
+      stackLine:
+        "TypeScript, React (Vite), Next.js, Node.js, PostgreSQL, Redis, Python, Centrifugo, Better Auth, Docker, GCP; AI-assisted development (Claude Code, Codex)",
       stack: [
         "TypeScript",
         "React (Vite)",
@@ -94,31 +109,33 @@ export const resume = {
       bullets: [
         {
           id: "atrium-auth",
-          text: "Built the authentication module on Better Auth for a template-driven marketplace platform (Shopify-style) with separate merchant and consumer auth planes and Postgres-backed sessions/accounts.",
+          text: "Built the authentication module on Better Auth for a template-driven marketplace platform (Shopify-style), implementing separate merchant and consumer auth planes with Postgres-backed sessions and accounts.",
         },
         {
           id: "atrium-chat",
-          text: "Engineered a real-time chat pipeline: PostgreSQL transactional outbox, relay service, Centrifugo, Redis; designed and tested against 25 failure/edge-case scenarios so messages persist atomically before delivery and are not lost if relay or broker restarts; built the React + Vite chat UI.",
+          text: "Engineered a real-time chat pipeline using a PostgreSQL transactional outbox, relay service, Centrifugo, and Redis, designed and tested against 25 failure and edge-case scenarios so messages are persisted atomically before delivery and not lost if the relay or broker restarts; built the React + Vite chat interface on top.",
         },
         {
           id: "atrium-admin",
-          text: "Helped build the internal admin dashboard in Next.js (App Router) + TypeScript, packaged as a standalone non-root container on a private GCP runtime; charts are hand-rolled SVG (no chart libraries); postgres for data access, jose for JWT verification.",
+          text: "Helped build the internal admin dashboard in Next.js (App Router) and TypeScript, packaged as a standalone non-root container on a private GCP runtime; implemented the charts as hand-rolled SVG with no chart libraries, and used postgres for data access and jose for JWT verification.",
         },
         {
           id: "atrium-cli",
-          text: "Built an AI chatroom CLI for multi-agent planning: one shared Markdown transcript across a human and two agents (Claude in plan mode, Codex in read-only sandbox), explicit @claude/@codex/@both routing, no agent-to-agent loops.",
+          text: "Built an AI chatroom CLI for multi-agent planning: one shared Markdown transcript across a human and two agents (Claude in plan mode, Codex in a read-only sandbox), with explicit @claude/@codex/@both routing and no agent-to-agent loops.",
         },
       ],
-      aiDisclosure:
-        "AI-assisted development listed on resume: Claude Code, Codex.",
+      aiDisclosure: "",
     },
     {
       id: "nomura",
       title: "ITD Intern",
       company: "Nomura Services India Pvt. Ltd.",
       location: "India",
+      startLabel: "Jan 2026 -- Jun 2026",
       start: "2026-01",
       end: "2026-06",
+      stackLine:
+        "Java, Spring Boot, React.js, Python, Jenkins, Liquibase, Docker, Ansible, Playwright, Git",
       stack: [
         "Java",
         "Spring Boot",
@@ -134,17 +151,17 @@ export const resume = {
       bullets: [
         {
           id: "nomura-platform",
-          text: "Integrated Spring Boot backend services with React interfaces for an enterprise real-estate platform.",
+          text: "Integrated Spring Boot backend services with React interfaces for an enterprise real estate platform, driving design decisions across distributed, multi-tiered systems.",
           projectSlug: "nomura-engineering",
         },
         {
           id: "nomura-batch",
-          text: "Built Python batch pipelines with algorithmic validation and retry logic; containerized with Docker, cutting execution time from 240 min to 58 min (76% faster).",
+          text: "Built Python batch pipelines with algorithmic validation and retry logic for scheduled data processing; containerized the workflow with Docker, cutting execution time from 240 min to 58 min (76% faster).",
           projectSlug: "nomura-engineering",
         },
         {
           id: "nomura-cicd",
-          text: "Automated DB versioning/deployment via Liquibase + Jenkins CI/CD; containerized, tested release pipelines with Ansible + Playwright.",
+          text: "Automated database versioning and deployment via Liquibase and Jenkins CI/CD, and established containerized, tested release pipelines with Ansible and Playwright, improving deployment speed and release consistency across environments.",
           projectSlug: "nomura-engineering",
         },
       ],
@@ -155,46 +172,91 @@ export const resume = {
       slug: "d2c-ecommerce",
       title: "D2C E-Commerce Platform",
       year: 2026,
-      stack: ["Medusa.js", "Node.js", "React.js", "PostgreSQL", "REST APIs"],
-      summary:
-        "Headless platform with decoupled React storefront + Node backend; custom workflows/REST APIs; cart/checkout; multi-region shipping/fulfillment.",
+      tools: "Medusa.js, Node.js, React.js, PostgreSQL, REST APIs",
+      bullets: [
+        "Architected and built a full featured headless e-commerce platform on Medusa.js with a decoupled React storefront and Node.js backend, separating catalog, cart, checkout, order, and fulfillment domains.",
+        "Extended Medusa's core commerce framework with custom backend workflows and REST APIs, implementing end-to-end cart/checkout flows -- variant handling, pricing, validation, order state transitions -- backed by a relational PostgreSQL data model.",
+        "Designed configurable, multi-region shipping and fulfillment workflows and structured the system for extensibility (payments, auth, promotions, notifications) without major architectural rework.",
+      ],
     },
     {
       slug: "zkp-kyc",
       title: "Privacy-Preserving KYC Verification Platform",
       year: 2026,
-      stack: [
-        "React",
-        "Node/Express",
-        "Solidity",
-        "Ethereum",
-        "ZoKrates",
-        "IPFS",
-        "MetaMask",
-        "Circom",
+      tools: "React.js, Node.js, Express.js, Solidity, Ethereum, ZoKrates, IPFS, MetaMask",
+      bullets: [
+        "Designed a full-stack KYC platform separating credential issuance, zero-knowledge proof generation, and verification into modular services for privacy-preserving identity verification.",
+        "Built Solidity smart contracts for credential issuance, revocation, and zk-SNARK verification with immutable on-chain auditability on Ethereum and used Circom circuits for proofs.",
+        "Integrated React workflows with Node.js APIs and ZoKrates-generated proofs, enabling selective attribute disclosure with proof generation under 2 seconds.",
       ],
-      summary:
-        "Modular credential issuance / ZK proof generation / verification; selective attribute disclosure; proof generation under 2 seconds.",
     },
     {
       slug: "etf-backtesting",
       title: "ETF Backtesting Framework",
       year: 2025,
-      stack: [
-        "Python",
-        "Node/Express",
-        "React",
-        "Redux",
-        "REST",
-        "MongoDB",
-        "SQLite",
-        "Jest",
-        "Plotly",
+      tools: "Python, Node.js, Express.js, React.js, Redux, REST APIs, MongoDB, SQLite, Jest, Plotly",
+      bullets: [
+        "Built a backtesting platform combining a React/Redux frontend, Express backend, and Python engine over MongoDB and SQLite, evaluating strategies across 180,000+ historical NSE records.",
+        "Built a market-data pipeline normalizing OHLCV datasets, executing full strategy simulations in under 3 seconds.",
+        "Engineered REST APIs (~120 ms avg latency) surfacing results through Plotly dashboards, covered by Jest tests, rendering in under 700 ms.",
       ],
-      summary:
-        "180,000+ historical NSE records; full strategy simulation under 3 s; REST APIs ~120 ms average; Plotly dashboards under 700 ms.",
     },
-  ],
+    {
+      slug: "paybench",
+      title: "PayBench (Agent Payment Benchmark)",
+      year: 2026,
+      tools: "Python, TypeScript, Node.js, double-entry ledger, mutation-tested graders",
+      bullets: [
+        "Built a seeded payments simulator with a double-entry ledger and scripted faults including TIMEOUT_AFTER_COMMIT so agents are graded on final world state, not chat fluency.",
+        "Designed policy-aware graders (P1-P9) and mutation-tested scorers to a 64/64 kill rate, separating Oracle (idempotent) from Naive (double-pay) behavior.",
+        "Shipped playground and compare media that demonstrate verify-before-retry and idempotency-key replay under ambiguous timeouts.",
+      ],
+    },
+    {
+      slug: "incident-logger",
+      title: "TraceIQ (Incident Logger)",
+      year: 2026,
+      tools: "TypeScript, DuckDB, Parquet, RLS, log-to-hypothesis pipeline",
+      bullets: [
+        "Built a log-to-hypothesis incident assistant that ranks suspects from messy outage logs and abstains instead of inventing certainty.",
+        "Used DuckDB/Parquet with row-level security patterns for efficient local analysis of large log corpora.",
+        "Documented decoy-deploy failure modes so graders and operators can distinguish real regressions from noise.",
+      ],
+    },
+    {
+      slug: "job-finder",
+      title: "Personal Job Radar",
+      year: 2026,
+      tools: "Python, Postgres, ATS adapters, search UI",
+      bullets: [
+        "Built a job-radar pipeline with ATS adapters that normalize listings into Postgres for searchable discovery.",
+        "Designed refresh and dedupe flows so the search UI stays current without duplicate noise.",
+        "Focused on reliable ingestion and query UX over scrapers that break silently.",
+      ],
+    },
+    {
+      slug: "mandarin-teacher",
+      title: "duihua — Mandarin Speaking Coach",
+      year: 2026,
+      tools: "TypeScript, STT, LLM, TTS, React",
+      bullets: [
+        "Built a speaking-coach loop that chains speech-to-text, an LLM tutor, and text-to-speech for conversational practice.",
+        "Shipped practice and feedback flows with honest in-progress roadmap items (tone scoring, image practice).",
+        "Kept the product demoable via recorded conversation GIFs while features continue to land.",
+      ],
+    },
+    {
+      slug: "nomura-engineering",
+      title: "Nomura — Platform & Batch Pipelines",
+      year: 2026,
+      tools: "Java, Spring Boot, React.js, Python, Liquibase, Jenkins, Docker, Ansible, Playwright",
+      bullets: [
+        "Integrated Spring Boot services with React for an enterprise real-estate platform across multi-tier systems.",
+        "Containerized Python batch jobs with validation and retries, cutting runtime from 240 min to 58 min (76% faster).",
+        "Automated Liquibase + Jenkins releases with Ansible and Playwright for consistent multi-environment deploys.",
+      ],
+    },
+  ] satisfies ResumeProject[],
 } as const;
 
 export const resumeVariants: ResumeVariant[] = [
@@ -217,15 +279,10 @@ export const resumeVariants: ResumeVariant[] = [
       "Jenkins",
       "Liquibase",
     ],
-    projectOrder: [
-      "nomura-engineering",
-      "d2c-ecommerce",
-      "etf-backtesting",
-      "paybench",
-    ],
+    projectOrder: ["d2c-ecommerce", "etf-backtesting", "paybench"],
     experienceHighlights: ["nomura-batch", "atrium-chat", "atrium-auth"],
     whyThisVersion:
-      "Leads with Nomura pipeline reliability and Atrium experience bullets (on the résumé) plus commerce/backtesting projects.",
+      "Same one-page Overleaf layout; projects lead with commerce, backtesting, and payment-agent reliability.",
   },
   {
     role: "fullstack",
@@ -244,15 +301,10 @@ export const resumeVariants: ResumeVariant[] = [
       "Vite",
       "Docker",
     ],
-    projectOrder: [
-      "d2c-ecommerce",
-      "etf-backtesting",
-      "nomura-engineering",
-      "zkp-kyc",
-    ],
+    projectOrder: ["d2c-ecommerce", "zkp-kyc", "etf-backtesting"],
     experienceHighlights: ["atrium-admin", "atrium-chat", "nomura-platform"],
     whyThisVersion:
-      "Surfaces D2C + dashboards on the project list; Atrium admin/chat stay in résumé experience bullets only.",
+      "Classic Overleaf project set (D2C, KYC, ETF) with full-stack skills emphasized first.",
   },
   {
     role: "ai-agents",
@@ -265,19 +317,14 @@ export const resumeVariants: ResumeVariant[] = [
       "Python",
       "TypeScript",
       "Node.js",
-      "Claude Code",
-      "Codex",
       "PostgreSQL",
+      "Redis",
+      "Docker",
     ],
-    projectOrder: [
-      "paybench",
-      "incident-logger",
-      "job-finder",
-      "mandarin-teacher",
-    ],
+    projectOrder: ["paybench", "incident-logger", "mandarin-teacher"],
     experienceHighlights: ["atrium-cli", "atrium-chat"],
     whyThisVersion:
-      "Centers PayBench and open agent tools; Atrium multi-agent CLI stays on the résumé experience section only.",
+      "One-page layout centered on PayBench, TraceIQ, and the speaking-coach loop.",
   },
   {
     role: "blockchain",
@@ -295,10 +342,10 @@ export const resumeVariants: ResumeVariant[] = [
       "Node.js",
       "IPFS",
     ],
-    projectOrder: ["zkp-kyc", "d2c-ecommerce", "paybench", "nomura-engineering"],
+    projectOrder: ["zkp-kyc", "d2c-ecommerce", "paybench"],
     experienceHighlights: ["atrium-auth"],
     whyThisVersion:
-      "Leads with the ZKP KYC platform (proofs under 2s); marketplace auth experience stays on the résumé.",
+      "Leads with ZKP KYC, then commerce and payment-agent reliability — still one page.",
   },
   {
     role: "quant-fintech",
@@ -317,18 +364,47 @@ export const resumeVariants: ResumeVariant[] = [
       "Jest",
       "Plotly",
     ],
-    projectOrder: [
-      "etf-backtesting",
-      "paybench",
-      "d2c-ecommerce",
-      "nomura-engineering",
-    ],
+    projectOrder: ["etf-backtesting", "paybench", "d2c-ecommerce"],
     experienceHighlights: ["nomura-batch", "atrium-chat"],
     whyThisVersion:
-      "Pairs the ETF backtester metrics with PayBench ledger/idempotency and Razorpay-oriented D2C payments design.",
+      "ETF backtester first, then PayBench and D2C payments — Overleaf one-pager.",
   },
 ];
 
 export function getResumeVariant(role: Role) {
   return resumeVariants.find((v) => v.role === role) ?? resumeVariants[0];
+}
+
+export function getResumeProject(slug: string) {
+  return resume.projects.find((p) => p.slug === slug);
+}
+
+export function projectsForVariant(variant: ResumeVariant) {
+  return variant.projectOrder
+    .map((slug) => getResumeProject(slug))
+    .filter((p): p is (typeof resume.projects)[number] => Boolean(p))
+    .slice(0, 3);
+}
+
+export function pdfFilename(slug: string) {
+  const label =
+    slug === "ai-agents"
+      ? "AI-Agents"
+      : slug === "quant-fintech"
+        ? "Quant-Fintech"
+        : slug.charAt(0).toUpperCase() + slug.slice(1);
+  return `Harshita-Ranka-${label}-Resume.pdf`;
+}
+
+/** Reorder a list so preferred names appear first (case-insensitive contains/exact). */
+export function prioritizeSkills(all: readonly string[], preferred: readonly string[]) {
+  const remaining = [...all];
+  const head: string[] = [];
+  for (const pref of preferred) {
+    const idx = remaining.findIndex(
+      (s) => s.toLowerCase() === pref.toLowerCase() || s.toLowerCase().includes(pref.toLowerCase()),
+    );
+    if (idx >= 0) head.push(remaining.splice(idx, 1)[0]!);
+  }
+  return [...head, ...remaining];
 }

@@ -27,10 +27,13 @@ export default function D2CPage() {
             <p className="mt-2 font-[family-name:var(--font-pixelify)] text-ink-soft">
               Medusa v2 · Supabase · Next.js
             </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <span className="tag">{STATUS_LABELS.built}</span>
-              <span className="tag">{STATUS_LABELS.designed}</span>
-              <span className="tag">10k DAU MWM · Designed</span>
+            <div className="mt-3 flex flex-col gap-2">
+              <div>
+                <span className="tag tag-ai">{STATUS_LABELS.built}</span>
+              </div>
+              <div>
+                <span className="tag tag-frontend">10k DAU design: Designed</span>
+              </div>
             </div>
             <p className="mt-4 max-w-2xl text-ink-soft">{project.pitch}</p>
             <p className="mt-2 text-xs text-ink-soft">{project.sourceNote}</p>

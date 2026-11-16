@@ -2,7 +2,22 @@ import Link from "next/link";
 import type { Project } from "@/content/data/types";
 import { STATUS_LABELS } from "@/content/data/types";
 import { getNarrative } from "@/content/data/projectNarratives";
+import { notes } from "@/content/data/notes";
 import { ProjectMedia } from "@/components/work/ProjectMedia";
+import { Window } from "@/components/ui/Window";
+import { Chip } from "@/components/ui/Chip";
+import { Button } from "@/components/ui/Button";
+
+const LAB_FOR: Record<string, { href: string; label: string }> = {
+  paybench: { href: "/labs/paybench-timeout", label: "Break the payment" },
+  "zkp-kyc": { href: "/labs/zk-cats", label: "Zero-knowledge with cats" },
+  "d2c-ecommerce": { href: "/labs/d2c-order-lifecycle", label: "Order lifecycle" },
+  "etf-backtesting": { href: "/labs/backtest-toy", label: "Backtest toy" },
+};
+
+function noteTitle(slug: string) {
+  return notes.find((n) => n.slug === slug)?.title ?? slug;
+}
 
 export function CaseStudy({
   project,
@@ -25,6 +40,7 @@ export function CaseStudy({
     (project.stats.length
       ? project.stats.map((s) => `${s.label}: ${s.value}`).join(" · ")
       : undefined);
+  const lab = LAB_FOR[project.slug];
 
   return (
     <article className="container-site section-pad pb-16">
@@ -32,129 +48,215 @@ export function CaseStudy({
         <Link href="/work" className="no-underline">
           Work
         </Link>{" "}
-        · {project.year} · {STATUS_LABELS[project.status]}
+        · {project.year}
       </p>
-      <h1 className="display mt-2 max-w-2xl text-4xl text-ink">{project.title}</h1>
-      <p className="mt-3 max-w-xl text-lg text-ink-soft">{project.pitch}</p>
 
-      <div className="mt-5 flex flex-wrap gap-4 text-sm">
-        {project.links.repo && (
-          <a href={project.links.repo} target="_blank" rel="noreferrer">
-            Repository
-          </a>
+      <Window
+        title={`${project.slug}.case`}
+        className="mt-4"
+        status={project.stack
+          .slice(0, 5)
+          .map((s) => s.name)
+          .join(" · ")}
+      >
+        <div className="mb-3 flex flex-wrap gap-2">
+          <Chip>{STATUS_LABELS[project.status]}</Chip>
+          {project.domainTags.map((t) => (
+            <Chip key={t} tone={t}>
+              {t}
+            </Chip>
+          ))}
+        </div>
+        <h1 className="display max-w-2xl text-3xl text-ink md:text-4xl">{project.title}</h1>
+        <p className="mt-3 max-w-xl text-ink-soft">{project.pitch}</p>
+        <div className="mt-5 flex flex-wrap gap-2">
+          {project.links.repo ? (
+            <Button href={project.links.repo} variant="secondary">
+              Repository
+            </Button>
+          ) : null}
+          {project.links.live ? <Button href={project.links.live}>Live demo</Button> : null}
+          {story?.relatedNotes?.[0] ? (
+            <Button href={`/notes/${story.relatedNotes[0]}`} variant="ghost">
+              Design note
+            </Button>
+          ) : null}
+          {lab ? (
+            <Button href={lab.href} variant="secondary">
+              Try it · {lab.label}
+            </Button>
+          ) : null}
+        </div>
+        {showSamples && project.kind === "github" ? (
+          <div className="mt-6 overflow-hidden rounded-lg border-2 border-ink bg-cream">
+            <ProjectMedia slug={project.slug} />
+          </div>
+        ) : (
+          <div className="mt-6 h-40 rounded-lg border-2 border-ink bg-gradient-to-br from-mint via-sky to-lavender" />
         )}
-        {project.links.live && (
-          <a href={project.links.live} target="_blank" rel="noreferrer">
-            Live demo
-          </a>
-        )}
-        {story?.relatedNotes?.[0] && (
-          <Link href={`/notes/${story.relatedNotes[0]}`}>Design note</Link>
-        )}
+      </Window>
+
+      {project.sourceNote ? (
+        <p className="mt-4 text-sm text-ink-soft">{project.sourceNote}</p>
+      ) : null}
+
+      {project.stats.length > 0 ? (
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {project.stats.map((s) => (
+            <div key={s.label} className="win" title={`Source: ${s.source}`}>
+              <div className="win-titlebar !py-1 !text-[10px]">
+                <div className="win-dots" aria-hidden>
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                {s.label}
+              </div>
+              <div className="win-body !py-3 text-center">
+                <p className="stat-value text-xl">{s.value}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : null}
+
+      <div className="mt-10 grid gap-4 md:grid-cols-3">
+        {[
+          { id: "problem", title: "Problem", body: problem },
+          { id: "built", title: "What I built", body: solution },
+          { id: "result", title: "Result", body: impact ?? "See stack and notes for the deeper rationale." },
+        ].map((card) => (
+          <Window key={card.id} title={`${card.id}.txt`}>
+            <h2 className="display text-lg text-ink">{card.title}</h2>
+            <p className="mt-2 text-sm text-ink-soft">{card.body}</p>
+          </Window>
+        ))}
       </div>
 
-      {project.sourceNote && (
-        <p className="mt-4 text-sm text-ink-soft">{project.sourceNote}</p>
-      )}
-
-      {project.stats.length > 0 && (
-        <ul className="mt-8 space-y-2 border-y border-line py-5">
-          {project.stats.map((s) => (
-            <li key={s.label} className="flex flex-wrap items-baseline gap-x-3">
-              <span className="stat-value text-lg">{s.value}</span>
-              <span className="text-ink-soft">{s.label}</span>
-              <span className="text-xs text-ink-soft">— {s.source}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div className="prose-narrow mt-10 space-y-10">
-        <section id="problem">
-          <h2 className="display text-xl text-ink">Problem</h2>
-          <p className="mt-3 text-ink-soft">{problem}</p>
-        </section>
-        <section id="solution">
-          <h2 className="display text-xl text-ink">Solution & why</h2>
-          <p className="mt-3 text-ink-soft">{solution}</p>
-        </section>
-        <section id="impact">
-          <h2 className="display text-xl text-ink">Why it helps</h2>
-          <p className="mt-3 text-ink-soft">
-            {impact ?? "See stack choices and design notes for the deeper rationale."}
-          </p>
-        </section>
-
+      <div className="prose-narrow mt-12 space-y-12">
         {children}
 
-        {showSamples && project.kind === "github" && (
-          <section id="samples">
-            <h2 className="display text-xl text-ink">Samples</h2>
-            <ProjectMedia slug={project.slug} />
+        {lab ? (
+          <section id="try-it">
+            <Window title="try-it.lab" status="interactive">
+              <h2 className="display text-xl text-ink">Try it</h2>
+              <p className="mt-2 text-sm text-ink-soft">
+                A hands-on lab for the reliability idea behind this project.
+              </p>
+              <Button href={lab.href} className="mt-4">
+                {lab.label} →
+              </Button>
+            </Window>
           </section>
-        )}
+        ) : null}
 
-        {project.stack.length > 0 && (
+        {project.stack.length > 0 ? (
           <section id="stack">
-            <h2 className="display text-xl text-ink">Stack</h2>
-            <ul className="mt-4 space-y-3">
-              {project.stack.map((s) => (
-                <li key={s.name} className="border-b border-line pb-3 text-sm">
-                  <p className="font-medium text-ink">
-                    {s.name}
-                    <span className="font-normal text-ink-soft"> · {s.layer}</span>
-                  </p>
-                  {(s.why || s.alternative) && (
-                    <p className="mt-1 text-ink-soft">
-                      {s.why}
-                      {s.alternative ? ` Alternative considered: ${s.alternative}.` : ""}
-                    </p>
-                  )}
-                </li>
-              ))}
-            </ul>
+            <h2 className="display text-2xl text-ink">Stack · why this, not that</h2>
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b-2 border-ink text-left">
+                    <th className="py-2">Choice</th>
+                    <th>Layer</th>
+                    <th>Why</th>
+                    <th>Alternative</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {project.stack.map((s) => (
+                    <tr key={s.name} className="border-b border-line">
+                      <td className="py-2 pr-3 font-medium">{s.name}</td>
+                      <td className="pr-3">
+                        <Chip tone={s.layer === "frontend" ? "frontend" : "backend"}>
+                          {s.layer}
+                        </Chip>
+                      </td>
+                      <td className="pr-3 text-ink-soft">{s.why ?? "—"}</td>
+                      <td className="text-ink-soft">{s.alternative ?? "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </section>
-        )}
+        ) : null}
 
-        {project.decisions.length > 0 && (
+        {project.decisions.length > 0 ? (
           <section id="decisions">
-            <h2 className="display text-xl text-ink">Trade-offs</h2>
-            <p className="mt-2 text-sm text-ink-soft">
-              Longer write-ups: <Link href="/notes">Design notes</Link>.
-            </p>
-            <ul className="mt-4 space-y-5">
+            <h2 className="display text-2xl text-ink">Decisions & trade-offs</h2>
+            <div className="mt-4 space-y-3">
               {project.decisions.map((d, i) => (
-                <li key={i} className="text-sm">
-                  <p className="text-ink-soft">
-                    <span className="font-medium text-ink">Context — </span>
-                    {d.context}
+                <Window key={i} title={`adr-${i + 1}.md`}>
+                  <p className="text-sm">
+                    <span className="font-medium">Context — </span>
+                    <span className="text-ink-soft">{d.context}</span>
                   </p>
-                  <p className="mt-1 text-ink-soft">
-                    <span className="font-medium text-ink">Choice — </span>
-                    {d.decision}
+                  <p className="mt-2 text-sm">
+                    <span className="font-medium">Decision — </span>
+                    <span className="text-ink-soft">{d.decision}</span>
                   </p>
-                  <p className="mt-1 text-ink-soft">
-                    <span className="font-medium text-ink">Result — </span>
-                    {d.consequence}
+                  <p className="mt-2 text-sm">
+                    <span className="font-medium">Consequence — </span>
+                    <span className="text-ink-soft">{d.consequence}</span>
                   </p>
+                </Window>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {project.qa.length > 0 ? (
+          <section id="qa">
+            <h2 className="display text-2xl text-ink">Recruiter Q&A</h2>
+            <div className="mt-4 space-y-2">
+              {project.qa.map((item) => (
+                <details key={item.q} className="win">
+                  <summary className="win-titlebar cursor-pointer list-none">
+                    <div className="win-dots" aria-hidden>
+                      <span />
+                      <span />
+                      <span />
+                    </div>
+                    <span className="flex-1">{item.q}</span>
+                  </summary>
+                  <div className="win-body text-sm text-ink-soft">{item.a}</div>
+                </details>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {project.roadmap.length > 0 ? (
+          <section id="roadmap">
+            <h2 className="display text-2xl text-ink">If I had another month</h2>
+            <ul className="mt-4 space-y-2">
+              {project.roadmap.map((r) => (
+                <li key={r} className="flex gap-2 text-sm text-ink-soft">
+                  <span className="tag shrink-0">→</span>
+                  {r}
                 </li>
               ))}
             </ul>
           </section>
-        )}
+        ) : null}
 
-        {story?.relatedNotes && story.relatedNotes.length > 0 && (
+        {story?.relatedNotes && story.relatedNotes.length > 0 ? (
           <section id="design-notes">
-            <h2 className="display text-xl text-ink">Related design notes</h2>
+            <h2 className="display text-2xl text-ink">Related design notes</h2>
             <ul className="mt-3 space-y-2">
               {story.relatedNotes.map((slug) => (
                 <li key={slug}>
-                  <Link href={`/notes/${slug}`}>{slug}</Link>
+                  <Link href={`/notes/${slug}`}>{noteTitle(slug)}</Link>
                 </li>
               ))}
             </ul>
           </section>
-        )}
+        ) : null}
+
+        <p className="text-sm">
+          <Link href="/work">← All work</Link>
+        </p>
       </div>
     </article>
   );

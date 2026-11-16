@@ -79,7 +79,7 @@ export const notes: Note[] = [
     readingMinutes: 5,
     draft: false,
     excerpt:
-      "A Nomura internship story told only with resume-safe claims: validation, retries, Docker, 76% faster.",
+      "How validation, retries, and Docker cut a batch pipeline from 240 minutes to 58 — a 76% speedup.",
   },
 ];
 

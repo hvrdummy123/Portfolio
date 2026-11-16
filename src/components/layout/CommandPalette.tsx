@@ -17,24 +17,12 @@ export function CommandPalette() {
 
   const items = useMemo<Item[]>(
     () => [
-      ...siteConfig.nav.map((n) => ({
+      ...[...siteConfig.navPrimary, ...siteConfig.navMore].map((n) => ({
         id: n.href,
         label: `Go to ${n.label}`,
         hint: n.href,
         run: () => router.push(n.href),
       })),
-      {
-        id: "arcade",
-        label: "Open Cat Arcade",
-        hint: "/arcade",
-        run: () => router.push("/arcade"),
-      },
-      {
-        id: "stack",
-        label: "Open Stack explorer",
-        hint: "/stack",
-        run: () => router.push("/stack"),
-      },
       {
         id: "resume",
         label: "Download résumé hub",

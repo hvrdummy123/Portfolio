@@ -10,19 +10,17 @@ export function RoleSelector() {
   const { role, setRole } = usePrefs();
 
   return (
-    <section aria-label="Role selector" className="border-y border-line py-5">
-      <p className="eyebrow mb-3">Hiring for</p>
-      <div className="flex flex-wrap gap-x-4 gap-y-2">
+    <section aria-label="Role selector">
+      <p className="eyebrow mb-2">Hiring for</p>
+      <div className="flex flex-wrap gap-2">
         {roles.map((r) => (
           <button
             key={r}
             type="button"
             onClick={() => setRole(r)}
             className={cn(
-              "text-sm transition",
-              role === r
-                ? "font-semibold text-ink underline decoration-accent underline-offset-4"
-                : "text-ink-soft hover:text-ink",
+              "tag focus-ring transition",
+              role === r ? "bg-blush" : "bg-surface hover:bg-surface-2",
             )}
             aria-pressed={role === r}
           >

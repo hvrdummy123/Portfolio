@@ -3,6 +3,7 @@ import { DM_Sans, JetBrains_Mono, Outfit, Pixelify_Sans } from "next/font/google
 import { PrefsProvider } from "@/components/providers/PrefsProvider";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { MobileTabBar } from "@/components/layout/MobileTabBar";
 import { CommandPalette } from "@/components/layout/CommandPalette";
 import { CursorCat } from "@/components/cats/CursorCat";
 import { EasterEggs } from "@/components/cats/EasterEggs";
@@ -45,8 +46,15 @@ export const metadata: Metadata = {
     description: siteConfig.valueProp,
     type: "website",
     url: siteConfig.url,
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} — ${siteConfig.title}`,
+    description: siteConfig.valueProp,
   },
   alternates: {
+    canonical: "/",
     types: {
       "application/rss+xml": "/rss.xml",
     },
@@ -70,6 +78,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             {children}
           </main>
           <SiteFooter />
+          <MobileTabBar />
           <CommandPalette />
           <CursorCat />
           <EasterEggs />

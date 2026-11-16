@@ -1,56 +1,71 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { resume as resumeData, type ResumeVariant } from "@/content/data/resume";
-import type { Project } from "@/content/data/types";
+import {
+  pdfFilename,
+  projectsForVariant,
+  resume as resumeData,
+  type ResumeVariant,
+} from "@/content/data/resume";
+import { OverleafResume } from "@/components/resumes/OverleafResume";
+import "@/app/resumes/overleaf.css";
 
 type Props = {
   variant: ResumeVariant;
-  resume: typeof resumeData;
-  projects: (Project | undefined)[];
 };
 
-export function ResumeView({ variant, resume, projects }: Props) {
+export function ResumeView({ variant }: Props) {
   const [showDiff, setShowDiff] = useState(false);
-  const generalOrder = resume.projects.map((p) => p.slug);
+  const projects = projectsForVariant(variant);
+  const file = pdfFilename(variant.slug);
 
   const plain = useMemo(() => {
+    const id = resumeData.identity;
     const lines = [
-      resume.identity.name,
-      variant.headline,
-      resume.identity.email,
-      resume.identity.linkedin,
-      resume.identity.github,
+      id.name,
+      id.phone,
+      id.email,
+      id.linkedinDisplay,
+      id.githubDisplay,
+      `${id.education.degree}, ${id.education.school}`,
+      `${id.education.cgpa} CGPA · Class of ${id.education.classOf}`,
       "",
-      variant.summary,
-      "",
-      "SKILLS",
-      variant.skillsOrder.join(", "),
-      "",
-      "EXPERIENCE",
-      ...resume.experience.flatMap((job) => [
-        `${job.title} | ${job.company} | ${job.start} – ${job.end}`,
+      "WORK EXPERIENCE",
+      ...resumeData.experience.flatMap((job) => [
+        `${job.title} | ${job.company}  ${job.startLabel}`,
+        job.stackLine,
         ...job.bullets.map((b) => `• ${b.text}`),
         "",
       ]),
       "PROJECTS",
-      ...projects.filter(Boolean).map((p) => `• ${p!.title}: ${p!.pitch}`),
-      "",
-      `EDUCATION: ${resume.identity.education.degree}, ${resume.identity.education.school}, CGPA ${resume.identity.education.cgpa}`,
-      `ACHIEVEMENTS: ${resume.identity.achievements.join("; ")}`,
+      ...projects.flatMap((p) => [
+        `${p.title} (${p.year})`,
+        `Tools: ${p.tools}`,
+        ...p.bullets.map((b) => `• ${b}`),
+        "",
+      ]),
+      "TECHNICAL SKILLS",
+      `Programming: ${resumeData.skills.programming.join(", ")}`,
+      `Frameworks: ${resumeData.skills.frameworks.join(", ")}`,
+      `Cloud: ${resumeData.skills.cloud}`,
+      `Achievements: ${id.achievements.join("; ")}`,
+      `Course Work: ${id.coursework.join(", ")}`,
     ];
     return lines.join("\n");
-  }, [variant, resume, projects]);
+  }, [projects]);
 
   return (
-    <div className="mt-8">
+    <div className="mt-6">
       <div className="mb-4 flex flex-wrap gap-2 print:hidden">
+        <a className="btn" href={`/resumes/${file}`} download={file} id="download">
+          Download PDF
+        </a>
         <button
           type="button"
           className="btn btn-secondary"
           onClick={() => setShowDiff((v) => !v)}
         >
-          {showDiff ? "Hide diff" : "What changed vs general"}
+          {showDiff ? "Hide emphasis" : "What this version emphasizes"}
         </button>
         <button
           type="button"
@@ -61,88 +76,31 @@ export function ResumeView({ variant, resume, projects }: Props) {
         >
           Copy plain text
         </button>
-        <button type="button" className="btn" onClick={() => window.print()}>
-          Print / PDF
+        <button type="button" className="btn btn-ghost" onClick={() => window.print()}>
+          Print
         </button>
       </div>
 
-      {showDiff && (
+      {showDiff ? (
         <p className="mb-4 rounded-lg border-2 border-ink bg-butter/40 p-3 text-sm print:hidden">
-          Highlighted items differ in order/emphasis from the general resume project list (
-          {generalOrder.join(", ")}).
+          Green highlights mark experience bullets and the project set chosen for this role. Layout
+          matches the Overleaf one-pager.
         </p>
-      )}
+      ) : null}
 
-      <article className="card mx-auto max-w-[720px] bg-surface p-6 text-[13px] leading-snug print:border-0 print:shadow-none">
-        <header className="border-b-2 border-ink pb-3 text-center">
-          <h2 className="display text-2xl">{resume.identity.name}</h2>
-          <p className="font-medium">{variant.headline}</p>
-          <p className="text-ink-soft">
-            {resume.identity.email} · linkedin.com/in/harshita-vivek-ranka · github.com/hvrdummy123
-          </p>
-        </header>
-
-        <section className="mt-3">
-          <h3 className="font-[family-name:var(--font-pixelify)] text-sm uppercase">Summary</h3>
-          <p>{variant.summary}</p>
-        </section>
-
-        <section className="mt-3">
-          <h3 className="font-[family-name:var(--font-pixelify)] text-sm uppercase">Skills</h3>
-          <p className={showDiff ? "bg-mint/50" : undefined}>{variant.skillsOrder.join(" · ")}</p>
-        </section>
-
-        <section className="mt-3">
-          <h3 className="font-[family-name:var(--font-pixelify)] text-sm uppercase">Experience</h3>
-          {resume.experience.map((job) => (
-            <div key={job.id} className="mt-2">
-              <p className="font-semibold">
-                {job.title} | {job.company} | {job.start} – {job.end}
-              </p>
-              <ul className="list-disc pl-4">
-                {job.bullets.map((b) => (
-                  <li
-                    key={b.id}
-                    className={
-                      showDiff && variant.experienceHighlights.includes(b.id)
-                        ? "bg-mint/50"
-                        : undefined
-                    }
-                  >
-                    {b.text}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </section>
-
-        <section className="mt-3">
-          <h3 className="font-[family-name:var(--font-pixelify)] text-sm uppercase">Projects</h3>
-          <ul className="mt-1 list-disc pl-4">
-            {projects.filter(Boolean).map((p) => (
-              <li key={p!.slug} className={showDiff ? "bg-mint/50" : undefined}>
-                <strong>{p!.title}</strong> — {p!.pitch}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="mt-3">
-          <h3 className="font-[family-name:var(--font-pixelify)] text-sm uppercase">Education</h3>
-          <p>
-            {resume.identity.education.degree}, {resume.identity.education.school} · CGPA{" "}
-            {resume.identity.education.cgpa} · Class of {resume.identity.education.classOf}
-          </p>
-        </section>
-
-        <section className="mt-3">
-          <h3 className="font-[family-name:var(--font-pixelify)] text-sm uppercase">
-            Achievements
-          </h3>
-          <p>{resume.identity.achievements.join(" · ")}</p>
-        </section>
-      </article>
+      <div className="mx-auto overflow-x-auto rounded-[12px] border-2 border-ink bg-[#e8e4dc] p-3 shadow-[4px_4px_0_var(--ink)] print:border-0 print:bg-transparent print:p-0 print:shadow-none">
+        <OverleafResume
+          variant={variant}
+          showDiff={showDiff}
+          className="shadow-[0_8px_24px_rgba(0,0,0,0.12)] print:shadow-none"
+        />
+      </div>
+      <p className="mt-3 text-center text-xs text-ink-soft print:hidden">
+        Preview of the one-page Overleaf résumé ·{" "}
+        <a href={`/resumes/${file}`} download={file}>
+          {file}
+        </a>
+      </p>
     </div>
   );
 }

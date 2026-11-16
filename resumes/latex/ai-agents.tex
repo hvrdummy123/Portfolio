@@ -1,0 +1,178 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{latexsym}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{ragged2e}
+\usepackage[empty]{fullpage}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{marvosym}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\setlength{\multicolsep}{0pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\geometry{left=1.4cm, top=0.35cm, right=1.2cm, bottom=0.35cm}
+\urlstyle{same}
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-7pt}]
+
+\newcommand{\resumeItem}[2]{
+  \item{\textbf{#1}{\hspace{0.5mm}#2 \vspace{-0.5mm}}}
+}
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-7pt}}
+\renewcommand{\labelitemi}{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*,labelsep=0mm]}
+\newcommand{\resumeHeadingSkillStart}{\begin{itemize}[leftmargin=*,itemsep=0.6mm, rightmargin=2ex]}
+\newcommand{\resumeItemListStart}{\begin{justify}\begin{itemize}[leftmargin=3ex, rightmargin=2ex, noitemsep,labelsep=1.2mm,itemsep=0mm]\small}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}\vspace{1mm}}
+\newcommand{\resumeHeadingSkillEnd}{\end{itemize}\vspace{-2mm}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\end{justify}\vspace{-2mm}}
+
+\newcommand{\resumeProject}[4]{
+\vspace{0.3mm}\item
+    \begin{tabular*}{0.98\textwidth}[t]{l@{\extracolsep{\fill}}r}
+        \textbf{#1} & \textit{\footnotesize{#3}} \\
+        \footnotesize{\textit{#2}} & \footnotesize{#4}
+    \end{tabular*}
+    \vspace{-2.6mm}
+}
+
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\setlength{\footskip}{4.08003pt}
+
+\begin{document}
+\fontfamily{cmr}\selectfont
+
+\parbox{\dimexpr\linewidth\relax}{
+\begin{tabularx}{\linewidth}{L r}
+  \textbf{\Large Harshita Ranka} & +91 77180 05243 \\
+  B.Tech Computer Engineering, MPSTME, NMIMS Mumbai & \href{mailto:harshitaranka2004@gmail.com}{harshitaranka2004@gmail.com} \\
+  3.95/4 CGPA $\cdot$  Class of 2026 & \href{https://linkedin.com/in/harshita-vivek-ranka}{linkedin.com/in/harshita-vivek-ranka} \\
+  & 
+  \href{https://github.com/hvrdummy123}{github.com/hvrdummy123} \\
+\end{tabularx}
+}
+\vspace{-4mm}
+
+\vspace{-3mm}
+\section{\textbf{Work Experience}}
+
+\begin{tabularx}{\linewidth}{ @{}l r@{} }
+\textbf{SDE $|$ Atrium - AI Powered E-Commerce Startup (Pre-launch)} & \hfill \textit{Aug 2026 -- Present} \\[0pt]
+\multicolumn{2}{@{}X@{}}{\textit{TypeScript, React (Vite), Next.js, Node.js, PostgreSQL, Redis, Python, Centrifugo, Better Auth, Docker, GCP; AI-assisted development (Claude Code, Codex)}} \\[0pt]
+\multicolumn{2}{@{}X@{}}{
+\begin{itemize}[leftmargin=3ex, rightmargin=2ex, noitemsep, labelsep=1.2mm, itemsep=0.4mm]\small
+\vspace{-6mm}
+\item Built the authentication module on Better Auth for a template-driven marketplace platform (Shopify-style), implementing separate merchant and consumer auth planes with Postgres-backed sessions and accounts.
+
+\item Engineered a real-time chat pipeline using a PostgreSQL transactional outbox, relay service, Centrifugo, and Redis, designed and tested against 25 failure and edge-case scenarios so messages are persisted atomically before delivery and not lost if the relay or broker restarts; built the React + Vite chat interface on top.
+
+\item Helped build the internal admin dashboard in Next.js (App Router) and TypeScript, packaged as a standalone non-root container on a private GCP runtime; implemented the charts as hand-rolled SVG with no chart libraries, and used postgres for data access and jose for JWT verification.
+
+\item Built an AI chatroom CLI for multi-agent planning: one shared Markdown transcript across a human and two agents (Claude in plan mode, Codex in a read-only sandbox), with explicit @claude/@codex/@both routing and no agent-to-agent loops.
+
+\end{itemize}
+}
+\end{tabularx}
+
+\vspace{1.5mm}
+
+\begin{tabularx}{\linewidth}{ @{}l r@{} }
+\textbf{ITD Intern $|$ Nomura Services India Pvt. Ltd.} & \hfill \textit{Jan 2026 -- Jun 2026} \\[0pt]
+\multicolumn{2}{@{}X@{}}{\textit{Java, Spring Boot, React.js, Python, Jenkins, Liquibase, Docker, Ansible, Playwright, Git}} \\[0pt]
+\multicolumn{2}{@{}X@{}}{
+\begin{itemize}[leftmargin=3ex, rightmargin=2ex, noitemsep, labelsep=1.2mm, itemsep=0.4mm]\small
+\vspace{-6mm}
+\item Integrated Spring Boot backend services with React interfaces for an enterprise real estate platform, driving design decisions across distributed, multi-tiered systems.
+
+\item Built Python batch pipelines with algorithmic validation and retry logic for scheduled data processing; containerized the workflow with Docker, cutting execution time from 240 min to 58 min (76\% faster).
+
+\item Automated database versioning and deployment via Liquibase and Jenkins CI/CD, and established containerized, tested release pipelines with Ansible and Playwright, improving deployment speed and release consistency across environments.
+
+\end{itemize}
+}
+\end{tabularx}
+
+\vspace{1.5mm}
+
+\vspace{-5mm}
+\section{\textbf{Projects}}
+\vspace{-0.4mm}
+\resumeSubHeadingListStart
+
+\resumeProject
+{  PayBench (Agent Payment Benchmark)}
+{Tools: Python, TypeScript, Node.js, double-entry ledger, mutation-tested graders}
+{2026}
+{}
+\vspace{-3mm}
+
+\resumeItemListStart
+  \item {Built a seeded payments simulator with a double-entry ledger and scripted faults including TIMEOUT\_AFTER\_COMMIT so agents are graded on final world state, not chat fluency.}
+  \item {Designed policy-aware graders (P1-P9) and mutation-tested scorers to a 64/64 kill rate, separating Oracle (idempotent) from Naive (double-pay) behavior.}
+  \item {Shipped playground and compare media that demonstrate verify-before-retry and idempotency-key replay under ambiguous timeouts.}
+\resumeItemListEnd
+\vspace{-3mm}
+
+\resumeProject
+{  TraceIQ (Incident Logger)}
+{Tools: TypeScript, DuckDB, Parquet, RLS, log-to-hypothesis pipeline}
+{2026}
+{}
+\vspace{-3mm}
+
+\resumeItemListStart
+  \item {Built a log-to-hypothesis incident assistant that ranks suspects from messy outage logs and abstains instead of inventing certainty.}
+  \item {Used DuckDB/Parquet with row-level security patterns for efficient local analysis of large log corpora.}
+  \item {Documented decoy-deploy failure modes so graders and operators can distinguish real regressions from noise.}
+\resumeItemListEnd
+\vspace{-3mm}
+
+\resumeProject
+{  duihua --- Mandarin Speaking Coach}
+{Tools: TypeScript, STT, LLM, TTS, React}
+{2026}
+{}
+\vspace{-3mm}
+
+\resumeItemListStart
+  \item {Built a speaking-coach loop that chains speech-to-text, an LLM tutor, and text-to-speech for conversational practice.}
+  \item {Shipped practice and feedback flows with honest in-progress roadmap items (tone scoring, image practice).}
+  \item {Kept the product demoable via recorded conversation GIFs while features continue to land.}
+\resumeItemListEnd
+\vspace{-3mm}
+\resumeSubHeadingListEnd
+\vspace{-9mm}
+
+\section{\textbf{Technical Skills}}
+\vspace{-0.4mm}
+\resumeHeadingSkillStart
+  \resumeSubItem{Programming: }
+    {Python, TypeScript, Java, C++, JavaScript (ES6/ES7), SQL, HTML/CSS}
+  \resumeSubItem{Frameworks \& Technologies: }
+    {Node.js, PostgreSQL, Redis, Docker, Spring Boot, React.js, Git, Angular, Better Auth, Express.js, Centrifugo, Solidity, MongoDB, Firebase, Jenkins, Ansible, Liquibase, Playwright}
+  \resumeSubItem{Cloud: }
+  {GCP (private runtime, containerized deployments); AWS Certified Cloud Practitioner --- EC2, S3, IAM}
+  \resumeSubItem{Achievements: }
+    {Winner, Code for Good --- JPMorgan Chase; Finalist, Flipkart Grid; Finalist, IVP}
+  \resumeSubItem{Course Work: }
+    {Data Structures \& Algorithms, Microservices \& Distributed Systems, DBMS (NoSQL \& Relational), Operating Systems, Computer Networks, AI / Machine Learning}
+\resumeHeadingSkillEnd
+
+\end{document}

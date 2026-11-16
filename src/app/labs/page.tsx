@@ -1,37 +1,57 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Window } from "@/components/ui/Window";
+import { Chip } from "@/components/ui/Chip";
 
-export const metadata: Metadata = { title: "Labs" };
+export const metadata: Metadata = {
+  title: "Labs",
+  description: "Interactive labs: payments, zero-knowledge, outbox, D2C lifecycle, backtests.",
+};
 
 const labs = [
   {
     slug: "paybench-timeout",
     title: "You are the agent",
     topic: "agents",
+    tone: "ai",
+    time: "~3 min",
+    difficulty: "Easy",
     blurb: "TIMEOUT_AFTER_COMMIT ledger lab — retry safely or double-pay.",
   },
   {
     slug: "zk-cats",
     title: "Zero-knowledge, explained with cats",
     topic: "zk",
+    tone: "blockchain",
+    time: "~4 min",
+    difficulty: "Easy",
     blurb: "Issuance → proof → verify, plus a Where's the cat? cave analogy.",
   },
   {
     slug: "outbox-playground",
     title: "Outbox playground",
     topic: "backend",
+    tone: "backend",
+    time: "~3 min",
+    difficulty: "Easy",
     blurb: "Kill the relay mid-flight and watch messages recover.",
   },
   {
     slug: "d2c-order-lifecycle",
     title: "D2C order-lifecycle simulator",
     topic: "commerce",
+    tone: "frontend",
+    time: "~5 min",
+    difficulty: "Medium",
     blurb: "Click order states; watch notifications and webhooks fire.",
   },
   {
     slug: "backtest-toy",
     title: "Backtest toy",
     topic: "fintech",
+    tone: "fintech",
+    time: "~3 min",
+    difficulty: "Easy",
     blurb: "Moving-average crossover on synthetic data (illustrative).",
   },
 ];
@@ -41,13 +61,21 @@ export default function LabsPage() {
     <div className="container-site section-pad">
       <p className="eyebrow">Labs</p>
       <h1 className="display text-4xl text-ink">Interactive explainers</h1>
-      <p className="mt-3 text-ink-soft">Filter by poking the topic chips on each card.</p>
+      <p className="mt-3 max-w-xl text-ink-soft">
+        Small toys you can break. Each one mirrors a reliability idea from the work.
+      </p>
       <div className="mt-8 grid gap-4 md:grid-cols-2">
         {labs.map((lab) => (
-          <Link key={lab.slug} href={`/labs/${lab.slug}`} className="pixel-border block p-5 no-underline">
-            <span className="tag">{lab.topic}</span>
-            <h2 className="display mt-2 text-2xl text-ink">{lab.title}</h2>
-            <p className="mt-2 text-sm text-ink-soft">{lab.blurb}</p>
+          <Link key={lab.slug} href={`/labs/${lab.slug}`} className="no-underline">
+            <Window
+              title={`${lab.slug}.lab`}
+              status={`${lab.difficulty} · ${lab.time}`}
+              className="h-full transition-transform hover:-translate-x-px hover:-translate-y-px"
+            >
+              <Chip tone={lab.tone}>{lab.topic}</Chip>
+              <h2 className="display mt-2 text-2xl text-ink">{lab.title}</h2>
+              <p className="mt-2 text-sm text-ink-soft">{lab.blurb}</p>
+            </Window>
           </Link>
         ))}
       </div>
