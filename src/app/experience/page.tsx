@@ -17,6 +17,29 @@ const BULLET_LINKS: Record<string, string> = {
   "nomura-cicd": "/work/nomura-engineering",
 };
 
+function formatDates(start: string, end: string) {
+  const label = (s: string) => {
+    if (s === "Present") return "Present";
+    const [y, m] = s.split("-");
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    return `${months[Number(m) - 1] ?? m} ${y}`;
+  };
+  return `${label(start)} – ${label(end)}`;
+}
+
 export default function ExperiencePage() {
   const { identity, experience } = resume;
   const certUrl = identity.certification.verificationUrl;
@@ -25,7 +48,9 @@ export default function ExperiencePage() {
     <div className="container-site section-pad pb-16">
       <h1 className="display text-4xl text-ink">Experience</h1>
       <p className="mt-3 max-w-xl text-ink-soft">
-        A pixel path from internship to startup — expandable bullets, coloured stack chips.
+        Two roles that matter for hiring: <strong className="text-ink">Atrium</strong> (SDE,
+        current) and <strong className="text-ink">Nomura</strong> (ITD Intern). Same bullets as the
+        résumé.
       </p>
 
       <div className="relative mt-10 space-y-6 before:absolute before:bottom-8 before:left-5 before:top-8 before:w-0.5 before:bg-ink/25">
@@ -35,9 +60,14 @@ export default function ExperiencePage() {
               <PixelCat pose={i === 0 ? "sit" : "walk"} scale={1.1} />
             </div>
             <Window
-              title={`${job.company.toLowerCase().replace(/\s+/g, "-")}.role`}
-              status={`${job.start} – ${job.end}`}
+              title={`${job.company.toLowerCase()}.role`}
+              status={formatDates(job.start, job.end)}
             >
+              <div className="mb-2 flex flex-wrap gap-2">
+                <Chip tone={job.id === "atrium" ? "ai" : "fintech"}>
+                  {job.id === "atrium" ? "Current role" : "Internship"}
+                </Chip>
+              </div>
               <h2 className="display text-2xl text-ink">
                 {job.title}, {job.company}
               </h2>
@@ -45,43 +75,40 @@ export default function ExperiencePage() {
                 <p className="mt-1 text-sm text-ink-soft">{job.companyNote}</p>
               ) : null}
               <div className="mt-3 flex flex-wrap gap-1.5">
-                {job.stack.map((s) => (
-                  <Chip
-                    key={s}
-                    tone={
-                      /auth|postgres|node|java|spring|docker|redis/i.test(s)
-                        ? "backend"
-                        : /react|next|vite/i.test(s)
-                          ? "frontend"
-                          : /claude|codex|ai/i.test(s)
-                            ? "ai"
+                {job.stack
+                  .filter((s) => !/claude|codex/i.test(s))
+                  .map((s) => (
+                    <Chip
+                      key={s}
+                      tone={
+                        /auth|postgres|node|java|spring|docker|redis/i.test(s)
+                          ? "backend"
+                          : /react|next|vite/i.test(s)
+                            ? "frontend"
                             : "infra"
-                    }
-                  >
-                    {s}
-                  </Chip>
-                ))}
+                      }
+                    >
+                      {s}
+                    </Chip>
+                  ))}
               </div>
-              <ul className="mt-4 space-y-3">
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-ink-soft">
                 {job.bullets.map((b) => {
                   const href =
                     ("projectSlug" in b && b.projectSlug
                       ? `/work/${b.projectSlug}`
                       : BULLET_LINKS[b.id]) ?? null;
                   return (
-                    <li key={b.id} className="text-sm text-ink-soft">
-                      <details>
-                        <summary className="cursor-pointer font-medium text-ink">
-                          {b.text.slice(0, 90)}
-                          {b.text.length > 90 ? "…" : ""}
-                        </summary>
-                        <p className="mt-2">{b.text}</p>
-                        {href ? (
-                          <Link href={href} className="mt-2 inline-block text-sm">
-                            Open detail →
+                    <li key={b.id}>
+                      <span className="text-ink">{b.text}</span>
+                      {href ? (
+                        <>
+                          {" "}
+                          <Link href={href} className="text-sm">
+                            Detail →
                           </Link>
-                        ) : null}
-                      </details>
+                        </>
+                      ) : null}
                     </li>
                   );
                 })}
@@ -122,12 +149,20 @@ export default function ExperiencePage() {
 
       <section className="mt-12">
         <h2 className="display text-2xl text-ink">Achievements</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
-          {identity.achievements.map((a) => (
-            <Window key={a} title="trophy.card">
-              <p className="text-sm font-medium text-ink">{a}</p>
-            </Window>
-          ))}
+        <p className="mt-1 text-sm text-ink-soft">Hackathons, olympiads, and math competitions.</p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {identity.achievements.map((a) => {
+            const math = /INMO|RMO|math/i.test(a);
+            return (
+              <Window
+                key={a}
+                title={math ? "math.trophy" : "trophy.card"}
+                className={math ? "ring-2 ring-butter" : undefined}
+              >
+                <p className="text-sm font-medium text-ink">{a}</p>
+              </Window>
+            );
+          })}
         </div>
       </section>
 

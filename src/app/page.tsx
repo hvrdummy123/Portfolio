@@ -86,7 +86,7 @@ export default function HomePage() {
               <Window
                 key={job.id}
                 title={`${job.company.toLowerCase()}.role`}
-                status={`${job.start} – ${job.end}`}
+                status={job.startLabel.replace(/--/g, "–")}
                 className="relative ml-4 pl-2"
               >
                 <div className="absolute -left-7 top-4 grid h-6 w-6 place-items-center rounded-full border-2 border-ink bg-butter">
@@ -95,7 +95,14 @@ export default function HomePage() {
                 <p className="font-medium text-ink">
                   {job.title}, {job.company}
                 </p>
-                <p className="mt-2 text-sm text-ink-soft">{job.bullets[0]?.text}</p>
+                {"companyNote" in job && job.companyNote ? (
+                  <p className="text-xs text-ink-soft">{job.companyNote}</p>
+                ) : null}
+                <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-ink-soft">
+                  {job.bullets.slice(0, 2).map((b) => (
+                    <li key={b.id}>{b.text}</li>
+                  ))}
+                </ul>
               </Window>
             ))}
           </div>

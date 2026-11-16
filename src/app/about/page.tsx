@@ -11,13 +11,13 @@ export const metadata: Metadata = {
 };
 
 const topics = [
+  "Mathematics & puzzles",
   "Reliable systems",
   "Agent evals",
   "Idempotency & failure handling",
   "Zero-knowledge",
   "Payments & fintech",
   "D2C commerce",
-  "Developer tooling",
 ];
 
 export default function AboutPage() {
@@ -38,7 +38,7 @@ export default function AboutPage() {
           <div>
             <p className="display text-xl">Harshita Ranka</p>
             <p className="mt-1 text-sm text-ink-soft">
-              Software engineer. Mochi keeps the seat warm until a photo lands here.
+              Software engineer in Mumbai. Mochi is holding this spot until a photo lands here.
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <Button href="/resumes" variant="secondary">
@@ -53,17 +53,20 @@ export default function AboutPage() {
       <div className="mt-8 space-y-4 text-ink">
         <p>
           I&apos;m a B.Tech Computer Engineering student at MPSTME, NMIMS Mumbai (CGPA{" "}
-          {siteConfig.cgpa}, class of {siteConfig.classOf}). I care about systems that survive the
+          {siteConfig.cgpa}, class of {siteConfig.classOf}). My favourite subject — you guessed it —
+          has always been math. I like creative problems and the quiet click of a creative solution.
+        </p>
+        <p>
+          That same instinct shows up in the systems I build. I care about software that survives the
           ugly path: timeouts after commit, relay crashes, webhook replays, graders that can be
-          mutated.
+          mutated. Lately that looks like transactional outboxes for chat at Atrium, Better Auth for
+          marketplace planes, agent benchmarks that score ledgers instead of prose, and a
+          Medusa-based D2C design for Indian beverage commerce — plus a Nomura internship on batch
+          pipelines and releases.
         </p>
         <p>
-          Lately that looks like transactional outboxes for chat, Better Auth for marketplace planes,
-          agent benchmarks that score ledgers instead of prose, and a Medusa-based D2C design for
-          Indian beverage commerce.
-        </p>
-        <p>
-          Outside of code I crochet, solve puzzles, and mess around with a ukulele.{" "}
+          Outside of code I love solving puzzles (Sudoku included), singing, and learning the
+          ukulele.{" "}
           <Link href="/beyond-code">Beyond Code ↗</Link>
         </p>
       </div>

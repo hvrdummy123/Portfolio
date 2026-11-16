@@ -36,6 +36,9 @@ export const resume = {
       "Winner, Code for Good — JPMorgan Chase",
       "Finalist, Flipkart Grid",
       "Finalist, IVP",
+      "INMO Qualifier",
+      "RMO Top 30 Rank (2021)",
+      "Multiple mathematics competition wins",
     ],
     coursework: [
       "Data Structures & Algorithms",
@@ -83,8 +86,9 @@ export const resume = {
     {
       id: "atrium",
       title: "SDE",
-      company: "Atrium - AI Powered E-Commerce Startup (Pre-launch)",
-      companyNote: "E-commerce startup, pre-launch",
+      company: "Atrium",
+      companyFull: "Atrium - AI Powered E-Commerce Startup (Pre-launch)",
+      companyNote: "AI-powered e-commerce startup (pre-launch)",
       location: "Remote / India",
       startLabel: "Aug 2026 -- Present",
       start: "2026-08",
@@ -129,7 +133,9 @@ export const resume = {
     {
       id: "nomura",
       title: "ITD Intern",
-      company: "Nomura Services India Pvt. Ltd.",
+      company: "Nomura",
+      companyFull: "Nomura Services India Pvt. Ltd.",
+      companyNote: "Nomura Services India Pvt. Ltd.",
       location: "India",
       startLabel: "Jan 2026 -- Jun 2026",
       start: "2026-01",

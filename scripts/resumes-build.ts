@@ -132,7 +132,7 @@ function buildTex(variant: ResumeVariant) {
   for (const job of resume.experience) {
     body += `
 \\begin{tabularx}{\\linewidth}{ @{}l r@{} }
-\\textbf{${esc(job.title)} $|$ ${esc(job.company)}} & \\hfill \\textit{${esc(job.startLabel)}} \\\\[0pt]
+\\textbf{${esc(job.title)} $|$ ${esc("companyFull" in job && job.companyFull ? job.companyFull : job.company)}} & \\hfill \\textit{${esc(job.startLabel)}} \\\\[0pt]
 \\multicolumn{2}{@{}X@{}}{\\textit{${esc(job.stackLine)}}} \\\\[0pt]
 \\multicolumn{2}{@{}X@{}}{
 \\begin{itemize}[leftmargin=3ex, rightmargin=2ex, noitemsep, labelsep=1.2mm, itemsep=0.4mm]\\small
@@ -209,7 +209,7 @@ function buildHtml(variant: ResumeVariant) {
       (job) => `
       <div class="job">
         <div class="job-head">
-          <strong>${escapeHtml(job.title)} | ${escapeHtml(job.company)}</strong>
+          <strong>${escapeHtml(job.title)} | ${escapeHtml((job as { companyFull?: string }).companyFull ?? job.company)}</strong>
           <em>${escapeHtml(job.startLabel)}</em>
         </div>
         <p class="stack"><em>${escapeHtml(job.stackLine)}</em></p>

@@ -61,7 +61,7 @@ export function OverleafResume({ variant, showDiff = false, className = "" }: Pr
             <div className="or-job-head">
               <p className="or-job-title">
                 <strong>
-                  {job.title} | {job.company}
+                  {job.title} | {(job as { companyFull?: string }).companyFull ?? job.company}
                 </strong>
               </p>
               <p className="or-job-dates">
