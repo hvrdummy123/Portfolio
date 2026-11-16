@@ -15,7 +15,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const note = notes.find((n) => n.slug === slug);
-  return { title: note?.title ?? "Design note" };
+  if (!note) return { title: "Design note" };
+  const title = note.title.slice(0, 55);
+  const description = note.excerpt.slice(0, 155);
+  return {
+    title,
+    description,
+    alternates: { canonical: `/notes/${note.slug}` },
+    openGraph: {
+      title,
+      description,
+      url: `/notes/${note.slug}`,
+      type: "article",
+    },
+  };
 }
 
 export default async function NotePage({

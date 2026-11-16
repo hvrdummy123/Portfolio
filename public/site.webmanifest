@@ -1,0 +1,16 @@
+{
+  "name": "Harshita Ranka — Portfolio",
+  "short_name": "Harshita",
+  "description": "Software engineer portfolio — backends, agents, and commerce.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBF8F4",
+  "theme_color": "#B9A4F0",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ]
+}

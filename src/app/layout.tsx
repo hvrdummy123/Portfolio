@@ -8,6 +8,7 @@ import { CommandPalette } from "@/components/layout/CommandPalette";
 import { CursorCat } from "@/components/cats/CursorCat";
 import { EasterEggs } from "@/components/cats/EasterEggs";
 import { siteConfig } from "@/content/data/site.config";
+import { PersonJsonLd, WebsiteJsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -41,12 +42,15 @@ export const metadata: Metadata = {
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.valueProp,
+  applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.name, url: siteConfig.url }],
   openGraph: {
     title: `${siteConfig.name} — ${siteConfig.title}`,
     description: siteConfig.valueProp,
     type: "website",
     url: siteConfig.url,
     siteName: siteConfig.name,
+    locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
@@ -54,11 +58,14 @@ export const metadata: Metadata = {
     description: siteConfig.valueProp,
   },
   alternates: {
-    canonical: "/",
     types: {
       "application/rss+xml": "/rss.xml",
     },
   },
+  other: {
+    "theme-color": "#B9A4F0",
+  },
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -69,6 +76,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col">
+        <PersonJsonLd />
+        <WebsiteJsonLd />
         <PrefsProvider>
           <a href="#main" className="skip-link">
             Skip to content

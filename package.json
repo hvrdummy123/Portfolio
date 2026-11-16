@@ -9,12 +9,13 @@
     "lint": "eslint",
     "lint:copy": "node scripts/lint-copy.mjs",
     "check:content": "node --import tsx scripts/check-content.ts",
+    "check:resume": "node --import tsx scripts/check-resume-profile.ts",
     "gh:sync": "node scripts/gh-sync.mjs",
     "coverage:check": "node scripts/coverage-check.mjs",
     "content:check": "node scripts/content-check.mjs",
     "resumes:build": "tsx scripts/resumes-build.ts",
     "resumes:install-browser": "playwright install chromium",
-    "prebuild": "pnpm lint:copy && pnpm check:content"
+    "prebuild": "pnpm lint:copy && pnpm check:content && pnpm check:resume"
   },
   "dependencies": {
     "clsx": "^2.1.1",
