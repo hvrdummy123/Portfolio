@@ -1,53 +1,71 @@
 @import "tailwindcss";
 
 :root {
-  --cream: #fff8f0;
+  /* Phase 3 tokens — light */
+  --cream: #fbf8f4;
   --paper: #ffffff;
-  --blush: #ffd6e0;
-  --lavender: #d9c8f5;
-  --mint: #cdefe0;
-  --butter: #fff1b8;
-  --sky: #cfe6ff;
-  --peach: #ffd9c0;
-  --ink: #2f2748;
-  --ink-soft: #5e5578;
-  --line: #2f2748;
-  --berry: #b8456f;
-  --grape: #6c5bd6;
+  --blush: #ffc7b2;
+  --lavender: #b9a4f0;
+  --mint: #bde8d4;
+  --butter: #ffe9a8;
+  --sky: #bfddf7;
+  --peach: #ffc7b2;
+  --ink: #2b2733;
+  --ink-soft: #6b6475;
+  --line: #e5dfea;
+  --berry: #5b43c4;
+  --grape: #5b43c4;
   --leaf: #3f9b7a;
-  --tomato: #d6534b;
+  --tomato: #c2410c;
+  --lilac: #b9a4f0;
+  --lilac-text: #5b43c4;
 
-  --bg: var(--cream);
-  --surface: var(--paper);
-  --surface-2: #fff0f5;
-  --accent: var(--berry);
-  --accent-2: var(--grape);
-  --shadow: 4px 4px 0 var(--ink);
+  --bg: #fbf8f4;
+  --surface: #ffffff;
+  --surface-2: #f3eef8;
+  --accent: var(--lilac-text);
+  --accent-2: var(--lilac);
+  --shadow: 4px 4px 0 0 var(--ink);
   --radius: 12px;
+  --radius-pixel: 4px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --content-max: 1120px;
+  --prose-max: 68ch;
+  --motion: 180ms ease-out;
 }
 
 [data-theme="dark"] {
-  --bg: #1b1730;
-  --surface: #272142;
-  --surface-2: #322c52;
-  --cream: #1b1730;
-  --paper: #272142;
-  --blush: #c48a98;
-  --lavender: #a994d4;
+  --bg: #16131c;
+  --surface: #1f1a28;
+  --surface-2: #2a2436;
+  --cream: #16131c;
+  --paper: #1f1a28;
+  --blush: #c49a88;
+  --lavender: #9b8bc4;
   --mint: #8fb9a8;
   --butter: #c9b87a;
   --sky: #8fadd4;
   --peach: #c49a80;
-  --ink: #f6f0ff;
-  --ink-soft: #c4b8d9;
-  --line: #f6f0ff;
-  --berry: #ff8fb5;
-  --grape: #a99bff;
+  --ink: #f1edf7;
+  --ink-soft: #a79fb5;
+  --line: #3a3348;
+  --berry: #c4b0ff;
+  --grape: #c4b0ff;
   --leaf: #5ec49a;
-  --tomato: #ff7a70;
-  --accent: var(--berry);
-  --accent-2: var(--grape);
-  --shadow: 4px 4px 0 #0f0c18;
+  --tomato: #e07050;
+  --lilac: #9b8bc4;
+  --lilac-text: #c4b0ff;
+  --accent: var(--lilac-text);
+  --accent-2: var(--lilac);
+  --shadow: 4px 4px 0 0 #0a0810;
 }
 
 @theme inline {
@@ -78,10 +96,11 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce),
+html.reduce-motion {
+  scroll-behavior: auto;
+}
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   *,
   *::before,
   *::after {
@@ -90,18 +109,32 @@ html {
     transition-duration: 0.01ms !important;
   }
 }
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
 
 body {
   background-color: var(--bg);
-  background-image: radial-gradient(circle, color-mix(in srgb, var(--ink) 12%, transparent) 1px, transparent 1.2px);
-  background-size: 16px 16px;
   color: var(--ink);
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 17px;
-  line-height: 1.65;
+  font-size: clamp(16px, 0.2vw + 15.5px, 18px);
+  line-height: 1.6;
   font-variant-numeric: tabular-nums;
   min-height: 100vh;
   padding-bottom: 4.5rem;
+}
+
+.hero-dots {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--ink) 6%, transparent) 1px,
+    transparent 1.2px
+  );
+  background-size: 14px 14px;
 }
 
 @media (min-width: 768px) {
@@ -141,23 +174,32 @@ a:hover {
 }
 
 .display {
-  font-family: var(--font-pixelify), monospace;
-  letter-spacing: 0.01em;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   line-height: 1.15;
 }
 
+h1.display {
+  font-size: clamp(40px, 4vw + 24px, 64px);
+}
+
+h2.display {
+  font-size: clamp(28px, 2vw + 18px, 40px);
+}
+
 .stat-value {
-  font-family: var(--font-pixelify), monospace;
+  font-family: var(--font-jetbrains), ui-monospace, monospace;
   font-variant-numeric: tabular-nums;
   color: var(--berry);
 }
 
 .prose-narrow {
-  max-width: 720px;
+  max-width: var(--prose-max);
 }
 
 .container-site {
-  width: min(1200px, calc(100% - 2rem));
+  width: min(var(--content-max), calc(100% - 2rem));
   margin-inline: auto;
 }
 
@@ -258,22 +300,23 @@ a:hover {
   align-items: center;
   justify-content: center;
   gap: 0.35rem;
+  min-height: 44px;
   padding: 0.55rem 1rem;
   border: 2px solid var(--ink);
-  border-radius: 8px;
-  background: var(--berry);
-  color: #fff8f0;
+  border-radius: var(--radius-pixel);
+  background: var(--lilac-text);
+  color: #fbf8f4;
   font-family: var(--font-pixelify), monospace;
   font-size: 0.85rem;
   box-shadow: 3px 3px 0 var(--ink);
   text-decoration: none;
-  transition: transform 100ms ease, box-shadow 100ms ease;
+  transition: transform var(--motion), box-shadow var(--motion);
 }
 
 .btn:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 4px 4px 0 var(--ink);
-  color: #fff8f0;
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--ink);
+  color: #fbf8f4;
 }
 
 .btn:active {
@@ -282,7 +325,7 @@ a:hover {
 }
 
 .btn-secondary {
-  background: var(--cream);
+  background: var(--surface);
   color: var(--ink);
 }
 
@@ -354,11 +397,52 @@ a:hover {
   background: var(--blush);
 }
 
+.card-lift {
+  transition: transform var(--motion), box-shadow var(--motion);
+}
+.card-lift:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 0 var(--ink);
+}
+
+.callout {
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  background: var(--surface-2);
+}
+.callout-warning {
+  background: color-mix(in srgb, var(--butter) 55%, var(--surface));
+}
+.callout-info {
+  background: color-mix(in srgb, var(--sky) 55%, var(--surface));
+}
+
+.toc-sticky {
+  position: sticky;
+  top: 5.5rem;
+  max-height: calc(100vh - 6rem);
+  overflow: auto;
+}
+
+.skim-mode section > p:first-of-type {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.skim-mode section ul,
+.skim-mode section table,
+.skim-mode section .win + .win {
+  display: none;
+}
+
 @media print {
   header,
   footer,
   .mobile-tabbar,
-  .skip-link {
+  .skip-link,
+  .no-print {
     display: none !important;
   }
 
@@ -367,9 +451,16 @@ a:hover {
     background-image: none !important;
     padding: 0 !important;
     font-size: 11pt;
+    color: #000 !important;
   }
 
   main {
     margin: 0 !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #444;
   }
 }
