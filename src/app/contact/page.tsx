@@ -55,7 +55,7 @@ END:VCARD`;
           <p className="mt-4 max-w-xl text-ink-soft">{siteConfig.availability}</p>
           <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-mint px-3 py-1 text-xs">
             <span className="h-2 w-2 rounded-full bg-leaf" aria-hidden />
-            Usually replies within a few days · {siteConfig.location}
+            {siteConfig.location} · Class of {siteConfig.classOf}
           </p>
           <div className="mt-6">
             <p className="eyebrow mb-2">Preferred roles</p>

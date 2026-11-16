@@ -18,7 +18,7 @@ export default function HomePage() {
 
   return (
     <div>
-      <section className="container-site section-pad !pb-6">
+      <section className="hero-dots container-site section-pad !pb-6">
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div>
             <p className="eyebrow mb-3">{profile.hero.eyebrow}</p>

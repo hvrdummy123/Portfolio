@@ -8,7 +8,7 @@ export const projects: Project[] = [
     pitch:
       "Indian D2C beverage commerce on Medusa v2 — phone-first, WhatsApp post-purchase, COD-ready.",
     year: 2026,
-    status: "built",
+    status: "in-progress",
     kind: "personal",
     roles: ["backend", "fullstack", "quant-fintech"],
     weight: {
@@ -28,9 +28,9 @@ export const projects: Project[] = [
     ],
     stats: [
       {
-        label: "Status",
-        value: "Built + Designed MWM",
-        source: "resume + mwm-system-design.md",
+        label: "10k DAU topology",
+        value: "Designed",
+        source: "mwm-system-design.md",
       },
     ],
     links: {},
@@ -131,7 +131,7 @@ export const projects: Project[] = [
     slug: "zkp-kyc",
     title: "Privacy-Preserving KYC",
     pitch:
-      "zkP-KYC: prove state-of-residence (and selective attributes) with Circom + Groth16 + on-chain verification.",
+      "Prove state-of-residence with Circom + Groth16 without handing over the full credential. Age-gate and other selective attributes are supported as extensions.",
     year: 2026,
     status: "built",
     kind: "github",

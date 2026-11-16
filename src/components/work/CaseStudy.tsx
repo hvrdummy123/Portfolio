@@ -4,10 +4,14 @@ import { STATUS_LABELS } from "@/content/data/types";
 import { getNarrative } from "@/content/data/projectNarratives";
 import { notes } from "@/content/data/notes";
 import { projects } from "@/content/data/projects";
+import { getProjectExtra } from "@/content/data/projectExtras";
 import { ProjectMedia } from "@/components/work/ProjectMedia";
 import { Window } from "@/components/ui/Window";
 import { Chip } from "@/components/ui/Chip";
 import { Button } from "@/components/ui/Button";
+import { Callout } from "@/components/ui/Callout";
+import { EvidenceBadge } from "@/components/ui/EvidenceBadge";
+import { CaseStudyChrome } from "@/components/work/CaseStudyChrome";
 
 const LAB_FOR: Record<string, { href: string; label: string }> = {
   paybench: { href: "/labs/paybench-timeout", label: "Break the payment" },
@@ -15,11 +19,21 @@ const LAB_FOR: Record<string, { href: string; label: string }> = {
   "d2c-ecommerce": { href: "/labs/d2c-order-lifecycle", label: "Order lifecycle" },
   "etf-backtesting": { href: "/labs/backtest-toy", label: "Backtest toy" },
   "atrium-engineering": { href: "/labs/outbox-playground", label: "Outbox playground" },
-  "incident-logger": { href: "/labs/outbox-playground", label: "Related labs" },
 };
 
 function noteTitle(slug: string) {
   return notes.find((n) => n.slug === slug)?.title ?? slug;
+}
+
+function evidenceForSource(source: string): "verifiable" | "private" | "illustrative" {
+  const s = source.toLowerCase();
+  if (s.includes("readme") || s.includes("repo") || s.includes("pytest") || s.includes("ci")) {
+    return "verifiable";
+  }
+  if (s.includes("synthetic") || s.includes("illustrative") || s.includes("toy")) {
+    return "illustrative";
+  }
+  return "private";
 }
 
 export function CaseStudy({
@@ -32,6 +46,7 @@ export function CaseStudy({
   showSamples?: boolean;
 }) {
   const story = getNarrative(project.slug);
+  const extra = getProjectExtra(project.slug);
   const problem = story?.problem ?? project.pitch;
   const solution =
     story?.solution ??
@@ -48,6 +63,23 @@ export function CaseStudy({
   const prev = idx > 0 ? projects[idx - 1] : null;
   const next = idx >= 0 && idx < projects.length - 1 ? projects[idx + 1] : null;
   const stackHasWhy = project.stack.some((s) => s.why || s.alternative);
+
+  const toc = [
+    { id: "tldr", label: "TL;DR" },
+    project.stats.length ? { id: "metrics", label: "Metrics" } : null,
+    children ? { id: "context", label: "Context" } : null,
+    extra?.diagrams?.length ? { id: "architecture", label: "Architecture" } : null,
+    project.stack.length ? { id: "stack", label: "Stack" } : null,
+    project.decisions.length ? { id: "decisions", label: "Decisions" } : null,
+    extra?.howTested?.length ? { id: "tested", label: "How tested" } : null,
+    extra?.threatModel ? { id: "threat", label: "Threat model" } : null,
+    extra?.research ? { id: "research", label: "Research" } : null,
+    extra?.limitations ? { id: "limitations", label: "Limitations" } : null,
+    lab ? { id: "try-it", label: "Try it" } : null,
+    project.qa.length ? { id: "qa", label: "Q&A" } : null,
+    project.roadmap.length ? { id: "roadmap", label: "Next" } : null,
+    story?.relatedNotes?.length ? { id: "design-notes", label: "Notes" } : null,
+  ].filter(Boolean) as { id: string; label: string }[];
 
   return (
     <article className="container-site section-pad pb-16">
@@ -109,187 +141,270 @@ export function CaseStudy({
         <p className="mt-4 text-sm text-ink-soft">{project.sourceNote}</p>
       ) : null}
 
-      {project.stats.length > 0 ? (
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {project.stats.map((s) => (
-            <div key={s.label} className="win" title={`Source: ${s.source}`}>
-              <div className="win-titlebar !py-1 !text-[10px]">
-                <div className="win-dots" aria-hidden>
-                  <span />
-                  <span />
-                  <span />
-                </div>
-                {s.label}
-              </div>
-              <div className="win-body !py-3 text-center">
-                <p className="stat-value text-xl">{s.value}</p>
-              </div>
+      <div className="mt-10">
+        <CaseStudyChrome toc={toc}>
+          <section id="tldr">
+            <h2 className="display text-2xl text-ink">TL;DR</h2>
+            <div className="mt-4 grid gap-4 md:grid-cols-3">
+              {[
+                { id: "problem", title: "Problem", body: problem },
+                { id: "built", title: "What I built", body: solution },
+                {
+                  id: "result",
+                  title: "Result",
+                  body: impact,
+                },
+              ]
+                .filter((c) => c.body)
+                .map((card) => (
+                  <Window key={card.id} title={`${card.id}.txt`}>
+                    <h3 className="display text-lg text-ink">{card.title}</h3>
+                    <p className="mt-2 text-sm text-ink-soft">{card.body}</p>
+                  </Window>
+                ))}
             </div>
-          ))}
-        </div>
-      ) : null}
-
-      <div className="mt-10 grid gap-4 md:grid-cols-3">
-        {[
-          { id: "problem", title: "Problem", body: problem },
-          { id: "built", title: "What I built", body: solution },
-          { id: "result", title: "Result", body: impact ?? "See stack and notes for the deeper rationale." },
-        ].map((card) => (
-          <Window key={card.id} title={`${card.id}.txt`}>
-            <h2 className="display text-lg text-ink">{card.title}</h2>
-            <p className="mt-2 text-sm text-ink-soft">{card.body}</p>
-          </Window>
-        ))}
-      </div>
-
-      <div className="prose-narrow mt-12 space-y-12">
-        {children}
-
-        {lab ? (
-          <section id="try-it">
-            <Window title="try-it.lab" status="interactive">
-              <h2 className="display text-xl text-ink">Try it</h2>
-              <p className="mt-2 text-sm text-ink-soft">
-                A hands-on lab for the reliability idea behind this project.
-              </p>
-              <Button href={lab.href} className="mt-4">
-                {lab.label} →
-              </Button>
-            </Window>
           </section>
-        ) : null}
 
-        {project.stack.length > 0 ? (
-          <section id="stack">
-            <h2 className="display text-2xl text-ink">
-              {stackHasWhy ? "Stack · why this, not that" : "Stack"}
-            </h2>
-            {stackHasWhy ? (
-              <div className="mt-4 overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b-2 border-ink text-left">
-                      <th className="py-2">Choice</th>
-                      <th>Layer</th>
-                      <th>Why</th>
-                      <th>Alternative</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {project.stack
-                      .filter((s) => s.why || s.alternative)
-                      .map((s) => (
-                        <tr key={s.name} className="border-b border-line">
-                          <td className="py-2 pr-3 font-medium">{s.name}</td>
-                          <td className="pr-3">
-                            <Chip tone={s.layer === "frontend" ? "frontend" : "backend"}>
-                              {s.layer}
-                            </Chip>
-                          </td>
-                          <td className="pr-3 text-ink-soft">{s.why}</td>
-                          <td className="text-ink-soft">{s.alternative}</td>
-                        </tr>
-                      ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <div className="mt-4 flex flex-wrap gap-2">
-                {project.stack.map((s) => (
-                  <Chip key={s.name} tone={s.layer === "frontend" ? "frontend" : "backend"}>
-                    {s.name}
-                  </Chip>
+          {project.stats.length > 0 ? (
+            <section id="metrics">
+              <h2 className="display text-2xl text-ink">Key metrics</h2>
+              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {project.stats.map((s) => (
+                  <div key={s.label} className="win" title={s.source}>
+                    <div className="win-titlebar !py-1 !text-[10px]">
+                      <div className="win-dots" aria-hidden>
+                        <span />
+                        <span />
+                        <span />
+                      </div>
+                      {s.label}
+                    </div>
+                    <div className="win-body !py-3 text-center">
+                      <p className="stat-value text-xl">{s.value}</p>
+                      <div className="mt-2 flex justify-center">
+                        <EvidenceBadge level={evidenceForSource(s.source)} />
+                      </div>
+                    </div>
+                  </div>
                 ))}
               </div>
-            )}
-          </section>
-        ) : null}
+            </section>
+          ) : null}
 
-        {project.decisions.length > 0 ? (
-          <section id="decisions">
-            <h2 className="display text-2xl text-ink">Decisions & trade-offs</h2>
-            <div className="mt-4 space-y-3">
-              {project.decisions.map((d, i) => (
-                <Window key={i} title={`adr-${i + 1}.md`}>
-                  <p className="text-sm">
-                    <span className="font-medium">Context — </span>
-                    <span className="text-ink-soft">{d.context}</span>
-                  </p>
-                  <p className="mt-2 text-sm">
-                    <span className="font-medium">Decision — </span>
-                    <span className="text-ink-soft">{d.decision}</span>
-                  </p>
-                  <p className="mt-2 text-sm">
-                    <span className="font-medium">Consequence — </span>
-                    <span className="text-ink-soft">{d.consequence}</span>
-                  </p>
-                </Window>
-              ))}
+          {children ? (
+            <section id="context">
+              <h2 className="display text-2xl text-ink">Context</h2>
+              <div className="mt-4 space-y-4">{children}</div>
+            </section>
+          ) : null}
+
+          {extra?.diagrams?.map((d) => (
+            <section id="architecture" key={d.title}>
+              <h2 className="display text-2xl text-ink">{d.title}</h2>
+              <div
+                className="mt-4 overflow-x-auto rounded-xl border-2 border-ink bg-surface p-4"
+                dangerouslySetInnerHTML={{ __html: d.svg }}
+              />
+              <p className="mt-2 text-sm text-ink-soft">{d.caption}</p>
+            </section>
+          ))}
+
+          {project.stack.length > 0 ? (
+            <section id="stack">
+              <h2 className="display text-2xl text-ink">
+                {stackHasWhy ? "Stack · why this, not that" : "Stack"}
+              </h2>
+              {stackHasWhy ? (
+                <div className="mt-4 overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b-2 border-ink text-left">
+                        <th className="py-2">Choice</th>
+                        <th>Layer</th>
+                        <th>Why</th>
+                        <th>Alternative</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {project.stack
+                        .filter((s) => s.why || s.alternative)
+                        .map((s) => (
+                          <tr key={s.name} className="border-b border-line">
+                            <td className="py-2 pr-3 font-medium">{s.name}</td>
+                            <td className="pr-3">
+                              <Chip tone={s.layer === "frontend" ? "frontend" : "backend"}>
+                                {s.layer}
+                              </Chip>
+                            </td>
+                            <td className="pr-3 text-ink-soft">{s.why}</td>
+                            <td className="text-ink-soft">{s.alternative}</td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {project.stack.map((s) => (
+                    <Chip key={s.name} tone={s.layer === "frontend" ? "frontend" : "backend"}>
+                      {s.name}
+                    </Chip>
+                  ))}
+                </div>
+              )}
+            </section>
+          ) : null}
+
+          {project.decisions.length > 0 ? (
+            <section id="decisions">
+              <h2 className="display text-2xl text-ink">Key decisions</h2>
+              <div className="mt-4 space-y-3">
+                {project.decisions.map((d, i) => (
+                  <Window key={i} title={`adr-${i + 1}.md`}>
+                    <p className="text-sm">
+                      <span className="font-medium">Context — </span>
+                      <span className="text-ink-soft">{d.context}</span>
+                    </p>
+                    <p className="mt-2 text-sm">
+                      <span className="font-medium">Decision — </span>
+                      <span className="text-ink-soft">{d.decision}</span>
+                    </p>
+                    <p className="mt-2 text-sm">
+                      <span className="font-medium">Consequence — </span>
+                      <span className="text-ink-soft">{d.consequence}</span>
+                    </p>
+                  </Window>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {extra?.howTested?.length ? (
+            <section id="tested">
+              <h2 className="display text-2xl text-ink">How I tested it</h2>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-ink-soft">
+                {extra.howTested.map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {extra?.threatModel ? (
+            <section id="threat">
+              <h2 className="display text-2xl text-ink">{extra.threatModel.title}</h2>
+              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-ink-soft">
+                {extra.threatModel.points.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {extra?.research ? (
+            <section id="research">
+              <h2 className="display text-2xl text-ink">Research</h2>
+              <Callout title={extra.research.title} tone="info">
+                <p>{extra.research.blurb}</p>
+                <p className="mt-2">
+                  <a href={extra.research.href} target="_blank" rel="noreferrer">
+                    Open PDF
+                  </a>
+                </p>
+              </Callout>
+            </section>
+          ) : null}
+
+          {extra?.verifyCommands?.length ? (
+            <section id="verify">
+              <h2 className="display text-2xl text-ink">Verify it yourself</h2>
+              <pre className="mt-4 overflow-x-auto rounded-lg border-2 border-ink bg-surface-2 p-4 font-[family-name:var(--font-jetbrains)] text-xs">
+                {extra.verifyCommands.join("\n")}
+              </pre>
+            </section>
+          ) : null}
+
+          {extra?.limitations ? (
+            <section id="limitations">
+              <h2 className="display text-2xl text-ink">Limitations</h2>
+              <Callout tone="warning" title="Honest limits">
+                {extra.limitations}
+              </Callout>
+            </section>
+          ) : null}
+
+          {lab ? (
+            <section id="try-it">
+              <Window title="try-it.lab" status="interactive">
+                <h2 className="display text-xl text-ink">Try it</h2>
+                <p className="mt-2 text-sm text-ink-soft">
+                  A hands-on lab for the reliability idea behind this project.
+                </p>
+                <Button href={lab.href} className="mt-4">
+                  {lab.label} →
+                </Button>
+              </Window>
+            </section>
+          ) : null}
+
+          {project.qa.length > 0 ? (
+            <section id="qa">
+              <h2 className="display text-2xl text-ink">Recruiter Q&A</h2>
+              <div className="mt-4 space-y-2">
+                {project.qa.map((item) => (
+                  <details key={item.q} className="win">
+                    <summary className="win-titlebar cursor-pointer list-none">
+                      <div className="win-dots" aria-hidden>
+                        <span />
+                        <span />
+                        <span />
+                      </div>
+                      <span className="flex-1">{item.q}</span>
+                    </summary>
+                    <div className="win-body text-sm text-ink-soft">{item.a}</div>
+                  </details>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
+          {project.roadmap.length > 0 ? (
+            <section id="roadmap">
+              <h2 className="display text-2xl text-ink">If I had another month</h2>
+              <ul className="mt-4 space-y-2">
+                {project.roadmap.map((r) => (
+                  <li key={r} className="flex gap-2 text-sm text-ink-soft">
+                    <span className="tag shrink-0">→</span>
+                    {r}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {story?.relatedNotes && story.relatedNotes.length > 0 ? (
+            <section id="design-notes">
+              <h2 className="display text-2xl text-ink">Related notes</h2>
+              <ul className="mt-3 space-y-2">
+                {story.relatedNotes.map((slug) => (
+                  <li key={slug}>
+                    <Link href={`/notes/${slug}`}>{noteTitle(slug)}</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          <div className="flex flex-col gap-4 border-t-2 border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <Link href="/work" className="text-sm">
+              ← Back to work
+            </Link>
+            <div className="flex flex-wrap gap-4 text-sm">
+              {prev ? <Link href={`/work/${prev.slug}`}>← {prev.title}</Link> : <span />}
+              {next ? <Link href={`/work/${next.slug}`}>{next.title} →</Link> : null}
             </div>
-          </section>
-        ) : null}
-
-        {project.qa.length > 0 ? (
-          <section id="qa">
-            <h2 className="display text-2xl text-ink">Recruiter Q&A</h2>
-            <div className="mt-4 space-y-2">
-              {project.qa.map((item) => (
-                <details key={item.q} className="win">
-                  <summary className="win-titlebar cursor-pointer list-none">
-                    <div className="win-dots" aria-hidden>
-                      <span />
-                      <span />
-                      <span />
-                    </div>
-                    <span className="flex-1">{item.q}</span>
-                  </summary>
-                  <div className="win-body text-sm text-ink-soft">{item.a}</div>
-                </details>
-              ))}
-            </div>
-          </section>
-        ) : null}
-
-        {project.roadmap.length > 0 ? (
-          <section id="roadmap">
-            <h2 className="display text-2xl text-ink">If I had another month</h2>
-            <ul className="mt-4 space-y-2">
-              {project.roadmap.map((r) => (
-                <li key={r} className="flex gap-2 text-sm text-ink-soft">
-                  <span className="tag shrink-0">→</span>
-                  {r}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
-
-        {story?.relatedNotes && story.relatedNotes.length > 0 ? (
-          <section id="design-notes">
-            <h2 className="display text-2xl text-ink">Related design notes</h2>
-            <ul className="mt-3 space-y-2">
-              {story.relatedNotes.map((slug) => (
-                <li key={slug}>
-                  <Link href={`/notes/${slug}`}>{noteTitle(slug)}</Link>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ) : null}
-
-        <div className="flex flex-col gap-4 border-t-2 border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <Link href="/work" className="text-sm">
-            ← Back to work
-          </Link>
-          <div className="flex flex-wrap gap-4 text-sm">
-            {prev ? (
-              <Link href={`/work/${prev.slug}`}>← {prev.title}</Link>
-            ) : (
-              <span />
-            )}
-            {next ? <Link href={`/work/${next.slug}`}>{next.title} →</Link> : null}
           </div>
-        </div>
+        </CaseStudyChrome>
       </div>
     </article>
   );

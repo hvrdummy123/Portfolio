@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/contact",
     "/work/d2c-ecommerce",
+    "/work/chat-outbox",
   ].map((path) => ({
     url: `${base}${path}`,
     lastModified: new Date(),
