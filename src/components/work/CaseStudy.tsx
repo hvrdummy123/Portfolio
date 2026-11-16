@@ -3,6 +3,7 @@ import type { Project } from "@/content/data/types";
 import { STATUS_LABELS } from "@/content/data/types";
 import { getNarrative } from "@/content/data/projectNarratives";
 import { notes } from "@/content/data/notes";
+import { projects } from "@/content/data/projects";
 import { ProjectMedia } from "@/components/work/ProjectMedia";
 import { Window } from "@/components/ui/Window";
 import { Chip } from "@/components/ui/Chip";
@@ -13,6 +14,8 @@ const LAB_FOR: Record<string, { href: string; label: string }> = {
   "zkp-kyc": { href: "/labs/zk-cats", label: "Zero-knowledge with cats" },
   "d2c-ecommerce": { href: "/labs/d2c-order-lifecycle", label: "Order lifecycle" },
   "etf-backtesting": { href: "/labs/backtest-toy", label: "Backtest toy" },
+  "atrium-engineering": { href: "/labs/outbox-playground", label: "Outbox playground" },
+  "incident-logger": { href: "/labs/outbox-playground", label: "Related labs" },
 };
 
 function noteTitle(slug: string) {
@@ -41,26 +44,34 @@ export function CaseStudy({
       ? project.stats.map((s) => `${s.label}: ${s.value}`).join(" · ")
       : undefined);
   const lab = LAB_FOR[project.slug];
+  const idx = projects.findIndex((p) => p.slug === project.slug);
+  const prev = idx > 0 ? projects[idx - 1] : null;
+  const next = idx >= 0 && idx < projects.length - 1 ? projects[idx + 1] : null;
+  const stackHasWhy = project.stack.some((s) => s.why || s.alternative);
 
   return (
     <article className="container-site section-pad pb-16">
-      <p className="eyebrow">
+      <nav className="eyebrow" aria-label="Breadcrumb">
         <Link href="/work" className="no-underline">
           Work
-        </Link>{" "}
-        · {project.year}
+        </Link>
+        <span aria-hidden> · </span>
+        <span>{project.title}</span>
+      </nav>
+      <p className="mt-2">
+        <Link href="/work" className="text-sm">
+          ← Back to work
+        </Link>
       </p>
 
       <Window
         title={`${project.slug}.case`}
         className="mt-4"
-        status={project.stack
-          .slice(0, 5)
-          .map((s) => s.name)
-          .join(" · ")}
+        status={`${project.year} · ${STATUS_LABELS[project.status]}`}
       >
         <div className="mb-3 flex flex-wrap gap-2">
           <Chip>{STATUS_LABELS[project.status]}</Chip>
+          {project.featured ? <Chip tone="ai">Featured</Chip> : null}
           {project.domainTags.map((t) => (
             <Chip key={t} tone={t}>
               {t}
@@ -87,13 +98,11 @@ export function CaseStudy({
             </Button>
           ) : null}
         </div>
-        {showSamples && project.kind === "github" ? (
-          <div className="mt-6 overflow-hidden rounded-lg border-2 border-ink bg-cream">
+        {showSamples ? (
+          <div className="mt-6 overflow-hidden rounded-lg border-2 border-ink bg-cream empty:hidden">
             <ProjectMedia slug={project.slug} />
           </div>
-        ) : (
-          <div className="mt-6 h-40 rounded-lg border-2 border-ink bg-gradient-to-br from-mint via-sky to-lavender" />
-        )}
+        ) : null}
       </Window>
 
       {project.sourceNote ? (
@@ -152,33 +161,47 @@ export function CaseStudy({
 
         {project.stack.length > 0 ? (
           <section id="stack">
-            <h2 className="display text-2xl text-ink">Stack · why this, not that</h2>
-            <div className="mt-4 overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b-2 border-ink text-left">
-                    <th className="py-2">Choice</th>
-                    <th>Layer</th>
-                    <th>Why</th>
-                    <th>Alternative</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {project.stack.map((s) => (
-                    <tr key={s.name} className="border-b border-line">
-                      <td className="py-2 pr-3 font-medium">{s.name}</td>
-                      <td className="pr-3">
-                        <Chip tone={s.layer === "frontend" ? "frontend" : "backend"}>
-                          {s.layer}
-                        </Chip>
-                      </td>
-                      <td className="pr-3 text-ink-soft">{s.why ?? "—"}</td>
-                      <td className="text-ink-soft">{s.alternative ?? "—"}</td>
+            <h2 className="display text-2xl text-ink">
+              {stackHasWhy ? "Stack · why this, not that" : "Stack"}
+            </h2>
+            {stackHasWhy ? (
+              <div className="mt-4 overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b-2 border-ink text-left">
+                      <th className="py-2">Choice</th>
+                      <th>Layer</th>
+                      <th>Why</th>
+                      <th>Alternative</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {project.stack
+                      .filter((s) => s.why || s.alternative)
+                      .map((s) => (
+                        <tr key={s.name} className="border-b border-line">
+                          <td className="py-2 pr-3 font-medium">{s.name}</td>
+                          <td className="pr-3">
+                            <Chip tone={s.layer === "frontend" ? "frontend" : "backend"}>
+                              {s.layer}
+                            </Chip>
+                          </td>
+                          <td className="pr-3 text-ink-soft">{s.why}</td>
+                          <td className="text-ink-soft">{s.alternative}</td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {project.stack.map((s) => (
+                  <Chip key={s.name} tone={s.layer === "frontend" ? "frontend" : "backend"}>
+                    {s.name}
+                  </Chip>
+                ))}
+              </div>
+            )}
           </section>
         ) : null}
 
@@ -254,9 +277,19 @@ export function CaseStudy({
           </section>
         ) : null}
 
-        <p className="text-sm">
-          <Link href="/work">← All work</Link>
-        </p>
+        <div className="flex flex-col gap-4 border-t-2 border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <Link href="/work" className="text-sm">
+            ← Back to work
+          </Link>
+          <div className="flex flex-wrap gap-4 text-sm">
+            {prev ? (
+              <Link href={`/work/${prev.slug}`}>← {prev.title}</Link>
+            ) : (
+              <span />
+            )}
+            {next ? <Link href={`/work/${next.slug}`}>{next.title} →</Link> : null}
+          </div>
+        </div>
       </div>
     </article>
   );

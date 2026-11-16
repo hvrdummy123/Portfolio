@@ -8,6 +8,7 @@ import { cn } from "@/lib/cn";
 import { PixelCat } from "@/components/cats/PixelCat";
 import { usePrefs } from "@/components/providers/PrefsProvider";
 import { ROLE_LABELS, type Role } from "@/content/data/types";
+import { MobileNavSheet } from "@/components/layout/MobileNavSheet";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -16,7 +17,7 @@ export function SiteHeader() {
   const [resumeOpen, setResumeOpen] = useState(false);
   const moreRef = useRef<HTMLDivElement>(null);
   const resumeRef = useRef<HTMLDivElement>(null);
-  const { theme, toggleTheme, role, setRole } = usePrefs();
+  const { theme, toggleTheme, setRole } = usePrefs();
 
   useEffect(() => {
     const onDoc = (e: MouseEvent) => {
@@ -117,7 +118,7 @@ export function SiteHeader() {
           </div>
 
           <Link href="/contact" className="btn !hidden !px-3 !py-1.5 !text-xs sm:!inline-flex">
-            Hire me
+            Contact
           </Link>
 
           <button
@@ -128,9 +129,10 @@ export function SiteHeader() {
           >
             <PixelCat pose={theme === "light" ? "sleep" : "idle"} scale={1.2} />
           </button>
+
+          <MobileNavSheet />
         </div>
       </div>
-      <p className="sr-only">Current role filter: {ROLE_LABELS[role]}</p>
     </header>
   );
 }

@@ -34,10 +34,22 @@ export default async function NotePage({
 
   return (
     <article className="container-site section-pad prose-narrow">
-      <p className="eyebrow">
-        Design note
-        {note.series ? ` · ${note.series}${note.part ? ` · Part ${note.part}` : ""}` : ""}
-      </p>
+      <nav className="eyebrow" aria-label="Breadcrumb">
+        <Link href="/notes" className="no-underline">
+          Notes
+        </Link>
+        <span aria-hidden> · </span>
+        <span>{note.title}</span>
+        {note.series ? (
+          <>
+            <span aria-hidden> · </span>
+            <span>
+              {note.series}
+              {note.part ? ` · Part ${note.part}` : ""}
+            </span>
+          </>
+        ) : null}
+      </nav>
       <h1 className="display mt-2 text-4xl text-ink">{note.title}</h1>
       <p className="mt-3 text-sm text-ink-soft">
         {note.date} · {note.readingMinutes} min read
