@@ -1,0 +1,174 @@
+{
+  "claims": [
+    {
+      "id": "cgpa",
+      "value": "3.95",
+      "unit": "/4",
+      "label": "CGPA",
+      "sourceType": "resume",
+      "linkOrNote": "content/profile.json · education.cgpa",
+      "evidenceLevel": "private",
+      "href": "/experience"
+    },
+    {
+      "id": "batch-speedup-pct",
+      "value": "76",
+      "unit": "%",
+      "label": "Batch pipeline speedup",
+      "sourceType": "resume",
+      "linkOrNote": "Nomura · 240 → 58 minutes",
+      "evidenceLevel": "private",
+      "href": "/work/nomura-engineering"
+    },
+    {
+      "id": "batch-before-min",
+      "value": "240",
+      "unit": "min",
+      "label": "Batch runtime before",
+      "sourceType": "resume",
+      "linkOrNote": "Nomura internship résumé bullet",
+      "evidenceLevel": "private",
+      "href": "/work/nomura-engineering"
+    },
+    {
+      "id": "batch-after-min",
+      "value": "58",
+      "unit": "min",
+      "label": "Batch runtime after",
+      "sourceType": "resume",
+      "linkOrNote": "Nomura internship résumé bullet",
+      "evidenceLevel": "private",
+      "href": "/work/nomura-engineering"
+    },
+    {
+      "id": "chat-outbox-scenarios",
+      "value": "25",
+      "unit": "scenarios",
+      "label": "Chat outbox failure scenarios",
+      "sourceType": "resume",
+      "linkOrNote": "Atrium résumé bullet · transactional outbox",
+      "evidenceLevel": "private",
+      "href": "/work/atrium-engineering"
+    },
+    {
+      "id": "paybench-mutations",
+      "value": "64/64",
+      "unit": "",
+      "label": "Scorer mutations killed",
+      "sourceType": "readme",
+      "linkOrNote": "Agent-Pro-Paybench README / validate",
+      "evidenceLevel": "verifiable",
+      "href": "/work/paybench"
+    },
+    {
+      "id": "paybench-tasks",
+      "value": "50",
+      "unit": "tasks",
+      "label": "PayBench tasks",
+      "sourceType": "readme",
+      "linkOrNote": "25 core + extended set",
+      "evidenceLevel": "verifiable",
+      "href": "/work/paybench"
+    },
+    {
+      "id": "paybench-fault-types",
+      "value": "8",
+      "unit": "fault types",
+      "label": "PayBench fault types",
+      "sourceType": "readme",
+      "linkOrNote": "Agent-Pro-Paybench README",
+      "evidenceLevel": "verifiable",
+      "href": "/work/paybench"
+    },
+    {
+      "id": "zkp-proof-under-2s",
+      "value": "under 2",
+      "unit": "seconds",
+      "label": "Proof generation",
+      "sourceType": "resume",
+      "linkOrNote": "Résumé · ZKP-KYC; paper abstract notes sub-second prototype generation",
+      "evidenceLevel": "private",
+      "href": "/work/zkp-kyc"
+    },
+    {
+      "id": "etf-records",
+      "value": "180000+",
+      "unit": "records",
+      "label": "Historical NSE records",
+      "sourceType": "resume",
+      "linkOrNote": "ETF Backtesting résumé project",
+      "evidenceLevel": "private",
+      "href": "/work/etf-backtesting"
+    },
+    {
+      "id": "etf-sim-under-3s",
+      "value": "under 3",
+      "unit": "seconds",
+      "label": "Full strategy simulation",
+      "sourceType": "resume",
+      "linkOrNote": "ETF Backtesting résumé project",
+      "evidenceLevel": "private",
+      "href": "/work/etf-backtesting"
+    },
+    {
+      "id": "etf-api-latency",
+      "value": "~120",
+      "unit": "ms",
+      "label": "REST API average latency",
+      "sourceType": "resume",
+      "linkOrNote": "ETF Backtesting résumé project",
+      "evidenceLevel": "private",
+      "href": "/work/etf-backtesting"
+    },
+    {
+      "id": "etf-dashboard-render",
+      "value": "under 700",
+      "unit": "ms",
+      "label": "Dashboard render",
+      "sourceType": "resume",
+      "linkOrNote": "ETF Backtesting résumé project",
+      "evidenceLevel": "private",
+      "href": "/work/etf-backtesting"
+    },
+    {
+      "id": "traceiq-pytest",
+      "value": "56",
+      "unit": "tests",
+      "label": "TraceIQ pytest",
+      "sourceType": "repo",
+      "linkOrNote": "Incident-Logger test suite",
+      "evidenceLevel": "verifiable",
+      "href": "/work/incident-logger"
+    },
+    {
+      "id": "traceiq-vitest",
+      "value": "6",
+      "unit": "tests",
+      "label": "TraceIQ Vitest",
+      "sourceType": "repo",
+      "linkOrNote": "Incident-Logger frontend tests",
+      "evidenceLevel": "verifiable",
+      "href": "/work/incident-logger"
+    },
+    {
+      "id": "jpmorgan-winner",
+      "value": "Winner",
+      "unit": "",
+      "label": "JPMorgan Code for Good",
+      "sourceType": "resume",
+      "linkOrNote": "Achievements · AI-powered education platform",
+      "evidenceLevel": "private",
+      "href": "/experience"
+    },
+    {
+      "id": "aws-ccp",
+      "value": "Certified",
+      "unit": "",
+      "label": "AWS Cloud Practitioner",
+      "sourceType": "resume",
+      "linkOrNote": "EC2, S3, IAM — no public credential URL",
+      "evidenceLevel": "private",
+      "href": "/experience"
+    }
+  ]
+}

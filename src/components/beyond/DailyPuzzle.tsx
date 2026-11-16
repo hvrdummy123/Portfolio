@@ -19,7 +19,7 @@ export function DailyPuzzle() {
     const clues = [
       `The number is ${target % 2 === 0 ? "even" : "odd"}.`,
       `It is ${target > 5 ? "greater" : "at most"} 5.`,
-      `Digits sum with itself is ${target + target}.`,
+      `If you add the number to itself, the sum is ${target + target}.`,
     ];
     return { target, clues };
   }, [today]);

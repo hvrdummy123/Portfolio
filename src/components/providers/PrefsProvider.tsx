@@ -19,11 +19,13 @@ type Prefs = {
   role: Role;
   cursorCat: boolean;
   sound: boolean;
+  reducedMotion: boolean;
   setTheme: (t: Theme) => void;
   toggleTheme: () => void;
   setRole: (r: Role) => void;
   setCursorCat: (v: boolean) => void;
   setSound: (v: boolean) => void;
+  setReducedMotion: (v: boolean) => void;
 };
 
 const PrefsContext = createContext<Prefs | null>(null);
@@ -31,12 +33,14 @@ const ROLE_KEY = "hr-role";
 const THEME_KEY = "hr-theme";
 const CAT_KEY = "hr-cursor-cat";
 const SOUND_KEY = "hr-sound";
+const MOTION_KEY = "hr-reduced-motion";
 
 export function PrefsProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("light");
   const [role, setRoleState] = useState<Role>("backend");
   const [cursorCat, setCursorCatState] = useState(false);
   const [sound, setSoundState] = useState(false);
+  const [reducedMotion, setReducedMotionState] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -61,6 +65,13 @@ export function PrefsProvider({ children }: { children: ReactNode }) {
 
     const storedSound = localStorage.getItem(SOUND_KEY);
     setSoundState(storedSound === "1");
+
+    const prefersReduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const storedMotion = localStorage.getItem(MOTION_KEY);
+    const nextReduce = storedMotion !== null ? storedMotion === "1" : prefersReduce;
+    setReducedMotionState(nextReduce);
+    document.documentElement.classList.toggle("reduce-motion", nextReduce);
+
     setReady(true);
 
     // Easter: console hire-me
@@ -95,28 +106,38 @@ export function PrefsProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(SOUND_KEY, v ? "1" : "0");
   }, []);
 
+  const setReducedMotion = useCallback((v: boolean) => {
+    setReducedMotionState(v);
+    localStorage.setItem(MOTION_KEY, v ? "1" : "0");
+    document.documentElement.classList.toggle("reduce-motion", v);
+  }, []);
+
   const value = useMemo(
     () => ({
       theme,
       role,
       cursorCat,
       sound,
+      reducedMotion,
       setTheme,
       toggleTheme,
       setRole,
       setCursorCat,
       setSound,
+      setReducedMotion,
     }),
     [
       theme,
       role,
       cursorCat,
       sound,
+      reducedMotion,
       setTheme,
       toggleTheme,
       setRole,
       setCursorCat,
       setSound,
+      setReducedMotion,
     ],
   );
 

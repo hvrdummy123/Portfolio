@@ -1,0 +1,164 @@
+{
+  "name": "Harshita Ranka",
+  "fullName": "Harshita Vivek Ranka",
+  "title": "Software Engineer",
+  "location": "Mumbai, India",
+  "availability": "Available immediately · Open to relocation",
+  "email": "harshitaranka2004@gmail.com",
+  "phone": "+91 77180 05243",
+  "linkedin": "https://linkedin.com/in/harshita-vivek-ranka",
+  "linkedinDisplay": "linkedin.com/in/harshita-vivek-ranka",
+  "github": "https://github.com/hvrdummy123",
+  "githubDisplay": "github.com/hvrdummy123",
+  "classOf": 2026,
+  "graduation": "2026-06",
+  "graduationLabel": "June 2026",
+  "education": {
+    "school": "MPSTME, NMIMS Mumbai",
+    "degree": "B.Tech Computer Engineering",
+    "cgpa": "3.95/4"
+  },
+  "certification": {
+    "name": "AWS Certified Cloud Practitioner",
+    "topics": ["EC2", "S3", "IAM"]
+  },
+  "achievements": [
+    {
+      "id": "jpmorgan-cfg",
+      "title": "Winner, Code for Good — JPMorgan Chase",
+      "detail": "Built an AI-powered education platform."
+    },
+    {
+      "id": "flipkart-ivp",
+      "title": "Finalist in Flipkart GRID, IVP"
+    },
+    {
+      "id": "math-olympiads",
+      "title": "INMO Qualifier · RMO Top 30 Rank (2021) · Multiple mathematics competition wins"
+    }
+  ],
+  "coursework": [
+    "Data Structures & Algorithms",
+    "Discrete Mathematics",
+    "Probability & Statistics",
+    "Microservices & Distributed Systems",
+    "DBMS (NoSQL & Relational)",
+    "Operating Systems",
+    "Computer Networks",
+    "AI / Machine Learning",
+    "Image and Video Processing",
+    "Computer Vision"
+  ],
+  "experience": [
+    {
+      "id": "atrium",
+      "title": "SDE",
+      "company": "Atrium",
+      "companyFull": "Atrium — AI-powered e-commerce startup (pre-launch)",
+      "companyNote": "AI-powered e-commerce startup (pre-launch)",
+      "location": "Remote / India",
+      "start": "2026-08",
+      "end": "Present",
+      "startLabel": "Aug 2026 – Present",
+      "stack": [
+        "TypeScript",
+        "React (Vite)",
+        "Next.js",
+        "Node.js",
+        "PostgreSQL",
+        "Redis",
+        "Python",
+        "Centrifugo",
+        "Better Auth",
+        "Docker",
+        "GCP"
+      ],
+      "bullets": [
+        {
+          "id": "atrium-auth",
+          "text": "Built the authentication module on Better Auth for a template-driven marketplace platform (Shopify-style), implementing separate merchant and consumer auth planes with Postgres-backed sessions and accounts.",
+          "projectSlug": "atrium-engineering"
+        },
+        {
+          "id": "atrium-chat",
+          "text": "Engineered a real-time chat pipeline using a PostgreSQL transactional outbox, relay service, Centrifugo, and Redis, designed and tested against 25 failure and edge-case scenarios so messages are persisted atomically before delivery and not lost if the relay or broker restarts; built the React + Vite chat interface on top.",
+          "projectSlug": "atrium-engineering"
+        },
+        {
+          "id": "atrium-admin",
+          "text": "Helped build the internal admin dashboard in Next.js (App Router) and TypeScript, packaged as a standalone non-root container on a private GCP runtime; implemented the charts as hand-rolled SVG with no chart libraries, and used postgres for data access and jose for JWT verification.",
+          "projectSlug": "atrium-engineering"
+        },
+        {
+          "id": "atrium-cli",
+          "text": "Built an AI chatroom CLI for multi-agent planning: one shared Markdown transcript across a human and two agents (Claude in plan mode, Codex in a read-only sandbox), with explicit @claude/@codex/@both routing and no agent-to-agent loops.",
+          "projectSlug": "atrium-engineering"
+        }
+      ]
+    },
+    {
+      "id": "nomura",
+      "title": "ITD Intern",
+      "company": "Nomura",
+      "companyFull": "Nomura Services India Pvt. Ltd.",
+      "companyNote": "Nomura Services India Pvt. Ltd.",
+      "location": "India",
+      "start": "2026-01",
+      "end": "2026-06",
+      "startLabel": "Jan 2026 – Jun 2026",
+      "stack": [
+        "Java",
+        "Spring Boot",
+        "React.js",
+        "Python",
+        "Jenkins",
+        "Liquibase",
+        "Docker",
+        "Ansible",
+        "Playwright",
+        "Git"
+      ],
+      "bullets": [
+        {
+          "id": "nomura-platform",
+          "text": "Integrated Spring Boot backend services with React interfaces for an enterprise real estate platform, driving design decisions across distributed, multi-tiered systems.",
+          "projectSlug": "nomura-engineering"
+        },
+        {
+          "id": "nomura-batch",
+          "text": "Built Python batch pipelines with algorithmic validation and retry logic for scheduled data processing; containerized the workflow with Docker, cutting execution time from 240 min to 58 min (76% faster).",
+          "projectSlug": "nomura-engineering"
+        },
+        {
+          "id": "nomura-cicd",
+          "text": "Automated database versioning and deployment via Liquibase and Jenkins CI/CD, and established containerized, tested release pipelines with Ansible and Playwright, improving deployment speed and release consistency across environments.",
+          "projectSlug": "nomura-engineering"
+        }
+      ]
+    }
+  ],
+  "skills": {
+    "languages": ["Java", "Python", "C++", "JavaScript (ES6/ES7)", "TypeScript", "SQL", "HTML/CSS"],
+    "frameworks": [
+      "Spring Boot",
+      "Node.js",
+      "Express.js",
+      "React.js",
+      "Next.js",
+      "Medusa.js",
+      "FastAPI"
+    ],
+    "data": ["PostgreSQL", "MongoDB", "SQLite", "Redis", "DuckDB", "Parquet"],
+    "devops": ["Docker", "Jenkins", "Git", "GitHub Actions", "Liquibase", "Ansible", "Playwright"],
+    "blockchain": ["Solidity", "Ethereum", "Circom", "snarkJS", "Hardhat", "ZoKrates", "IPFS", "MetaMask"],
+    "aiAgents": ["Agent evals", "Mutation-tested graders", "Multi-agent CLI", "Whisper", "Edge TTS"],
+    "cloud": ["AWS (EC2, S3, IAM)", "GCP"]
+  },
+  "hero": {
+    "eyebrow": "Software Engineer · Class of 2026 · Mumbai",
+    "headline": "Building reliable software for backends, agents, and commerce.",
+    "subline": "I like creating software that stays up when everything else fails."
+  },
+  "siteUrl": "https://portfolio-psi-lovat-90.vercel.app",
+  "mascot": "Mochi"
+}

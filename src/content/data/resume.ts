@@ -33,7 +33,7 @@ export const resume = {
       verificationUrl: "",
     },
     achievements: [
-      "Winner, Code for Good — JPMorgan Chase",
+      "Winner, Code for Good — JPMorgan Chase — built an AI-powered education platform",
       "Finalist in Flipkart GRID, IVP",
       "INMO Qualifier · RMO Top 30 Rank (2021) · Multiple mathematics competition wins",
     ],

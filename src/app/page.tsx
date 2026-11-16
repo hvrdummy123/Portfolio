@@ -7,7 +7,6 @@ import { DeskScene } from "@/components/home/DeskScene";
 import { StatHUD } from "@/components/home/StatHUD";
 import { TryStrip } from "@/components/home/TryStrip";
 import { notes } from "@/content/data/notes";
-import { beyondStations } from "@/content/data/beyond";
 import { Window } from "@/components/ui/Window";
 import { PixelCat } from "@/components/cats/PixelCat";
 import { Button } from "@/components/ui/Button";
@@ -117,18 +116,18 @@ export default function HomePage() {
         </section>
 
         <section className="section-pad">
-          <h2 className="display text-2xl text-ink">Outside code</h2>
-          <p className="mt-1 text-sm text-ink-soft">A few things I love when the IDE is closed.</p>
-          <Link href="/beyond-code" className="mt-4 block no-underline">
-            <Window title="beyond-code.app" status="crochet · puzzles · ukulele">
+          <h2 className="display text-2xl text-ink">Puzzles</h2>
+          <p className="mt-1 text-sm text-ink-soft">
+            A daily constraint puzzle and a handshake counting problem.
+          </p>
+          <Link href="/puzzles" className="mt-4 block no-underline">
+            <Window title="puzzles.app" status="daily · handshake">
               <div className="flex flex-wrap items-center gap-4">
-                <PixelCat pose="yarn" scale={2} />
                 <PixelCat pose="think" scale={2} />
-                <PixelCat pose="ukulele" palette="lavender" scale={2} />
                 <div className="min-w-[200px] flex-1">
-                  <p className="display text-lg text-ink">Crochet, puzzles &amp; ukulele</p>
+                  <p className="display text-lg text-ink">Try a puzzle</p>
                   <p className="mt-1 text-sm text-ink-soft">
-                    {beyondStations.find((s) => s.id === "crochet")?.blurb}
+                    Interactive puzzles with check, hint, and reveal — no craft gallery required.
                   </p>
                 </div>
               </div>

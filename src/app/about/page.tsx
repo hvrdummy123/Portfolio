@@ -38,7 +38,8 @@ export default function AboutPage() {
           <div>
             <p className="display text-xl">Software Engineer</p>
             <p className="mt-1 text-sm text-ink-soft">
-              Mumbai · B.Tech Computer Engineering, MPSTME, NMIMS · CGPA {siteConfig.cgpa}
+              Mumbai · B.Tech Computer Engineering, MPSTME, NMIMS · CGPA {siteConfig.cgpa} ·{" "}
+              {siteConfig.graduationLabel}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <Button href="/resumes" variant="secondary">
@@ -52,9 +53,9 @@ export default function AboutPage() {
 
       <div className="mt-8 space-y-4 text-ink">
         <p>
-          I am a B.Tech Computer Engineering student at MPSTME, NMIMS Mumbai (CGPA{" "}
-          {siteConfig.cgpa}, class of {siteConfig.classOf}). Mathematics has always been the
-          through-line — I am drawn to precise problems and solutions that hold under scrutiny.
+          I studied B.Tech Computer Engineering at MPSTME, NMIMS Mumbai (CGPA {siteConfig.cgpa},{" "}
+          {siteConfig.graduationLabel}). Mathematics has always been the through-line — I am drawn
+          to precise problems and solutions that hold under scrutiny.
         </p>
         <p>
           That same instinct shapes how I engineer systems. I focus on software that survives the

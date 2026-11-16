@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/series",
     "/labs",
     "/arcade",
+    "/puzzles",
     "/beyond-code",
     "/stack",
     "/about",

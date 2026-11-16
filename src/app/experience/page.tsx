@@ -130,7 +130,9 @@ export default function ExperiencePage() {
             <p className="mt-2 font-medium">
               {identity.education.degree}, {identity.education.school}
             </p>
-            <p className="text-sm text-ink-soft">CGPA {identity.education.cgpa}</p>
+            <p className="text-sm text-ink-soft">
+              CGPA {identity.education.cgpa} · June 2026
+            </p>
           </Window>
         </div>
 

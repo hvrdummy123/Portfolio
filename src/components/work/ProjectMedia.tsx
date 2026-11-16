@@ -5,15 +5,11 @@ import { captionFor } from "@/content/data/mediaCaptions";
 
 export function ProjectMedia({ slug }: { slug: string }) {
   const dir = join(process.cwd(), "public/media", slug);
-  if (!existsSync(dir)) {
-    return <p className="mt-3 text-sm text-ink-soft">No sample media in the repo yet.</p>;
-  }
+  if (!existsSync(dir)) return null;
   const files = readdirSync(dir).filter((f) =>
     /\.(png|jpe?g|webp|gif|svg)$/i.test(f),
   );
-  if (!files.length) {
-    return <p className="mt-3 text-sm text-ink-soft">No sample media in the repo yet.</p>;
-  }
+  if (!files.length) return null;
 
   return (
     <div className="mt-4 space-y-6">
