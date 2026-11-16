@@ -9,10 +9,11 @@ import { getNarrative } from "@/content/data/projectNarratives";
 import { Window } from "@/components/ui/Window";
 import { Chip } from "@/components/ui/Chip";
 import type { Project } from "@/content/data/types";
+import roles from "../../../content/roles.json";
 
 const STACK_LIMIT = 6;
 
-/** Always surface both employers first so the timeline doesn't look like a Nomura-only gap. */
+/** Always surface both employers so the timeline doesn't look Nomura-only. */
 const WORK_SLUGS = ["atrium-engineering", "nomura-engineering"] as const;
 
 const WORK_EXP_ID: Record<(typeof WORK_SLUGS)[number], string> = {
@@ -33,11 +34,24 @@ function featuredForRole(role: Project["roles"][number]): {
   work: Project[];
   rest: Project[];
 } {
-  const work = WORK_SLUGS.map((s) => getProject(s)).filter(Boolean) as Project[];
+  const roleFeatured = (roles[role as keyof typeof roles]?.featured ?? []) as string[];
+  const preferred = [
+    ...WORK_SLUGS,
+    ...roleFeatured.filter((s) => !WORK_SLUGS.includes(s as (typeof WORK_SLUGS)[number])),
+  ];
+  const seen = new Set<string>();
+  const work: Project[] = [];
+  for (const slug of preferred) {
+    const p = getProject(slug);
+    if (p && !seen.has(p.slug)) {
+      seen.add(p.slug);
+      work.push(p);
+    }
+  }
   const rest = projectsForRole(role)
-    .filter((p) => !WORK_SLUGS.includes(p.slug as (typeof WORK_SLUGS)[number]))
+    .filter((p) => !seen.has(p.slug))
     .slice(0, 4);
-  return { work, rest };
+  return { work: work.slice(0, 3), rest };
 }
 
 function ProjectStack({ project }: { project: Project }) {
@@ -54,12 +68,13 @@ function ProjectStack({ project }: { project: Project }) {
   );
 }
 
-function WorkCard({ project }: { project: Project }) {
+function FeatureCard({ project }: { project: Project }) {
   return (
-    <Link href={`/work/${project.slug}`} className="no-underline md:col-span-3">
-      <Window title={`${project.slug}.app`} status={STATUS_LABELS[project.status]}>
+    <Link href={`/work/${project.slug}`} className="no-underline md:col-span-2">
+      <Window title={`${project.slug}.app`} status={STATUS_LABELS[project.status]} className="h-full">
         <div className="mb-3 flex flex-wrap gap-2">
-          <Chip tone="fintech">Work experience</Chip>
+          {project.kind === "work" ? <Chip tone="fintech">Work experience</Chip> : null}
+          {project.featured ? <Chip tone="ai">Featured</Chip> : null}
         </div>
         <h3 className="display text-xl text-ink md:text-2xl">{project.title}</h3>
         <p className="mt-2 text-sm text-ink-soft">
@@ -75,7 +90,7 @@ function WorkCard({ project }: { project: Project }) {
 
 export function FeaturedProjects() {
   const { role } = usePrefs();
-  const { work, rest } = featuredForRole(role);
+  const { work: featured, rest } = featuredForRole(role);
 
   return (
     <section className="section-pad">
@@ -86,8 +101,8 @@ export function FeaturedProjects() {
         </Link>
       </div>
       <div className="grid gap-4 md:grid-cols-6">
-        {work.map((p) => (
-          <WorkCard key={p.slug} project={p} />
+        {featured.map((p) => (
+          <FeatureCard key={p.slug} project={p} />
         ))}
 
         {rest.map((p) => (

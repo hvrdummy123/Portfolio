@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { siteConfig } from "@/content/data/site.config";
+import { profile } from "@/content/profile";
 import { resume } from "@/content/data/resume";
 import { RoleSelector } from "@/components/home/RoleSelector";
 import { FeaturedProjects } from "@/components/home/FeaturedProjects";
@@ -11,10 +13,6 @@ import { Window } from "@/components/ui/Window";
 import { PixelCat } from "@/components/cats/PixelCat";
 import { Button } from "@/components/ui/Button";
 
-function Headline() {
-  return <>{siteConfig.heroHeadline.replaceAll("*", "")}</>;
-}
-
 export default function HomePage() {
   const notebook = notes.filter((n) => !n.draft).slice(0, 3);
 
@@ -23,25 +21,37 @@ export default function HomePage() {
       <section className="container-site section-pad !pb-6">
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div>
-            <p className="eyebrow mb-3">
-              {siteConfig.name} · Software Engineer · Class of {siteConfig.classOf}
-            </p>
+            <p className="eyebrow mb-3">{profile.hero.eyebrow}</p>
+            <div className="mb-3 flex items-center gap-3">
+              <PixelCat pose="celebrate" scale={2.5} title="Mochi waving" />
+            </div>
             <h1 className="display max-w-xl text-4xl text-ink md:text-5xl lg:text-[3.25rem]">
-              <Headline />
+              {profile.hero.headline}
             </h1>
-            <p className="mt-4 max-w-xl text-ink-soft">{siteConfig.valueProp}</p>
+            <p className="mt-4 max-w-xl text-ink-soft">{profile.hero.subline}</p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
-              <Button href="/work">See my work</Button>
-              <Button href="/resumes?from=home" variant="secondary">
-                Résumé ↓
+              <Button href="/resumes?from=home">Download résumé</Button>
+              <Button href="/work" variant="secondary">
+                See work
               </Button>
             </div>
+            <p className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+              <a href={profile.github} target="_blank" rel="noreferrer">
+                GitHub
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer">
+                LinkedIn
+              </a>
+              <a href={`mailto:${profile.email}`}>Email</a>
+            </p>
             <div className="mt-5">
-              <RoleSelector />
+              <Suspense fallback={<p className="text-sm text-ink-soft">Loading role lens…</p>}>
+                <RoleSelector />
+              </Suspense>
             </div>
             <p className="mt-4 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-mint px-3 py-1 text-xs">
               <span className="h-2 w-2 rounded-full bg-leaf" aria-hidden />
-              Open to roles · {siteConfig.location} · Class of {siteConfig.classOf}
+              {profile.availability}
             </p>
           </div>
           <DeskScene />
@@ -127,7 +137,7 @@ export default function HomePage() {
                 <div className="min-w-[200px] flex-1">
                   <p className="display text-lg text-ink">Try a puzzle</p>
                   <p className="mt-1 text-sm text-ink-soft">
-                    Interactive puzzles with check, hint, and reveal — no craft gallery required.
+                    Interactive puzzles with check, hint, and reveal.
                   </p>
                 </div>
               </div>
@@ -145,15 +155,12 @@ export default function HomePage() {
             <p className="mt-2 text-ink-soft">{siteConfig.availability}</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button href="/contact">Copy email / Contact</Button>
-            <Button href={siteConfig.links.linkedin} variant="secondary">
+            <Button href={`mailto:${profile.email}`}>Email me</Button>
+            <Button href="/resumes" variant="secondary">
+              Download résumé
+            </Button>
+            <Button href={profile.linkedin} variant="ghost">
               LinkedIn
-            </Button>
-            <Button href={siteConfig.links.github} variant="ghost">
-              GitHub
-            </Button>
-            <Button href="/resumes?from=home-band" variant="ghost">
-              Résumé
             </Button>
           </div>
         </div>

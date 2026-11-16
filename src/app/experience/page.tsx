@@ -159,10 +159,11 @@ export default function ExperiencePage() {
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {identity.achievements.map((a) => {
             const math = /INMO|RMO|math/i.test(a);
+            const jpm = /JPMorgan|Code for Good/i.test(a);
             return (
               <Window
                 key={a}
-                title={math ? "math.trophy" : "trophy.card"}
+                title={math ? "math.trophy" : jpm ? "cfg.trophy" : "trophy.card"}
                 className={math ? "ring-2 ring-butter" : undefined}
               >
                 <p className="text-sm font-medium text-ink">{a}</p>

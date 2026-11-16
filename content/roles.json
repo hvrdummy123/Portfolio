@@ -1,0 +1,47 @@
+{
+  "backend": {
+    "subline": "Transactional pipelines, outboxes, and Spring/Node services that survive retries and restarts.",
+    "whyFit": [
+      "Shipped Better Auth marketplace planes and a 25-scenario chat outbox at Atrium.",
+      "Cut a Nomura batch pipeline from 240 to 58 minutes (76%) with Dockerized Python jobs.",
+      "Built PayBench graders that kill 64/64 scorer mutations — reliability as a product."
+    ],
+    "featured": ["atrium-engineering", "nomura-engineering", "paybench"]
+  },
+  "fullstack": {
+    "subline": "Storefronts, admin dashboards, and real-time UIs on solid Postgres backends.",
+    "whyFit": [
+      "Next.js admin with hand-rolled SVG charts on a private GCP runtime at Atrium.",
+      "Medusa-based D2C architecture for Indian phone-first commerce.",
+      "React + Vite chat UI on a transactional outbox pipeline."
+    ],
+    "featured": ["atrium-engineering", "d2c-ecommerce", "duihua"]
+  },
+  "ai-agents": {
+    "subline": "Agent evals that score world state, multi-agent CLI routing, and failure taxonomies.",
+    "whyFit": [
+      "PayBench: TIMEOUT_AFTER_COMMIT traps, P1–P9 policies, 64/64 mutation kill.",
+      "Multi-agent planning CLI with shared Markdown transcript and explicit routing.",
+      "TraceIQ: ranked suspects with explicit abstain when evidence is thin."
+    ],
+    "featured": ["paybench", "atrium-engineering", "incident-logger"]
+  },
+  "blockchain": {
+    "subline": "ZK identity proofs with Circom/Groth16 and on-chain verification.",
+    "whyFit": [
+      "ZKP-KYC: prove state-of-residence without over-disclosing PII.",
+      "Circom + snarkJS Groth16 with Solidity verifiers on a local Ethereum testnet.",
+      "Threat model covering replay, linkage, and trusted-setup assumptions."
+    ],
+    "featured": ["zkp-kyc", "paybench", "atrium-engineering"]
+  },
+  "quant-fintech": {
+    "subline": "Backtesting, payment-agent reliability, and high-throughput data pipelines.",
+    "whyFit": [
+      "ETF backtester over 180,000+ records with sub-3s simulations.",
+      "PayBench ledger + idempotency under ambiguous payment timeouts.",
+      "Nomura batch pipelines with validation, retries, and release automation."
+    ],
+    "featured": ["etf-backtesting", "paybench", "nomura-engineering"]
+  }
+}

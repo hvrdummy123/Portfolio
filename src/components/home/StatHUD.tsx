@@ -2,10 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { recruiterStats } from "@/content/data/projects";
+import { claims, getClaim } from "@/content/profile";
+import { EvidenceBadge } from "@/components/ui/EvidenceBadge";
+
+const PROOF_IDS = [
+  "batch-speedup-pct",
+  "chat-outbox-scenarios",
+  "paybench-mutations",
+  "jpmorgan-winner",
+  "aws-ccp",
+] as const;
 
 function CountUp({ value }: { value: string }) {
-  // Only animate plain numeric values (e.g. "64/64", "3.95/4"). Skip arrows/words.
   const simple = /^(?:\d+(?:\.\d+)?)(?:\/\d+(?:\.\d+)?)?$/.test(value.trim());
   const [shown, setShown] = useState(simple ? "0" : value);
   const ref = useRef<HTMLSpanElement>(null);
@@ -53,19 +61,32 @@ function CountUp({ value }: { value: string }) {
 
 function prefersReduced() {
   if (typeof window === "undefined") return true;
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return (
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+    document.documentElement.classList.contains("reduce-motion")
+  );
+}
+
+function displayValue(id: string) {
+  const c = getClaim(id);
+  if (!c) return "";
+  if (id === "batch-speedup-pct") return "76%";
+  if (id === "chat-outbox-scenarios") return "25";
+  return `${c.value}${c.unit && !c.unit.startsWith("/") ? "" : c.unit || ""}`.trim() || c.value;
 }
 
 export function StatHUD() {
+  const items = PROOF_IDS.map((id) => getClaim(id)).filter(Boolean);
+
   return (
-    <section className="mt-8 overflow-x-auto" aria-label="Key numbers">
+    <section className="mt-8 overflow-x-auto" aria-label="Key proofs">
       <div className="flex min-w-max gap-3 md:grid md:min-w-0 md:grid-cols-5">
-        {recruiterStats.map((s) => (
+        {items.map((s) => (
           <Link
-            key={s.label}
-            href={s.href}
+            key={s!.id}
+            href={s!.href ?? "/work"}
             className="win w-[160px] no-underline md:w-auto"
-            title={`Source: ${s.source}`}
+            title={s!.linkOrNote}
           >
             <div className="win-titlebar !py-1 !text-[10px]">
               <div className="win-dots" aria-hidden>
@@ -73,15 +94,20 @@ export function StatHUD() {
                 <span />
                 <span />
               </div>
-              <span className="truncate">{s.label}</span>
+              <span className="truncate">{s!.label}</span>
             </div>
             <div className="win-body !py-3 text-center">
-              <CountUp value={s.value} />
-              <p className="mt-1 text-xs text-ink-soft">{s.label}</p>
+              <CountUp value={displayValue(s!.id)} />
+              <p className="mt-1 text-xs text-ink-soft">{s!.label}</p>
+              <div className="mt-2 flex justify-center">
+                <EvidenceBadge level={s!.evidenceLevel} />
+              </div>
             </div>
           </Link>
         ))}
       </div>
+      {/* keep claims import used for future role-aware strips */}
+      <span className="sr-only">{claims.length} claims loaded</span>
     </section>
   );
 }
