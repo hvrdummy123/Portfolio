@@ -7,7 +7,7 @@ describe("profile + claims loaders", () => {
   it("has required identity fields", () => {
     expect(profile.education.cgpa).toBe("3.95/4");
     expect(profile.graduationLabel).toBe("June 2026");
-    expect(profile.availability).toContain("Available immediately");
+    expect(profile.availability).toContain("Open to relocation");
     expect(profile.email).toContain("@");
   });
 

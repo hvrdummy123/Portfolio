@@ -128,11 +128,11 @@ export function OverleafResume({ variant, showDiff = false, className = "" }: Pr
           </li>
           <li>
             <strong>Achievements: </strong>
-            {id.achievements.join("; ")}
+            {resumeData.skills.achievementsLine}
           </li>
           <li>
             <strong>Course Work: </strong>
-            {id.coursework.join(", ")}
+            {resumeData.skills.courseworkLine}
           </li>
         </ul>
       </section>

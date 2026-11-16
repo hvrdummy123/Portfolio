@@ -46,7 +46,7 @@ export function CaseStudyChrome({
         </button>
       </div>
       <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-10">
-        <div className="min-w-0 space-y-12">{children}</div>
+        <div className="min-w-0">{children}</div>
         {toc.length > 1 ? (
           <aside className="toc-sticky no-print hidden lg:block" aria-label="On this page">
             <p className="eyebrow mb-2">On this page</p>

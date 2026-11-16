@@ -9,8 +9,13 @@ import { cn } from "@/lib/cn";
 
 const GROUPS: { id: string; title: string; match: (slug: string, kind: string) => boolean }[] = [
   {
-    id: "flagship",
-    title: "Flagship",
+    id: "work",
+    title: "Work experience",
+    match: (_s, kind) => kind === "work",
+  },
+  {
+    id: "fullstack",
+    title: "Full stack",
     match: (slug) => slug === "d2c-ecommerce",
   },
   {
@@ -24,11 +29,6 @@ const GROUPS: { id: string; title: string; match: (slug: string, kind: string) =
     match: (slug) => ["zkp-kyc", "etf-backtesting"].includes(slug),
   },
   {
-    id: "work",
-    title: "Work experience",
-    match: (_s, kind) => kind === "work",
-  },
-  {
     id: "tools",
     title: "Personal tools",
     match: (slug) => ["duihua", "personal-job-radar"].includes(slug),
@@ -36,24 +36,38 @@ const GROUPS: { id: string; title: string; match: (slug: string, kind: string) =
 ];
 
 type Layout = "grid" | "list";
+type WorkRoleFilter = Role | "all";
 
 export function WorkIndex() {
-  const { role, setRole } = usePrefs();
+  const { setRole } = usePrefs();
+  const [roleFilter, setRoleFilter] = useState<WorkRoleFilter>("all");
   const [status, setStatus] = useState<Status | "all">("all");
   const [q, setQ] = useState("");
   const [layout, setLayout] = useState<Layout>("grid");
 
   const filtered = useMemo(() => {
     return projects
-      .filter((p) => p.roles.includes(role) || p.weight[role] >= 50)
+      .filter((p) =>
+        roleFilter === "all"
+          ? true
+          : p.roles.includes(roleFilter) || p.weight[roleFilter] >= 50,
+      )
       .filter((p) => (status === "all" ? true : p.status === status))
       .filter((p) => {
         if (!q.trim()) return true;
         const hay = `${p.title} ${p.pitch} ${p.stack.map((s) => s.name).join(" ")}`.toLowerCase();
         return hay.includes(q.trim().toLowerCase());
       })
-      .sort((a, b) => (b.weight[role] ?? 0) - (a.weight[role] ?? 0));
-  }, [role, status, q]);
+      .sort((a, b) => {
+        if (roleFilter === "all") {
+          const aWork = a.kind === "work" ? 1 : 0;
+          const bWork = b.kind === "work" ? 1 : 0;
+          if (aWork !== bWork) return bWork - aWork;
+          return b.year - a.year;
+        }
+        return (b.weight[roleFilter] ?? 0) - (a.weight[roleFilter] ?? 0);
+      });
+  }, [roleFilter, status, q]);
 
   const grouped = GROUPS.map((g) => ({
     ...g,
@@ -64,19 +78,32 @@ export function WorkIndex() {
     (p) => !GROUPS.some((g) => g.match(p.slug, p.kind)),
   );
 
+  function pickRole(next: WorkRoleFilter) {
+    setRoleFilter(next);
+    if (next !== "all") setRole(next);
+  }
+
   return (
     <div>
-      <div className="mt-6 flex flex-col gap-4 rounded-[12px] border-2 border-ink bg-surface p-4 shadow-[4px_4px_0_var(--ink)]">
+      <div className="mt-6 flex flex-col gap-4 rounded-[var(--radius)] border-2 border-border bg-surface p-4 shadow-[4px_4px_0_var(--border)]">
         <div>
           <p className="eyebrow mb-2">Role</p>
           <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              className={cn("tag focus-ring", roleFilter === "all" ? "bg-blush" : "")}
+              onClick={() => pickRole("all")}
+              aria-pressed={roleFilter === "all"}
+            >
+              All
+            </button>
             {(Object.keys(ROLE_LABELS) as Role[]).map((r) => (
               <button
                 key={r}
                 type="button"
-                className={cn("tag focus-ring", role === r ? "bg-blush" : "")}
-                onClick={() => setRole(r)}
-                aria-pressed={role === r}
+                className={cn("tag focus-ring", roleFilter === r ? "bg-blush" : "")}
+                onClick={() => pickRole(r)}
+                aria-pressed={roleFilter === r}
               >
                 {ROLE_LABELS[r]}
               </button>
@@ -104,7 +131,7 @@ export function WorkIndex() {
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              className="w-full min-w-[200px] rounded-md border-2 border-ink bg-cream px-3 py-2 focus-ring"
+              className="w-full min-w-[200px] rounded-md border-2 border-border bg-cream px-3 py-2 focus-ring"
               placeholder="e.g. Medusa, Circom…"
             />
           </label>
@@ -126,6 +153,7 @@ export function WorkIndex() {
         </div>
         <p className="text-xs text-ink-soft" aria-live="polite">
           {filtered.length} project{filtered.length === 1 ? "" : "s"}
+          {roleFilter === "all" ? " · All roles" : ` · ${ROLE_LABELS[roleFilter]}`}
         </p>
       </div>
 

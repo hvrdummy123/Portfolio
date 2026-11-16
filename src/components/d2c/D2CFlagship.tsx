@@ -28,7 +28,7 @@ const phases = [
   {
     id: 4,
     title: "Product detail",
-    goal: "PDP data requirements for beverage SKUs.",
+    goal: "PDP data requirements for product SKUs.",
     custom: "Storefront PDP composition",
   },
   {
@@ -94,16 +94,31 @@ const phases = [
 ];
 
 const decisions = [
-  ["Auth", "Phone + password first", "Phone OTP / Google", "Zero SMS cost before PMF"],
+  [
+    "Auth",
+    "Phone + password first",
+    "Phone OTP / Google",
+    "Zero SMS cost before PMF",
+  ],
   ["Payments", "Razorpay", "PayU / CCAvenue", "India-first UPI + cards"],
   ["COD", "Supported", "Online-only", "Large share of Indian D2C orders"],
   ["Shipping", "Shiprocket", "Shiping / ClickPost", "17+ couriers + COD"],
   ["WhatsApp", "Interakt", "WATI / AiSensy", "Transactional templates"],
   ["Email", "Resend", "SendGrid / Postmark", "DX + deliverability"],
   ["Search", "None at launch", "Meilisearch now", "Add when catalog > 50"],
-  ["Cache/queue", "No Redis at launch", "Redis from day one", "Add on backlog pressure"],
+  [
+    "Cache/queue",
+    "No Redis at launch",
+    "Redis from day one",
+    "Add on backlog pressure",
+  ],
   ["Orchestration", "No Kubernetes", "K8s", "Railway replicas suffice"],
-  ["Realtime", "No WS/FCM at MWM", "Firebase push", "WhatsApp is the push channel"],
+  [
+    "Realtime",
+    "No WS/FCM at MWM",
+    "Firebase push",
+    "WhatsApp is the push channel",
+  ],
   ["Mobile", "PWA only", "Native apps", "Prove demand first"],
 ];
 
@@ -117,11 +132,17 @@ const customTables = [
 
 const notAtMwm = [
   { name: "Redis", trigger: "Webhook backlog / hot session fan-out" },
-  { name: "Queues / separate worker", trigger: "Slow Shiprocket/Razorpay fan-out" },
+  {
+    name: "Queues / separate worker",
+    trigger: "Slow Shiprocket/Razorpay fan-out",
+  },
   { name: "Firebase / FCM", trigger: "Native apps" },
   { name: "Meilisearch", trigger: "Catalog > 50 products" },
   { name: "Kubernetes", trigger: "Multi-region / custom orchestration needs" },
-  { name: "WebSocket server", trigger: "Live in-app tracking beyond WhatsApp+poll" },
+  {
+    name: "WebSocket server",
+    trigger: "Live in-app tracking beyond WhatsApp+poll",
+  },
   { name: "Mobile app", trigger: "Proven repeat demand + push UX needs" },
 ];
 
@@ -208,20 +229,25 @@ export function D2CFlagship() {
 
   const Source = ({ children }: { children: string }) =>
     audit ? (
-      <span className="ml-1 rounded bg-butter px-1 font-mono text-[10px]">{children}</span>
+      <span className="ml-1 rounded bg-butter px-1 font-mono text-[10px]">
+        {children}
+      </span>
     ) : null;
 
   return (
     <div className="container-site pb-16 lg:grid lg:grid-cols-[200px_1fr] lg:gap-8">
       <nav
         className="sticky top-20 hidden max-h-[70vh] overflow-auto text-sm lg:block"
-        aria-label="Flagship TOC"
+        aria-label="On this page"
       >
         <p className="eyebrow mb-2">On this page</p>
         <ul className="space-y-1">
           {toc.map((t) => (
             <li key={t}>
-              <a href={`#${t.toLowerCase().replace(/\s+/g, "-")}`} className="text-ink-soft no-underline hover:text-accent">
+              <a
+                href={`#${t.toLowerCase().replace(/\s+/g, "-")}`}
+                className="text-ink-soft no-underline hover:text-accent"
+              >
                 {t}
               </a>
             </li>
@@ -244,8 +270,12 @@ export function D2CFlagship() {
           <ul className="mt-3 list-disc space-y-2 pl-5 text-sm">
             <li>Phone-first (Indian users are mobile-centric)</li>
             <li>WhatsApp for all post-purchase communication</li>
-            <li>Medusa v2 for commerce primitives; custom modules for the rest</li>
-            <li>Never reinvent what Medusa already does well — modular monolith</li>
+            <li>
+              Medusa v2 for commerce primitives; custom modules for the rest
+            </li>
+            <li>
+              Never reinvent what Medusa already does well — modular monolith
+            </li>
           </ul>
           <Source>system-design.md · Project Overview</Source>
         </section>
@@ -260,7 +290,7 @@ export function D2CFlagship() {
           <div className="mt-3 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b-2 border-ink text-left">
+                <tr className="border-b-2 border-border text-left">
                   <th className="py-2">Layer</th>
                   <th>Choice</th>
                   <th>Why</th>
@@ -268,8 +298,16 @@ export function D2CFlagship() {
               </thead>
               <tbody>
                 {[
-                  ["Commerce", "Medusa v2", "Open-source, modular, self-hosted"],
-                  ["Database", "Supabase PostgreSQL", "Managed Postgres, generous free tier"],
+                  [
+                    "Commerce",
+                    "Medusa v2",
+                    "Open-source, modular, self-hosted",
+                  ],
+                  [
+                    "Database",
+                    "Supabase PostgreSQL",
+                    "Managed Postgres, generous free tier",
+                  ],
                   ["Storefront", "Next.js 14 App Router", "SSR/ISR/SEO"],
                   ["Backend host", "Railway", "Simple deploy, replicas"],
                   ["Frontend host", "Vercel", "Best Next.js platform"],
@@ -299,7 +337,7 @@ export function D2CFlagship() {
           <div className="mt-3 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b-2 border-ink text-left">
+                <tr className="border-b-2 border-border text-left">
                   <th className="py-2">Topic</th>
                   <th>Choice</th>
                   <th>Alternative</th>
@@ -352,8 +390,8 @@ export function D2CFlagship() {
         <section id="data-model">
           <h2 className="display text-3xl">Data model explorer</h2>
           <p className="mt-2 text-sm text-ink-soft">
-            Medusa manages its own tables via migrations. Custom tables are prefixed{" "}
-            <code>custom_</code>.
+            Medusa manages its own tables via migrations. Custom tables are
+            prefixed <code>custom_</code>.
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             {customTables.map((t) => (
@@ -370,11 +408,35 @@ export function D2CFlagship() {
             aria-label="Simplified ER: customer to return"
           >
             <title>ER sketch</title>
-            <desc>customer → cart → order → payment → fulfillment → return</desc>
-            {["Customer", "Cart", "Order", "Payment", "Fulfillment", "Return"].map((label, i) => (
+            <desc>
+              customer → cart → order → payment → fulfillment → return
+            </desc>
+            {[
+              "Customer",
+              "Cart",
+              "Order",
+              "Payment",
+              "Fulfillment",
+              "Return",
+            ].map((label, i) => (
               <g key={label}>
-                <rect x={20 + i * 100} y={60} width={88} height={40} rx={8} fill="var(--surface)" stroke="var(--ink)" strokeWidth="2" />
-                <text x={64 + i * 100} y={85} textAnchor="middle" fontSize="11" fill="var(--ink)">
+                <rect
+                  x={20 + i * 100}
+                  y={60}
+                  width={88}
+                  height={40}
+                  rx={8}
+                  fill="var(--surface)"
+                  stroke="var(--ink)"
+                  strokeWidth="2"
+                />
+                <text
+                  x={64 + i * 100}
+                  y={85}
+                  textAnchor="middle"
+                  fontSize="11"
+                  fill="var(--ink)"
+                >
                   {label}
                 </text>
                 {i < 5 && (
@@ -395,12 +457,13 @@ export function D2CFlagship() {
         <section id="endpoints">
           <h2 className="display text-3xl">Endpoint coverage</h2>
           <p className="mt-2 text-sm text-ink-soft">
-            Documented custom routes and webhooks alongside Medusa-native store/admin APIs:
+            Documented custom routes and webhooks alongside Medusa-native
+            store/admin APIs:
           </p>
           <div className="mt-3 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b-2 border-ink text-left">
+                <tr className="border-b-2 border-border text-left">
                   <th className="py-2">Kind</th>
                   <th>Route</th>
                   <th>Notes</th>
@@ -408,10 +471,26 @@ export function D2CFlagship() {
               </thead>
               <tbody>
                 {[
-                  ["Custom", "GET/POST/DELETE /store/wishlist…", "Wishlist module"],
-                  ["Webhook", "POST /webhooks/razorpay", "HMAC-verified payment events"],
-                  ["Webhook", "POST /webhooks/shiprocket", "HMAC-verified shipping events"],
-                  ["Native", "Medusa store/admin routes", "Catalog, cart, orders, promotions"],
+                  [
+                    "Custom",
+                    "GET/POST/DELETE /store/wishlist…",
+                    "Wishlist module",
+                  ],
+                  [
+                    "Webhook",
+                    "POST /webhooks/razorpay",
+                    "HMAC-verified payment events",
+                  ],
+                  [
+                    "Webhook",
+                    "POST /webhooks/shiprocket",
+                    "HMAC-verified shipping events",
+                  ],
+                  [
+                    "Native",
+                    "Medusa store/admin routes",
+                    "Catalog, cart, orders, promotions",
+                  ],
                 ].map((row) => (
                   <tr key={row[1]} className="border-b border-line">
                     <td className="py-2 pr-3">{row[0]}</td>
@@ -444,7 +523,10 @@ export function D2CFlagship() {
               "Admin: Orders & shipping",
               "Admin: COD reconciliation",
             ].map((f) => (
-              <div key={f} className="rounded-lg border-2 border-ink bg-surface px-3 py-2 text-sm">
+              <div
+                key={f}
+                className="rounded-lg border-2 border-border bg-surface px-3 py-2 text-sm"
+              >
                 {f}
               </div>
             ))}
@@ -454,21 +536,26 @@ export function D2CFlagship() {
         <section id="notifications">
           <h2 className="display text-3xl">Notifications matrix</h2>
           <p className="mt-2 text-sm">
-            Channels: Email (Resend) · WhatsApp (Interakt, 6 templates) · SMS (MSG91 OTP-only).
-            Meta template approval takes 24–48 h.
+            Channels: Email (Resend) · WhatsApp (Interakt, 6 templates) · SMS
+            (MSG91 OTP-only). Meta template approval takes 24–48 h.
             <Source>system-design / mwm docs · Notifications</Source>
           </p>
         </section>
 
         <section id="mwm-capacity">
-          <h2 className="display text-3xl">Minimum Working Model @ 10,000 DAU</h2>
+          <h2 className="display text-3xl">
+            Minimum Working Model @ 10,000 DAU
+          </h2>
           <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm">
             <li>10,000 DAU</li>
             <li>Peak hour ≈ 20% → 2,000 concurrent</li>
             <li>~20 requests/session → ≈ 11 RPS sustained, spikes 30–50 RPS</li>
             <li>One 2 vCPU / 2 GB Medusa instance ≈ 50–100 RPS</li>
             <li>Two Railway replicas for zero-downtime + fault tolerance</li>
-            <li>Supabase Pro + PgBouncer; 60 max connections from Medusa (30/instance)</li>
+            <li>
+              Supabase Pro + PgBouncer; 60 max connections from Medusa
+              (30/instance)
+            </li>
             <li>Cloudflare cache for static + cacheable API responses</li>
           </ol>
           <Source>mwm-system-design.md</Source>
@@ -485,7 +572,7 @@ export function D2CFlagship() {
             {security.map((s) => (
               <li key={s} className="flex items-center gap-2 text-sm">
                 <span
-                  className="inline-grid h-5 w-5 place-items-center rounded border-2 border-ink bg-mint text-[10px] font-mono"
+                  className="inline-grid h-5 w-5 place-items-center rounded border-2 border-border bg-mint text-[10px] font-mono"
                   aria-hidden
                 >
                   ✓
@@ -514,7 +601,7 @@ export function D2CFlagship() {
             {milestones.map((m) => (
               <li
                 key={m.id}
-                className="flex flex-col gap-2 rounded-lg border-2 border-ink bg-surface p-3 sm:flex-row sm:items-center sm:justify-between"
+                className="flex flex-col gap-2 rounded-lg border-2 border-border bg-surface p-3 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
                   <p className="font-medium">
@@ -534,7 +621,7 @@ export function D2CFlagship() {
 
         <section id="folder-structure">
           <h2 className="display text-3xl">Folder structure</h2>
-          <pre className="mt-3 overflow-x-auto rounded-lg border-2 border-ink bg-surface p-4 font-mono text-xs">{`src/
+          <pre className="mt-3 overflow-x-auto rounded-lg border-2 border-border bg-surface p-4 font-mono text-xs">{`src/
   api/
   modules/
   workflows/

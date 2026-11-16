@@ -18,7 +18,7 @@ type Hotspot = {
 const HOTSPOTS: Hotspot[] = [
   { id: "laptop", label: "Work", href: "/work", x: 30, y: 36, w: 32, h: 30 },
   { id: "beyond", label: "Beyond code", href: "/beyond-code", x: 6, y: 50, w: 20, h: 26 },
-  { id: "d2c", label: "D2C flagship", href: "/work/d2c-ecommerce", x: 68, y: 52, w: 18, h: 18 },
+  { id: "d2c", label: "D2C platform", href: "/work/d2c-ecommerce", x: 68, y: 52, w: 18, h: 18 },
   { id: "resume", label: "Résumé", href: "/resumes", x: 44, y: 66, w: 12, h: 12 },
   { id: "mail", label: "Contact", href: "/contact", x: 88, y: 42, w: 10, h: 20 },
 ];

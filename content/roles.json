@@ -12,7 +12,7 @@
     "subline": "Storefronts, admin dashboards, and real-time UIs on solid Postgres backends.",
     "whyFit": [
       "Next.js admin with hand-rolled SVG charts on a private GCP runtime at Atrium.",
-      "Medusa-based D2C architecture for Indian phone-first commerce.",
+      "Medusa-based Shopify-style D2C platform — demo built and served to clients.",
       "React + Vite chat UI on a transactional outbox pipeline."
     ],
     "featured": ["atrium-engineering", "d2c-ecommerce", "duihua"]

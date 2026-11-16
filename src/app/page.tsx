@@ -49,7 +49,7 @@ export default function HomePage() {
                 <RoleSelector />
               </Suspense>
             </div>
-            <p className="mt-4 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-mint px-3 py-1 text-xs">
+            <p className="mt-4 inline-flex items-center gap-2 rounded-full border-2 border-border bg-mint px-3 py-1 text-xs">
               <span className="h-2 w-2 rounded-full bg-leaf" aria-hidden />
               {profile.availability}
             </p>
@@ -83,7 +83,7 @@ export default function HomePage() {
                 status={job.startLabel.replace(/--/g, "–")}
                 className="relative ml-4 pl-2"
               >
-                <div className="absolute -left-7 top-4 grid h-6 w-6 place-items-center rounded-full border-2 border-ink bg-butter">
+                <div className="absolute -left-7 top-4 grid h-6 w-6 place-items-center rounded-full border-2 border-border bg-butter">
                   <PixelCat pose={i === 0 ? "sit" : "walk"} scale={1} />
                 </div>
                 <p className="font-medium text-ink">
@@ -146,7 +146,7 @@ export default function HomePage() {
         </section>
       </div>
 
-      <section className="border-y-2 border-ink bg-lavender/50">
+      <section className="border-y-2 border-border bg-lavender/50">
         <div className="container-site section-pad flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
           <div>
             <h2 className="display text-2xl text-ink md:text-3xl">

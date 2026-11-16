@@ -89,7 +89,7 @@ export function ArchitectureDiagram() {
 
       <svg
         viewBox="0 0 720 320"
-        className="w-full rounded-xl border-2 border-ink bg-surface"
+        className="w-full rounded-xl border-2 border-border bg-surface"
         role="img"
         aria-label="System architecture diagram"
       >
@@ -126,7 +126,7 @@ export function ArchitectureDiagram() {
                 textAnchor="middle"
                 fontSize="13"
                 fill="var(--ink)"
-                fontFamily="var(--font-pixelify)"
+                fontFamily="var(--font-dm-sans), system-ui, sans-serif"
               >
                 {String(name)}
               </text>

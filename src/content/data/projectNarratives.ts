@@ -9,11 +9,11 @@ export type ProjectNarrative = {
 export const projectNarratives: Record<string, ProjectNarrative> = {
   "d2c-ecommerce": {
     problem:
-      "Indian D2C beverage brands need phone-first checkout, COD, and WhatsApp updates — without reinventing commerce primitives or over-building infra before demand is proven.",
+      "Indian D2C merchants need a Shopify-style storefront and backend they control — phone-first checkout, COD, and WhatsApp updates — without reinventing cart/order primitives.",
     solution:
-      "Medusa v2 modular monolith for cart/order/fulfillment, custom modules for phone auth, Razorpay+COD, Shiprocket, and Interakt WhatsApp. Launch on Railway + Vercel + Supabase; scale topology documented for 10k DAU.",
+      "Medusa v2 modular monolith for cart/order/fulfillment, custom modules for phone auth, Razorpay+COD, Shiprocket, and Interakt WhatsApp. Demo stack on Railway + Vercel + Supabase; scale topology documented for 10k DAU.",
     impact:
-      "A shippable headless storefront/backend architecture with clear “what not to run yet” triggers — designed to grow from early orders to a Minimum Working Model without a rewrite.",
+      "Demo platform built and served to clients as a self-hosted Shopify-style replacement — storefront + commerce backend with clear growth triggers.",
     relatedNotes: ["d2c-medusa-india"],
   },
   paybench: {

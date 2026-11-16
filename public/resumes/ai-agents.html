@@ -55,8 +55,8 @@
   
       <div class="job">
         <div class="job-head">
-          <strong>SDE | Atrium - AI Powered E-Commerce Startup (Pre-launch)</strong>
-          <em>Aug 2026 -- Present</em>
+          <strong>SDE | Atrium - E-Commerce Startup (Pre-launch)</strong>
+          <em>Aug 2026 – Present</em>
         </div>
         <p class="stack"><em>TypeScript, React (Vite), Next.js, Node.js, PostgreSQL, Redis, Python, Centrifugo, Better Auth, Docker, GCP; AI-assisted development (Claude Code, Codex)</em></p>
         <ul><li>Built the authentication module on Better Auth for a template-driven marketplace platform (Shopify-style), implementing separate merchant and consumer auth planes with Postgres-backed sessions and accounts.</li><li>Engineered a real-time chat pipeline using a PostgreSQL transactional outbox, relay service, Centrifugo, and Redis, designed and tested against 25 failure and edge-case scenarios so messages are persisted atomically before delivery and not lost if the relay or broker restarts; built the React + Vite chat interface on top.</li><li>Helped build the internal admin dashboard in Next.js (App Router) and TypeScript, packaged as a standalone non-root container on a private GCP runtime; implemented the charts as hand-rolled SVG with no chart libraries, and used postgres for data access and jose for JWT verification.</li><li>Built an AI chatroom CLI for multi-agent planning: one shared Markdown transcript across a human and two agents (Claude in plan mode, Codex in a read-only sandbox), with explicit @claude/@codex/@both routing and no agent-to-agent loops.</li></ul>
@@ -64,7 +64,7 @@
       <div class="job">
         <div class="job-head">
           <strong>ITD Intern | Nomura Services India Pvt. Ltd.</strong>
-          <em>Jan 2026 -- Jun 2026</em>
+          <em>Jan 2026 – Jun 2026</em>
         </div>
         <p class="stack"><em>Java, Spring Boot, React.js, Python, Jenkins, Liquibase, Docker, Ansible, Playwright, Git</em></p>
         <ul><li>Integrated Spring Boot backend services with React interfaces for an enterprise real estate platform, driving design decisions across distributed, multi-tiered systems.</li><li>Built Python batch pipelines with algorithmic validation and retry logic for scheduled data processing; containerized the workflow with Docker, cutting execution time from 240 min to 58 min (76% faster).</li><li>Automated database versioning and deployment via Liquibase and Jenkins CI/CD, and established containerized, tested release pipelines with Ansible and Playwright, improving deployment speed and release consistency across environments.</li></ul>
@@ -73,25 +73,25 @@
   
       <div class="project">
         <div class="job-head"><strong>PayBench (Agent Payment Benchmark)</strong><em>2026</em></div>
-        <p class="stack"><em>Tools: Python, TypeScript, Node.js, double-entry ledger, mutation-tested graders</em></p>
-        <ul><li>Built a seeded payments simulator with a double-entry ledger and scripted faults including TIMEOUT_AFTER_COMMIT so agents are graded on final world state, not chat fluency.</li><li>Designed policy-aware graders (P1-P9) and mutation-tested scorers to a 64/64 kill rate, separating Oracle (idempotent) from Naive (double-pay) behavior.</li><li>Shipped playground and compare media that demonstrate verify-before-retry and idempotency-key replay under ambiguous timeouts.</li></ul>
+        <p class="stack"><em>Tools: Python, TypeScript, Node.js, double-entry ledger, mutation-tested graders, GitHub Actions</em></p>
+        <ul><li>Built a 50-task (25 core) agent payments benchmark with a double-entry ledger and 8 fault types — including TIMEOUT_AFTER_COMMIT — so agents are scored on final world state, not chat fluency.</li><li>Designed policy checkers P1–P9 and mutation-tested scorers to a 64/64 (100%) kill rate, catching graders that can be fooled into false passes.</li><li>Separated Oracle (idempotent, pass@1 1.00 on core) from Naive (double-pay under ambiguous timeouts) reference agents for calibrate-able evals.</li><li>Shipped playground/compare flows that demonstrate verify-before-retry and idempotency-key replay when the API lies after money already moved.</li></ul>
       </div>
       <div class="project">
         <div class="job-head"><strong>TraceIQ (Incident Logger)</strong><em>2026</em></div>
-        <p class="stack"><em>Tools: TypeScript, DuckDB, Parquet, RLS, log-to-hypothesis pipeline</em></p>
-        <ul><li>Built a log-to-hypothesis incident assistant that ranks suspects from messy outage logs and abstains instead of inventing certainty.</li><li>Used DuckDB/Parquet with row-level security patterns for efficient local analysis of large log corpora.</li><li>Documented decoy-deploy failure modes so graders and operators can distinguish real regressions from noise.</li></ul>
+        <p class="stack"><em>Tools: TypeScript, FastAPI, React/Vite, Postgres + RLS, DuckDB, Parquet</em></p>
+        <ul><li>Built a log-to-hypothesis incident assistant that turns messy outage JSONL into ranked suspects and a cited postmortem-style report — and abstains when evidence is thin.</li><li>Used DuckDB/Parquet plus Postgres RLS patterns for efficient, access-controlled analysis of large local log corpora.</li><li>Validated the pipeline with 56 pytest + 6 Vitest cases; demo eval oracle service top-1 = 1.00 (n=3) vs weaker deterministic baselines.</li><li>Encoded decoy-deploy failure modes so operators and graders can separate real regressions from noisy latest-deploy heuristics.</li></ul>
       </div>
       <div class="project">
-        <div class="job-head"><strong>duihua — Mandarin Speaking Coach</strong><em>2026</em></div>
-        <p class="stack"><em>Tools: TypeScript, STT, LLM, TTS, React</em></p>
-        <ul><li>Built a speaking-coach loop that chains speech-to-text, an LLM tutor, and text-to-speech for conversational practice.</li><li>Shipped practice and feedback flows with honest in-progress roadmap items (tone scoring, image practice).</li><li>Kept the product demoable via recorded conversation GIFs while features continue to land.</li></ul>
+        <div class="job-head"><strong>Personal Job Radar</strong><em>2026</em></div>
+        <p class="stack"><em>Tools: Python, FastAPI, Postgres 16, Playwright, React/Vite, ATS adapters</em></p>
+        <ul><li>Built a single-user job aggregation radar with ATS adapters for Greenhouse, Lever, Ashby, Workday, plus generic careers pages into searchable Postgres.</li><li>Implemented a resilient ingest fallback chain (JSON-LD → sitemap → XHR → HTML → Playwright) with explicit source-health signals when sites drift.</li><li>Designed refresh + dedupe so the UI stays current without duplicate noise; Apply opens the original posting — no auto-apply.</li><li>Focused reliability on connector health and query UX so silent scraper rot does not hide open roles.</li></ul>
       </div>
   <h2>Technical Skills</h2>
   <ul>
     <li><strong>Programming: </strong>Python, TypeScript, Java, C++, JavaScript (ES6/ES7), SQL, HTML/CSS</li>
-    <li><strong>Frameworks &amp; Technologies: </strong>Node.js, PostgreSQL, Redis, Docker, Spring Boot, React.js, Git, Angular, Better Auth, Express.js, Centrifugo, Solidity, MongoDB, Firebase, Jenkins, Ansible, Liquibase, Playwright</li>
-    <li><strong>Cloud: </strong>GCP (private runtime, containerized deployments); AWS Certified Cloud Practitioner — EC2, S3, IAM</li>
-    <li><strong>Achievements: </strong>Winner, Code for Good — JPMorgan Chase; Finalist, Flipkart Grid; Finalist, IVP</li>
+    <li><strong>Frameworks &amp; Technologies: </strong>Node.js, PostgreSQL, Redis, Docker, Playwright, FastAPI, Spring Boot, React.js, Git, Angular, Better Auth, Express.js, Centrifugo, Solidity, Circom, ZoKrates, MongoDB, Firebase, Jenkins, Ansible, Liquibase</li>
+    <li><strong>Cloud: </strong>GCP (private runtime, containerized deployments); AWS Certified Cloud Practitioner – EC2, S3, IAM</li>
+    <li><strong>Achievements: </strong>Winner, Code for Good – JPMorgan Chase; Finalist, Flipkart Grid; Finalist, IVP</li>
     <li><strong>Course Work: </strong>Data Structures &amp; Algorithms, Microservices &amp; Distributed Systems, DBMS (NoSQL &amp; Relational), Operating Systems, Computer Networks, AI / Machine Learning</li>
   </ul>
 </body>

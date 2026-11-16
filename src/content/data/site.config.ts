@@ -21,7 +21,7 @@ export const siteConfig = {
     name: "Mochi",
     palette: "cream" as const,
   },
-  availability: "Available immediately · Open to relocation",
+  availability: "Open to relocation",
   featureFlags: {
     analytics: false,
     contactForm: false,

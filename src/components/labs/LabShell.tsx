@@ -69,7 +69,7 @@ export function LabShell({
           </Link>
 
           <div
-            className="rounded-lg border-2 border-ink bg-butter/30 px-3 py-2 text-sm"
+            className="rounded-lg border-2 border-border bg-butter/30 px-3 py-2 text-sm"
             aria-live="polite"
           >
             {outcome ? (

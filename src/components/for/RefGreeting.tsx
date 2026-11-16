@@ -14,7 +14,7 @@ export function RefGreeting() {
   if (!ref) return null;
 
   return (
-    <p className="mb-4 inline-flex rounded-full border-2 border-ink bg-butter px-3 py-1 text-sm">
+    <p className="mb-4 inline-flex rounded-full border-2 border-border bg-butter px-3 py-1 text-sm">
       Hi {ref} team — thanks for reading.
     </p>
   );

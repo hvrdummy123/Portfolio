@@ -105,9 +105,9 @@
 }
 
 .or-projects {
-  list-style: none;
+  list-style: disc;
   margin: 0;
-  padding: 0;
+  padding-left: 1.15rem;
 }
 
 .or-projects > li {
@@ -123,6 +123,12 @@
 .or-tools {
   margin: 0.05rem 0 0.1rem;
   font-size: 9.5pt;
+}
+
+/* Sample Overleaf uses en-dash sub-bullets under each project */
+.or-projects .or-bullets {
+  list-style-type: "–  ";
+  padding-left: 1rem;
 }
 
 .or-skills {

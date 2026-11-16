@@ -59,7 +59,7 @@ export default function ExperiencePage() {
       <div className="relative mt-10 space-y-6 before:absolute before:bottom-8 before:left-5 before:top-8 before:w-0.5 before:bg-ink/25">
         {experience.map((job, i) => (
           <div key={job.id} className="relative pl-12">
-            <div className="absolute left-2 top-4 grid h-7 w-7 place-items-center rounded-full border-2 border-ink bg-butter">
+            <div className="absolute left-2 top-4 grid h-7 w-7 place-items-center rounded-full border-2 border-border bg-butter">
               <PixelCat pose={i === 0 ? "sit" : "walk"} scale={1.1} />
             </div>
             <Window
@@ -122,7 +122,7 @@ export default function ExperiencePage() {
         ))}
 
         <div className="relative pl-12">
-          <div className="absolute left-2 top-4 grid h-7 w-7 place-items-center rounded-full border-2 border-ink bg-mint">
+          <div className="absolute left-2 top-4 grid h-7 w-7 place-items-center rounded-full border-2 border-border bg-mint">
             <PixelCat pose="think" scale={1.1} />
           </div>
           <Window title="education.node" status={`Class of ${identity.education.classOf}`}>
@@ -137,7 +137,7 @@ export default function ExperiencePage() {
         </div>
 
         <div className="relative pl-12">
-          <div className="absolute left-2 top-4 grid h-7 w-7 place-items-center rounded-full border-2 border-ink bg-lavender">
+          <div className="absolute left-2 top-4 grid h-7 w-7 place-items-center rounded-full border-2 border-border bg-lavender">
             <PixelCat pose="celebrate" scale={1.1} />
           </div>
           <Window title="cert.badge">

@@ -38,7 +38,7 @@ export default async function ResumeRolePage({
     <div className="container-site section-pad">
       <p className="eyebrow">Résumé · Overleaf one-pager</p>
       <h1 className="display text-3xl text-ink md:text-4xl">{variant.title}</h1>
-      <p className="mt-2 font-[family-name:var(--font-pixelify)] text-sm text-berry">
+      <p className="mt-2 font-medium text-sm text-berry">
         {variant.headline}
       </p>
       <p className="mt-3 max-w-2xl text-sm text-ink-soft">{variant.whyThisVersion}</p>

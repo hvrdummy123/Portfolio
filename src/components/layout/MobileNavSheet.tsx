@@ -50,7 +50,7 @@ export function MobileNavSheet() {
     <div className="md:hidden">
       <button
         type="button"
-        className="focus-ring rounded-md border-2 border-ink bg-surface px-3 py-2 text-sm"
+        className="focus-ring rounded-md border-2 border-border bg-surface px-3 py-2 text-sm font-medium"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen(true)}
@@ -67,14 +67,14 @@ export function MobileNavSheet() {
           />
           <div
             id={panelId}
-            className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl border-2 border-ink bg-surface p-4 shadow-[0_-4px_0_var(--ink)]"
+            className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-2xl border-2 border-border bg-surface p-4 shadow-[0_-4px_0_var(--border)]"
           >
             <div className="mb-3 flex items-center justify-between">
               <p className="display text-lg">Navigate</p>
               <button
                 ref={closeRef}
                 type="button"
-                className="focus-ring min-h-11 min-w-11 rounded-md border-2 border-ink px-3"
+                className="focus-ring min-h-11 min-w-11 rounded-md border-2 border-border px-3"
                 onClick={() => setOpen(false)}
               >
                 Close

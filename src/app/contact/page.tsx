@@ -51,7 +51,7 @@ END:VCARD`;
           <p className="eyebrow">Contact</p>
           <h1 className="display text-4xl text-ink md:text-5xl">Say hi</h1>
           <p className="mt-4 max-w-xl text-ink-soft">{profile.availability}</p>
-          <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-mint px-3 py-1 text-xs">
+          <p className="mt-3 inline-flex items-center gap-2 rounded-full border-2 border-border bg-mint px-3 py-1 text-xs">
             <span className="h-2 w-2 rounded-full bg-leaf" aria-hidden />
             {profile.location} · {profile.graduationLabel}
           </p>

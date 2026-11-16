@@ -33,7 +33,7 @@ export default function AboutPage() {
         status={`${profile.location} · ${profile.graduationLabel}`}
       >
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-          <div className="shrink-0 rounded-lg border-2 border-ink bg-blush/40 p-4">
+          <div className="shrink-0 rounded-lg border-2 border-border bg-blush/40 p-4">
             <PixelCat pose="think" scale={4} title={profile.name} />
           </div>
           <div>
@@ -64,7 +64,7 @@ export default function AboutPage() {
           failure path: timeouts after commit, relay crashes, webhook replays, and graders that can
           be mutated. Recent work includes transactional outboxes for chat and Better Auth marketplace
           planes at Atrium; agent benchmarks that score ledger state rather than prose; a
-          Medusa-based D2C architecture for Indian beverage commerce; and a Nomura internship on
+          Medusa-based Shopify-style D2C platform demoed for clients; and a Nomura internship on
           batch pipelines and release automation.
         </p>
         <p>
@@ -121,7 +121,7 @@ export default function AboutPage() {
         <h2 className="display text-2xl">Colophon</h2>
         <p className="mt-3 text-sm text-ink-soft">
           Built with Next.js, TypeScript, and Tailwind. AI tools assisted drafting and scaffolding; I
-          verified facts, architecture, and copy before shipping. Fonts: Pixelify Sans, DM Sans,
+          verified facts, architecture, and copy before shipping. Fonts: Outfit, DM Sans, Pixelify Sans,
           JetBrains Mono.
         </p>
       </section>

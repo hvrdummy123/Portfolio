@@ -39,7 +39,7 @@ export function LookaheadLab() {
         <input type="checkbox" checked={bias} onChange={(e) => setBias(e.target.checked)} />
         Enable look-ahead bias
       </label>
-      <svg viewBox="0 0 320 120" className="mt-4 w-full border-2 border-ink bg-surface" role="img" aria-label="Equity curve">
+      <svg viewBox="0 0 320 120" className="mt-4 w-full border-2 border-border bg-surface" role="img" aria-label="Equity curve">
         <polyline
           fill="none"
           stroke="currentColor"

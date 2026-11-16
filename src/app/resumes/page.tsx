@@ -35,7 +35,7 @@ export default function ResumesPage() {
               className="flex flex-col"
             >
               <h2 className="display text-2xl text-ink">{v.title}</h2>
-              <p className="mt-2 font-[family-name:var(--font-pixelify)] text-sm text-berry">
+              <p className="mt-2 font-medium text-sm text-berry">
                 {v.headline}
               </p>
               <p className="mt-3 text-sm text-ink-soft">{v.whyThisVersion}</p>

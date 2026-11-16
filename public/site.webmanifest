@@ -4,8 +4,8 @@
   "description": "Software engineer portfolio — backends, agents, and commerce.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FBF8F4",
-  "theme_color": "#B9A4F0",
+  "background_color": "#FFF8F6",
+  "theme_color": "#FFB6D0",
   "icons": [
     {
       "src": "/favicon.ico",

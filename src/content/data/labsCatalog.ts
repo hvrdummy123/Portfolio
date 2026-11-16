@@ -124,7 +124,8 @@ export const LABS_CATALOG: LabCatalogEntry[] = [
     tone: "fintech",
     time: "~2 min",
     difficulty: "Easy",
-    blurb: "Same strategy with/without look-ahead — inflated equity curve (illustrative).",
+    blurb:
+      "Same strategy with/without look-ahead — inflated equity curve (illustrative).",
     goal: "Spot how peeking at future prices inflates a toy backtest.",
     steps: [
       "Read the honest equity curve with bias off.",
@@ -136,7 +137,14 @@ export const LABS_CATALOG: LabCatalogEntry[] = [
   },
 ];
 
-export const LAB_TOPICS = ["all", "agents", "zk", "backend", "commerce", "fintech"] as const;
+export const LAB_TOPICS = [
+  "all",
+  "agents",
+  "zk",
+  "backend",
+  "commerce",
+  "fintech",
+] as const;
 export type LabTopicFilter = (typeof LAB_TOPICS)[number];
 
 export function getLabBySlug(slug: string): LabCatalogEntry | undefined {

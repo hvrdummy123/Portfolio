@@ -29,7 +29,7 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-ink bg-surface/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b-2 border-border bg-surface/95 backdrop-blur-sm">
       <div className="container-site flex items-center justify-between gap-3 py-2.5">
         <Link href="/" className="focus-ring flex items-center gap-2 text-ink no-underline">
           <PixelCat pose="sit" scale={1.5} />
@@ -45,7 +45,7 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "focus-ring rounded-md px-2.5 py-1.5 font-[family-name:var(--font-pixelify)] text-sm no-underline",
+                  "focus-ring rounded-md px-2.5 py-1.5 text-sm font-medium no-underline",
                   active ? "bg-blush text-ink" : "text-ink-soft hover:bg-surface-2 hover:text-ink",
                 )}
               >
@@ -57,14 +57,14 @@ export function SiteHeader() {
           <div className="relative" ref={moreRef}>
             <button
               type="button"
-              className="focus-ring rounded-md px-2.5 py-1.5 font-[family-name:var(--font-pixelify)] text-sm text-ink-soft hover:bg-surface-2 hover:text-ink"
+              className="focus-ring rounded-md px-2.5 py-1.5 text-sm font-medium text-ink-soft hover:bg-surface-2 hover:text-ink"
               aria-expanded={moreOpen}
               onClick={() => setMoreOpen((v) => !v)}
             >
               More ▾
             </button>
             {moreOpen ? (
-              <div className="absolute left-0 top-full z-50 mt-1 min-w-[180px] rounded-lg border-2 border-ink bg-surface p-1 shadow-[4px_4px_0_var(--ink)]">
+              <div className="absolute left-0 top-full z-50 mt-1 min-w-[180px] rounded-lg border-2 border-border bg-surface p-1 shadow-[4px_4px_0_var(--border)]">
                 {siteConfig.navMore.map((item) => (
                   <Link
                     key={item.href}
@@ -91,7 +91,7 @@ export function SiteHeader() {
               Résumé ▾
             </button>
             {resumeOpen ? (
-              <div className="absolute right-0 top-full z-50 mt-1 min-w-[200px] rounded-lg border-2 border-ink bg-surface p-1 shadow-[4px_4px_0_var(--ink)]">
+              <div className="absolute right-0 top-full z-50 mt-1 min-w-[200px] rounded-lg border-2 border-border bg-surface p-1 shadow-[4px_4px_0_var(--border)]">
                 <Link
                   href="/resumes"
                   className="block rounded-md px-3 py-2 text-sm text-ink no-underline hover:bg-blush"
@@ -123,7 +123,7 @@ export function SiteHeader() {
 
           <button
             type="button"
-            className="focus-ring grid h-9 w-9 place-items-center rounded-md border-2 border-ink bg-butter"
+            className="focus-ring grid h-9 w-9 place-items-center rounded-md border-2 border-border bg-butter"
             onClick={toggleTheme}
             aria-label={theme === "light" ? "Switch to night" : "Switch to day"}
           >

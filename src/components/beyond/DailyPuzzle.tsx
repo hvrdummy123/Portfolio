@@ -37,7 +37,7 @@ export function DailyPuzzle() {
       </ul>
       <div className="mt-3 flex gap-2">
         <input
-          className="w-24 rounded-lg border-2 border-ink px-2"
+          className="w-24 rounded-lg border-2 border-border px-2"
           value={guess}
           onChange={(e) => setGuess(e.target.value)}
           inputMode="numeric"

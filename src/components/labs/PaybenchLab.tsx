@@ -123,7 +123,7 @@ export function PaybenchLab() {
       </div>
 
       {mode === "easy" ? (
-        <p className="rounded-lg border-2 border-ink bg-butter/50 px-3 py-2 text-xs">
+        <p className="rounded-lg border-2 border-border bg-butter/50 px-3 py-2 text-xs">
           Hint: after a timeout, look up the transfer before you retry — and reuse the same
           idempotency key.
         </p>
@@ -144,11 +144,11 @@ export function PaybenchLab() {
 
         <Window title="ledger.db" status={`payouts=${ledger.payouts}`}>
           <div className="grid grid-cols-2 gap-2 text-sm">
-            <div className="rounded border-2 border-ink bg-cream p-2">
+            <div className="rounded border-2 border-border bg-cream p-2">
               <p className="eyebrow">Alice</p>
               <p className="display text-xl">₹{ledger.alice}</p>
             </div>
-            <div className="rounded border-2 border-ink bg-cream p-2">
+            <div className="rounded border-2 border-border bg-cream p-2">
               <p className="eyebrow">Bob</p>
               <p className="display text-xl">₹{ledger.bob}</p>
             </div>
@@ -181,7 +181,7 @@ export function PaybenchLab() {
             ))}
           </ul>
           {score ? (
-            <p className="mt-3 font-[family-name:var(--font-pixelify)] text-lg" aria-live="polite">
+            <p className="mt-3 font-medium text-lg" aria-live="polite">
               {score}
             </p>
           ) : null}

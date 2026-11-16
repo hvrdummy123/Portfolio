@@ -74,7 +74,7 @@
 \section{\textbf{Work Experience}}
 
 \begin{tabularx}{\linewidth}{ @{}l r@{} }
-\textbf{SDE $|$ Atrium - AI Powered E-Commerce Startup (Pre-launch)} & \hfill \textit{Aug 2026 -- Present} \\[0pt]
+\textbf{SDE $|$ Atrium - E-Commerce Startup (Pre-launch)} & \hfill \textit{Aug 2026 -- Present} \\[0pt]
 \multicolumn{2}{@{}X@{}}{\textit{TypeScript, React (Vite), Next.js, Node.js, PostgreSQL, Redis, Python, Centrifugo, Better Auth, Docker, GCP; AI-assisted development (Claude Code, Codex)}} \\[0pt]
 \multicolumn{2}{@{}X@{}}{
 \begin{itemize}[leftmargin=3ex, rightmargin=2ex, noitemsep, labelsep=1.2mm, itemsep=0.4mm]\small
@@ -124,23 +124,25 @@
 \vspace{-3mm}
 
 \resumeItemListStart
-  \item {Architected and built a full featured headless e-commerce platform on Medusa.js with a decoupled React storefront and Node.js backend, separating catalog, cart, checkout, order, and fulfillment domains.}
-  \item {Extended Medusa's core commerce framework with custom backend workflows and REST APIs, implementing end-to-end cart/checkout flows -- variant handling, pricing, validation, order state transitions -- backed by a relational PostgreSQL data model.}
-  \item {Designed configurable, multi-region shipping and fulfillment workflows and structured the system for extensibility (payments, auth, promotions, notifications) without major architectural rework.}
+  \item {Architected and built a Shopify-style headless commerce platform on Medusa.js with a decoupled React storefront and Node.js backend, separating catalog, cart, checkout, order, and fulfillment domains.}
+  \item {Extended Medusa with custom workflows and REST APIs for end-to-end cart/checkout --- variant handling, pricing, validation, and order state transitions --- on a relational PostgreSQL model.}
+  \item {Designed configurable multi-region shipping/fulfillment and extension points (payments, auth, promotions, notifications) so merchants can grow without a rewrite.}
+  \item {Delivered working demos to clients as a self-hosted Shopify-style replacement for Indian D2C (phone-first checkout, COD, WhatsApp post-purchase).}
 \resumeItemListEnd
 \vspace{-3mm}
 
 \resumeProject
 {  Privacy-Preserving KYC Verification Platform}
-{Tools: React.js, Node.js, Express.js, Solidity, Ethereum, ZoKrates, IPFS, MetaMask}
+{Tools: React.js, Node.js, Express.js, Solidity, Ethereum, Circom, ZoKrates, IPFS, MetaMask}
 {2026}
 {}
 \vspace{-3mm}
 
 \resumeItemListStart
-  \item {Designed a full-stack KYC platform separating credential issuance, zero-knowledge proof generation, and verification into modular services for privacy-preserving identity verification.}
-  \item {Built Solidity smart contracts for credential issuance, revocation, and zk-SNARK verification with immutable on-chain auditability on Ethereum and used Circom circuits for proofs.}
-  \item {Integrated React workflows with Node.js APIs and ZoKrates-generated proofs, enabling selective attribute disclosure with proof generation under 2 seconds.}
+  \item {Designed a full-stack KYC stack separating credential issuance, zero-knowledge proof generation, and verification into modular services for privacy-preserving identity checks.}
+  \item {Built Solidity contracts for issuance, revocation, and zk-SNARK verification with immutable on-chain auditability on Ethereum; Circom circuits for proof generation.}
+  \item {Integrated React + Node.js APIs with ZoKrates/Circom proofs so verifiers get selective attribute disclosure without raw PII.}
+  \item {Achieved proof generation under 2 seconds for the selective-disclosure workflow claimed on the résumé, with MetaMask-driven local testnet flows.}
 \resumeItemListEnd
 \vspace{-3mm}
 
@@ -152,9 +154,10 @@
 \vspace{-3mm}
 
 \resumeItemListStart
-  \item {Built a backtesting platform combining a React/Redux frontend, Express backend, and Python engine over MongoDB and SQLite, evaluating strategies across 180,000+ historical NSE records.}
-  \item {Built a market-data pipeline normalizing OHLCV datasets, executing full strategy simulations in under 3 seconds.}
-  \item {Engineered REST APIs (\textasciitilde{}120 ms avg latency) surfacing results through Plotly dashboards, covered by Jest tests, rendering in under 700 ms.}
+  \item {Built a full-stack backtester (React/Redux + Express + Python) over MongoDB/SQLite evaluating strategies across 180,000+ historical NSE records.}
+  \item {Implemented an OHLCV market-data pipeline that runs complete strategy simulations in under 3 seconds.}
+  \item {Shipped REST APIs at \textasciitilde{}120 ms average latency feeding Plotly dashboards that render in under 700 ms.}
+  \item {Covered critical paths with Jest so regression risk stays low as strategies and data sources evolve.}
 \resumeItemListEnd
 \vspace{-3mm}
 \resumeSubHeadingListEnd
@@ -166,11 +169,11 @@
   \resumeSubItem{Programming: }
     {TypeScript, Java, Python, C++, JavaScript (ES6/ES7), SQL, HTML/CSS}
   \resumeSubItem{Frameworks \& Technologies: }
-    {React.js, Node.js, PostgreSQL, Better Auth, Docker, Spring Boot, Git, Angular, Redis, Express.js, Centrifugo, Solidity, MongoDB, Firebase, Jenkins, Ansible, Liquibase, Playwright}
+    {React.js, Node.js, PostgreSQL, Better Auth, Docker, Spring Boot, Git, Angular, Redis, Express.js, FastAPI, Centrifugo, Solidity, Circom, ZoKrates, MongoDB, Firebase, Jenkins, Ansible, Liquibase, Playwright}
   \resumeSubItem{Cloud: }
-  {GCP (private runtime, containerized deployments); AWS Certified Cloud Practitioner --- EC2, S3, IAM}
+  {GCP (private runtime, containerized deployments); AWS Certified Cloud Practitioner -- EC2, S3, IAM}
   \resumeSubItem{Achievements: }
-    {Winner, Code for Good --- JPMorgan Chase; Finalist, Flipkart Grid; Finalist, IVP}
+    {Winner, Code for Good -- JPMorgan Chase; Finalist, Flipkart Grid; Finalist, IVP}
   \resumeSubItem{Course Work: }
     {Data Structures \& Algorithms, Microservices \& Distributed Systems, DBMS (NoSQL \& Relational), Operating Systems, Computer Networks, AI / Machine Learning}
 \resumeHeadingSkillEnd

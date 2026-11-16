@@ -18,7 +18,8 @@ export const notes: Note[] = [
   },
   {
     slug: "grading-the-graders",
-    title: "Grading the graders: mutation testing a benchmark's scorers (64/64)",
+    title:
+      "Grading the graders: mutation testing a benchmark's scorers (64/64)",
     series: "Reliable Agents",
     part: 2,
     topics: ["agents", "evals", "testing"],
@@ -45,7 +46,8 @@ export const notes: Note[] = [
   },
   {
     slug: "zk-kyc-over-18",
-    title: "Zero-knowledge KYC: proving you're over 18 without showing your birthday",
+    title:
+      "Zero-knowledge KYC: proving you're over 18 without showing your birthday",
     series: "Zero-Knowledge for Humans",
     part: 1,
     topics: ["zk", "blockchain", "privacy"],
@@ -87,7 +89,8 @@ export const seriesList = [
   {
     slug: "reliable-agents",
     title: "Reliable Agents",
-    description: "Evals, outboxes, and multi-agent routing that survive failure.",
+    description:
+      "Evals, outboxes, and multi-agent routing that survive failure.",
     noteSlugs: [
       "paybench-ambiguous-timeout",
       "grading-the-graders",

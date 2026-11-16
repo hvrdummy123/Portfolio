@@ -48,17 +48,17 @@ export const projectExtras: Record<string, ProjectExtra> = {
         title: "Release pipeline",
         caption: "Generic tool chain: Liquibase → Jenkins → Ansible → Playwright.",
         svg: `<svg viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Release pipeline">
-  <rect x="8" y="36" width="130" height="48" rx="8" fill="#BDE8D4" stroke="#2B2733" stroke-width="2"/>
-  <text x="73" y="66" text-anchor="middle" font-family="system-ui" font-size="14" fill="#2B2733">Liquibase</text>
-  <path d="M142 60 H170" stroke="#2B2733" stroke-width="2" marker-end="url(#a)"/>
-  <rect x="174" y="36" width="130" height="48" rx="8" fill="#BFDDF7" stroke="#2B2733" stroke-width="2"/>
-  <text x="239" y="66" text-anchor="middle" font-family="system-ui" font-size="14" fill="#2B2733">Jenkins</text>
-  <path d="M308 60 H336" stroke="#2B2733" stroke-width="2"/>
-  <rect x="340" y="36" width="130" height="48" rx="8" fill="#FFE9A8" stroke="#2B2733" stroke-width="2"/>
-  <text x="405" y="66" text-anchor="middle" font-family="system-ui" font-size="14" fill="#2B2733">Ansible</text>
-  <path d="M474 60 H502" stroke="#2B2733" stroke-width="2"/>
-  <rect x="506" y="36" width="126" height="48" rx="8" fill="#FFC7B2" stroke="#2B2733" stroke-width="2"/>
-  <text x="569" y="66" text-anchor="middle" font-family="system-ui" font-size="14" fill="#2B2733">Playwright</text>
+  <rect x="8" y="36" width="130" height="48" rx="8" fill="var(--diagram-2)" stroke="currentColor" stroke-width="2"/>
+  <text x="73" y="66" text-anchor="middle" font-family="var(--font-dm-sans), system-ui, sans-serif" font-size="14" fill="currentColor">Liquibase</text>
+  <path d="M142 60 H170" stroke="currentColor" stroke-width="2"/>
+  <rect x="174" y="36" width="130" height="48" rx="8" fill="var(--diagram-3)" stroke="currentColor" stroke-width="2"/>
+  <text x="239" y="66" text-anchor="middle" font-family="var(--font-dm-sans), system-ui, sans-serif" font-size="14" fill="currentColor">Jenkins</text>
+  <path d="M308 60 H336" stroke="currentColor" stroke-width="2"/>
+  <rect x="340" y="36" width="130" height="48" rx="8" fill="var(--diagram-4)" stroke="currentColor" stroke-width="2"/>
+  <text x="405" y="66" text-anchor="middle" font-family="var(--font-dm-sans), system-ui, sans-serif" font-size="14" fill="currentColor">Ansible</text>
+  <path d="M474 60 H502" stroke="currentColor" stroke-width="2"/>
+  <rect x="506" y="36" width="126" height="48" rx="8" fill="var(--diagram-5)" stroke="currentColor" stroke-width="2"/>
+  <text x="569" y="66" text-anchor="middle" font-family="var(--font-dm-sans), system-ui, sans-serif" font-size="14" fill="currentColor">Playwright</text>
 </svg>`,
       },
     ],
@@ -75,17 +75,17 @@ export const projectExtras: Record<string, ProjectExtra> = {
         title: "Chat outbox path",
         caption: "Write → outbox row → relay → Centrifugo/Redis → client; relay/broker kills do not drop committed messages.",
         svg: `<svg viewBox="0 0 720 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Outbox chat path">
-  <rect x="10" y="40" width="110" height="50" rx="8" fill="#F3EEF8" stroke="#2B2733" stroke-width="2"/>
-  <text x="65" y="70" text-anchor="middle" font-size="13" font-family="system-ui">API write</text>
-  <rect x="140" y="40" width="130" height="50" rx="8" fill="#BDE8D4" stroke="#2B2733" stroke-width="2"/>
-  <text x="205" y="70" text-anchor="middle" font-size="13" font-family="system-ui">Postgres outbox</text>
-  <rect x="290" y="40" width="100" height="50" rx="8" fill="#BFDDF7" stroke="#2B2733" stroke-width="2"/>
-  <text x="340" y="70" text-anchor="middle" font-size="13" font-family="system-ui">Relay</text>
-  <rect x="410" y="40" width="140" height="50" rx="8" fill="#FFE9A8" stroke="#2B2733" stroke-width="2"/>
-  <text x="480" y="70" text-anchor="middle" font-size="13" font-family="system-ui">Centrifugo / Redis</text>
-  <rect x="570" y="40" width="130" height="50" rx="8" fill="#FFC7B2" stroke="#2B2733" stroke-width="2"/>
-  <text x="635" y="70" text-anchor="middle" font-size="13" font-family="system-ui">React client</text>
-  <path d="M120 65 H140 M270 65 H290 M390 65 H410 M550 65 H570" stroke="#2B2733" stroke-width="2"/>
+  <rect x="10" y="40" width="110" height="50" rx="8" fill="var(--diagram-1)" stroke="currentColor" stroke-width="2"/>
+  <text x="65" y="70" text-anchor="middle" font-size="13" font-family="var(--font-dm-sans), system-ui, sans-serif" fill="currentColor">API write</text>
+  <rect x="140" y="40" width="130" height="50" rx="8" fill="var(--diagram-2)" stroke="currentColor" stroke-width="2"/>
+  <text x="205" y="70" text-anchor="middle" font-size="13" font-family="var(--font-dm-sans), system-ui, sans-serif" fill="currentColor">Postgres outbox</text>
+  <rect x="290" y="40" width="100" height="50" rx="8" fill="var(--diagram-3)" stroke="currentColor" stroke-width="2"/>
+  <text x="340" y="70" text-anchor="middle" font-size="13" font-family="var(--font-dm-sans), system-ui, sans-serif" fill="currentColor">Relay</text>
+  <rect x="410" y="40" width="140" height="50" rx="8" fill="var(--diagram-4)" stroke="currentColor" stroke-width="2"/>
+  <text x="480" y="70" text-anchor="middle" font-size="13" font-family="var(--font-dm-sans), system-ui, sans-serif" fill="currentColor">Centrifugo / Redis</text>
+  <rect x="570" y="40" width="130" height="50" rx="8" fill="var(--diagram-5)" stroke="currentColor" stroke-width="2"/>
+  <text x="635" y="70" text-anchor="middle" font-size="13" font-family="var(--font-dm-sans), system-ui, sans-serif" fill="currentColor">React client</text>
+  <path d="M120 65 H140 M270 65 H290 M390 65 H410 M550 65 H570" stroke="currentColor" stroke-width="2"/>
 </svg>`,
       },
     ],
@@ -115,7 +115,7 @@ export const projectExtras: Record<string, ProjectExtra> = {
   },
   "d2c-ecommerce": {
     limitations:
-      "In progress. Capacity figures for the 10k DAU topology are design targets, not live traffic measurements.",
+      "Client demos are private. Capacity figures for the 10k DAU topology are design targets, not live traffic measurements.",
   },
 };
 

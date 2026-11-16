@@ -19,7 +19,7 @@ const checks: { ok: boolean; msg: string }[] = [
     msg: `CGPA ${profile.education.cgpa} must appear in site.config.ts`,
   },
   {
-    ok: siteSrc.includes("Available immediately") || siteSrc.includes(profile.availability),
+    ok: siteSrc.includes(profile.availability) || siteSrc.includes("Open to relocation"),
     msg: "Availability string must match profile",
   },
   {

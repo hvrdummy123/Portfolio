@@ -19,7 +19,7 @@ export function Callout({
       )}
     >
       {title ? <p className="eyebrow mb-2">{title}</p> : null}
-      <div className="text-sm text-ink-soft">{children}</div>
+      <div className="callout-body">{children}</div>
     </aside>
   );
 }

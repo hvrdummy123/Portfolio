@@ -131,7 +131,7 @@ export function CaseStudy({
           ) : null}
         </div>
         {showSamples ? (
-          <div className="mt-6 overflow-hidden rounded-lg border-2 border-ink bg-cream empty:hidden">
+          <div className="mt-6 overflow-hidden rounded-[var(--radius)] border-2 border-border bg-cream empty:hidden">
             <ProjectMedia slug={project.slug} />
           </div>
         ) : null}
@@ -143,9 +143,9 @@ export function CaseStudy({
 
       <div className="mt-10">
         <CaseStudyChrome toc={toc}>
-          <section id="tldr">
-            <h2 className="display text-2xl text-ink">TL;DR</h2>
-            <div className="mt-4 grid gap-4 md:grid-cols-3">
+          <section id="tldr" className="case-section">
+            <h2 className="display text-ink">TL;DR</h2>
+            <div className="grid gap-4 md:grid-cols-3">
               {[
                 { id: "problem", title: "Problem", body: problem },
                 { id: "built", title: "What I built", body: solution },
@@ -166,9 +166,9 @@ export function CaseStudy({
           </section>
 
           {project.stats.length > 0 ? (
-            <section id="metrics">
-              <h2 className="display text-2xl text-ink">Key metrics</h2>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <section id="metrics" className="case-section">
+              <h2 className="display text-ink">Key metrics</h2>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {project.stats.map((s) => (
                   <div key={s.label} className="win" title={s.source}>
                     <div className="win-titlebar !py-1 !text-[10px]">
@@ -192,33 +192,33 @@ export function CaseStudy({
           ) : null}
 
           {children ? (
-            <section id="context">
-              <h2 className="display text-2xl text-ink">Context</h2>
-              <div className="mt-4 space-y-4">{children}</div>
+            <section id="context" className="case-section">
+              <h2 className="display text-ink">Context</h2>
+              <div className="space-y-4">{children}</div>
             </section>
           ) : null}
 
           {extra?.diagrams?.map((d) => (
-            <section id="architecture" key={d.title}>
-              <h2 className="display text-2xl text-ink">{d.title}</h2>
+            <section id="architecture" className="case-section" key={d.title}>
+              <h2 className="display text-ink">{d.title}</h2>
               <div
-                className="mt-4 overflow-x-auto rounded-xl border-2 border-ink bg-surface p-4"
+                className="diagram-frame"
                 dangerouslySetInnerHTML={{ __html: d.svg }}
               />
-              <p className="mt-2 text-sm text-ink-soft">{d.caption}</p>
+              <p className="diagram-caption">{d.caption}</p>
             </section>
           ))}
 
           {project.stack.length > 0 ? (
-            <section id="stack">
-              <h2 className="display text-2xl text-ink">
+            <section id="stack" className="case-section">
+              <h2 className="display text-ink">
                 {stackHasWhy ? "Stack · why this, not that" : "Stack"}
               </h2>
               {stackHasWhy ? (
-                <div className="mt-4 overflow-x-auto">
+                <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
-                      <tr className="border-b-2 border-ink text-left">
+                      <tr className="border-b-2 border-border text-left">
                         <th className="py-2">Choice</th>
                         <th>Layer</th>
                         <th>Why</th>
@@ -244,7 +244,7 @@ export function CaseStudy({
                   </table>
                 </div>
               ) : (
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2">
                   {project.stack.map((s) => (
                     <Chip key={s.name} tone={s.layer === "frontend" ? "frontend" : "backend"}>
                       {s.name}
@@ -256,21 +256,21 @@ export function CaseStudy({
           ) : null}
 
           {project.decisions.length > 0 ? (
-            <section id="decisions">
-              <h2 className="display text-2xl text-ink">Key decisions</h2>
-              <div className="mt-4 space-y-3">
+            <section id="decisions" className="case-section">
+              <h2 className="display text-ink">Key decisions</h2>
+              <div className="space-y-3">
                 {project.decisions.map((d, i) => (
                   <Window key={i} title={`adr-${i + 1}.md`}>
                     <p className="text-sm">
-                      <span className="font-medium">Context — </span>
+                      <span className="font-medium text-ink">Context — </span>
                       <span className="text-ink-soft">{d.context}</span>
                     </p>
                     <p className="mt-2 text-sm">
-                      <span className="font-medium">Decision — </span>
+                      <span className="font-medium text-ink">Decision — </span>
                       <span className="text-ink-soft">{d.decision}</span>
                     </p>
                     <p className="mt-2 text-sm">
-                      <span className="font-medium">Consequence — </span>
+                      <span className="font-medium text-ink">Consequence — </span>
                       <span className="text-ink-soft">{d.consequence}</span>
                     </p>
                   </Window>
@@ -280,9 +280,9 @@ export function CaseStudy({
           ) : null}
 
           {extra?.howTested?.length ? (
-            <section id="tested">
-              <h2 className="display text-2xl text-ink">How I tested it</h2>
-              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-ink-soft">
+            <section id="tested" className="case-section">
+              <h2 className="display text-ink">How I tested it</h2>
+              <ul className="list-disc space-y-2 text-sm text-ink-soft">
                 {extra.howTested.map((t) => (
                   <li key={t}>{t}</li>
                 ))}
@@ -291,9 +291,9 @@ export function CaseStudy({
           ) : null}
 
           {extra?.threatModel ? (
-            <section id="threat">
-              <h2 className="display text-2xl text-ink">{extra.threatModel.title}</h2>
-              <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-ink-soft">
+            <section id="threat" className="case-section">
+              <h2 className="display text-ink">{extra.threatModel.title}</h2>
+              <ul className="list-disc space-y-2 text-sm text-ink-soft">
                 {extra.threatModel.points.map((p) => (
                   <li key={p}>{p}</li>
                 ))}
@@ -302,8 +302,8 @@ export function CaseStudy({
           ) : null}
 
           {extra?.research ? (
-            <section id="research">
-              <h2 className="display text-2xl text-ink">Research</h2>
+            <section id="research" className="case-section">
+              <h2 className="display text-ink">Research</h2>
               <Callout title={extra.research.title} tone="info">
                 <p>{extra.research.blurb}</p>
                 <p className="mt-2">
@@ -316,17 +316,17 @@ export function CaseStudy({
           ) : null}
 
           {extra?.verifyCommands?.length ? (
-            <section id="verify">
-              <h2 className="display text-2xl text-ink">Verify it yourself</h2>
-              <pre className="mt-4 overflow-x-auto rounded-lg border-2 border-ink bg-surface-2 p-4 font-[family-name:var(--font-jetbrains)] text-xs">
+            <section id="verify" className="case-section">
+              <h2 className="display text-ink">Verify it yourself</h2>
+              <pre className="overflow-x-auto rounded-[var(--radius)] border-2 border-border bg-surface-2 p-4 font-[family-name:var(--font-jetbrains)] text-xs">
                 {extra.verifyCommands.join("\n")}
               </pre>
             </section>
           ) : null}
 
           {extra?.limitations ? (
-            <section id="limitations">
-              <h2 className="display text-2xl text-ink">Limitations</h2>
+            <section id="limitations" className="case-section">
+              <h2 className="display text-ink">Limitations</h2>
               <Callout tone="warning" title="Honest limits">
                 {extra.limitations}
               </Callout>
@@ -334,7 +334,7 @@ export function CaseStudy({
           ) : null}
 
           {lab ? (
-            <section id="try-it">
+            <section id="try-it" className="case-section">
               <Window title="try-it.lab" status="interactive">
                 <h2 className="display text-xl text-ink">Try it</h2>
                 <p className="mt-2 text-sm text-ink-soft">
@@ -348,9 +348,9 @@ export function CaseStudy({
           ) : null}
 
           {project.qa.length > 0 ? (
-            <section id="qa">
-              <h2 className="display text-2xl text-ink">Recruiter Q&A</h2>
-              <div className="mt-4 space-y-2">
+            <section id="qa" className="case-section">
+              <h2 className="display text-ink">Recruiter Q&A</h2>
+              <div className="space-y-2">
                 {project.qa.map((item) => (
                   <details key={item.q} className="win">
                     <summary className="win-titlebar cursor-pointer list-none">
@@ -359,7 +359,9 @@ export function CaseStudy({
                         <span />
                         <span />
                       </div>
-                      <span className="flex-1">{item.q}</span>
+                      <span className="flex-1 font-[family-name:var(--font-dm-sans)] text-sm text-ink">
+                        {item.q}
+                      </span>
                     </summary>
                     <div className="win-body text-sm text-ink-soft">{item.a}</div>
                   </details>
@@ -369,12 +371,14 @@ export function CaseStudy({
           ) : null}
 
           {project.roadmap.length > 0 ? (
-            <section id="roadmap">
-              <h2 className="display text-2xl text-ink">If I had another month</h2>
-              <ul className="mt-4 space-y-2">
+            <section id="roadmap" className="case-section">
+              <h2 className="display text-ink">If I had another month</h2>
+              <ul className="space-y-2">
                 {project.roadmap.map((r) => (
                   <li key={r} className="flex gap-2 text-sm text-ink-soft">
-                    <span className="tag shrink-0">→</span>
+                    <span className="tag shrink-0" aria-hidden>
+                      →
+                    </span>
                     {r}
                   </li>
                 ))}
@@ -383,9 +387,9 @@ export function CaseStudy({
           ) : null}
 
           {story?.relatedNotes && story.relatedNotes.length > 0 ? (
-            <section id="design-notes">
-              <h2 className="display text-2xl text-ink">Related notes</h2>
-              <ul className="mt-3 space-y-2">
+            <section id="design-notes" className="case-section">
+              <h2 className="display text-ink">Related notes</h2>
+              <ul className="space-y-2">
                 {story.relatedNotes.map((slug) => (
                   <li key={slug}>
                     <Link href={`/notes/${slug}`}>{noteTitle(slug)}</Link>
@@ -395,7 +399,7 @@ export function CaseStudy({
             </section>
           ) : null}
 
-          <div className="flex flex-col gap-4 border-t-2 border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-10 flex flex-col gap-4 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
             <Link href="/work" className="text-sm">
               ← Back to work
             </Link>

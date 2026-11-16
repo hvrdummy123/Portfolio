@@ -63,7 +63,7 @@ export function ZkCatsLab() {
                     setIssued(false);
                     setProved(false);
                   }}
-                  className="mt-1 w-full rounded border-2 border-ink bg-cream px-2 py-1"
+                  className="mt-1 w-full rounded border-2 border-border bg-cream px-2 py-1"
                 />
               </label>
               <button

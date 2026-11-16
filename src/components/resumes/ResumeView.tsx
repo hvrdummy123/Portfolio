@@ -48,8 +48,8 @@ export function ResumeView({ variant }: Props) {
       `Programming: ${resumeData.skills.programming.join(", ")}`,
       `Frameworks: ${resumeData.skills.frameworks.join(", ")}`,
       `Cloud: ${resumeData.skills.cloud}`,
-      `Achievements: ${id.achievements.join("; ")}`,
-      `Course Work: ${id.coursework.join(", ")}`,
+      `Achievements: ${resumeData.skills.achievementsLine}`,
+      `Course Work: ${resumeData.skills.courseworkLine}`,
     ];
     return lines.join("\n");
   }, [projects]);
@@ -82,13 +82,13 @@ export function ResumeView({ variant }: Props) {
       </div>
 
       {showDiff ? (
-        <p className="mb-4 rounded-lg border-2 border-ink bg-butter/40 p-3 text-sm print:hidden">
+        <p className="mb-4 rounded-lg border-2 border-border bg-butter/40 p-3 text-sm print:hidden">
           Green highlights mark experience bullets and the project set chosen for this role. Layout
           matches the Overleaf one-pager.
         </p>
       ) : null}
 
-      <div className="mx-auto overflow-x-auto rounded-[12px] border-2 border-ink bg-[#e8e4dc] p-3 shadow-[4px_4px_0_var(--ink)] print:border-0 print:bg-transparent print:p-0 print:shadow-none">
+      <div className="mx-auto overflow-x-auto rounded-[12px] border-2 border-border bg-[#e8e4dc] p-3 shadow-[4px_4px_0_var(--border)] print:border-0 print:bg-transparent print:p-0 print:shadow-none">
         <OverleafResume
           variant={variant}
           showDiff={showDiff}

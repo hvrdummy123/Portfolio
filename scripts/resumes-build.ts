@@ -188,9 +188,9 @@ function buildTex(variant: ResumeVariant) {
   \\resumeSubItem{Cloud: }
   {${esc(resume.skills.cloud)}}
   \\resumeSubItem{Achievements: }
-    {${esc(id.achievements.join("; "))}}
+    {${esc(resume.skills.achievementsLine)}}
   \\resumeSubItem{Course Work: }
-    {${esc(id.coursework.join(", "))}}
+    {${esc(resume.skills.courseworkLine)}}
 \\resumeHeadingSkillEnd
 
 \\end{document}
@@ -291,8 +291,8 @@ function buildHtml(variant: ResumeVariant) {
     <li><strong>Programming: </strong>${escapeHtml(programming.join(", "))}</li>
     <li><strong>Frameworks &amp; Technologies: </strong>${escapeHtml(frameworks.join(", "))}</li>
     <li><strong>Cloud: </strong>${escapeHtml(resume.skills.cloud)}</li>
-    <li><strong>Achievements: </strong>${escapeHtml(id.achievements.join("; "))}</li>
-    <li><strong>Course Work: </strong>${escapeHtml(id.coursework.join(", "))}</li>
+    <li><strong>Achievements: </strong>${escapeHtml(resume.skills.achievementsLine)}</li>
+    <li><strong>Course Work: </strong>${escapeHtml(resume.skills.courseworkLine)}</li>
   </ul>
 </body>
 </html>`;

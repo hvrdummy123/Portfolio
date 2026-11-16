@@ -74,7 +74,7 @@
 \section{\textbf{Work Experience}}
 
 \begin{tabularx}{\linewidth}{ @{}l r@{} }
-\textbf{SDE $|$ Atrium - AI Powered E-Commerce Startup (Pre-launch)} & \hfill \textit{Aug 2026 -- Present} \\[0pt]
+\textbf{SDE $|$ Atrium - E-Commerce Startup (Pre-launch)} & \hfill \textit{Aug 2026 -- Present} \\[0pt]
 \multicolumn{2}{@{}X@{}}{\textit{TypeScript, React (Vite), Next.js, Node.js, PostgreSQL, Redis, Python, Centrifugo, Better Auth, Docker, GCP; AI-assisted development (Claude Code, Codex)}} \\[0pt]
 \multicolumn{2}{@{}X@{}}{
 \begin{itemize}[leftmargin=3ex, rightmargin=2ex, noitemsep, labelsep=1.2mm, itemsep=0.4mm]\small
@@ -118,43 +118,46 @@
 
 \resumeProject
 {  PayBench (Agent Payment Benchmark)}
-{Tools: Python, TypeScript, Node.js, double-entry ledger, mutation-tested graders}
+{Tools: Python, TypeScript, Node.js, double-entry ledger, mutation-tested graders, GitHub Actions}
 {2026}
 {}
 \vspace{-3mm}
 
 \resumeItemListStart
-  \item {Built a seeded payments simulator with a double-entry ledger and scripted faults including TIMEOUT\_AFTER\_COMMIT so agents are graded on final world state, not chat fluency.}
-  \item {Designed policy-aware graders (P1-P9) and mutation-tested scorers to a 64/64 kill rate, separating Oracle (idempotent) from Naive (double-pay) behavior.}
-  \item {Shipped playground and compare media that demonstrate verify-before-retry and idempotency-key replay under ambiguous timeouts.}
+  \item {Built a 50-task (25 core) agent payments benchmark with a double-entry ledger and 8 fault types --- including TIMEOUT\_AFTER\_COMMIT --- so agents are scored on final world state, not chat fluency.}
+  \item {Designed policy checkers P1--P9 and mutation-tested scorers to a 64/64 (100\%) kill rate, catching graders that can be fooled into false passes.}
+  \item {Separated Oracle (idempotent, pass@1 1.00 on core) from Naive (double-pay under ambiguous timeouts) reference agents for calibrate-able evals.}
+  \item {Shipped playground/compare flows that demonstrate verify-before-retry and idempotency-key replay when the API lies after money already moved.}
 \resumeItemListEnd
 \vspace{-3mm}
 
 \resumeProject
 {  TraceIQ (Incident Logger)}
-{Tools: TypeScript, DuckDB, Parquet, RLS, log-to-hypothesis pipeline}
+{Tools: TypeScript, FastAPI, React/Vite, Postgres + RLS, DuckDB, Parquet}
 {2026}
 {}
 \vspace{-3mm}
 
 \resumeItemListStart
-  \item {Built a log-to-hypothesis incident assistant that ranks suspects from messy outage logs and abstains instead of inventing certainty.}
-  \item {Used DuckDB/Parquet with row-level security patterns for efficient local analysis of large log corpora.}
-  \item {Documented decoy-deploy failure modes so graders and operators can distinguish real regressions from noise.}
+  \item {Built a log-to-hypothesis incident assistant that turns messy outage JSONL into ranked suspects and a cited postmortem-style report --- and abstains when evidence is thin.}
+  \item {Used DuckDB/Parquet plus Postgres RLS patterns for efficient, access-controlled analysis of large local log corpora.}
+  \item {Validated the pipeline with 56 pytest + 6 Vitest cases; demo eval oracle service top-1 = 1.00 (n=3) vs weaker deterministic baselines.}
+  \item {Encoded decoy-deploy failure modes so operators and graders can separate real regressions from noisy latest-deploy heuristics.}
 \resumeItemListEnd
 \vspace{-3mm}
 
 \resumeProject
-{  duihua --- Mandarin Speaking Coach}
-{Tools: TypeScript, STT, LLM, TTS, React}
+{  Personal Job Radar}
+{Tools: Python, FastAPI, Postgres 16, Playwright, React/Vite, ATS adapters}
 {2026}
 {}
 \vspace{-3mm}
 
 \resumeItemListStart
-  \item {Built a speaking-coach loop that chains speech-to-text, an LLM tutor, and text-to-speech for conversational practice.}
-  \item {Shipped practice and feedback flows with honest in-progress roadmap items (tone scoring, image practice).}
-  \item {Kept the product demoable via recorded conversation GIFs while features continue to land.}
+  \item {Built a single-user job aggregation radar with ATS adapters for Greenhouse, Lever, Ashby, Workday, plus generic careers pages into searchable Postgres.}
+  \item {Implemented a resilient ingest fallback chain (JSON-LD → sitemap → XHR → HTML → Playwright) with explicit source-health signals when sites drift.}
+  \item {Designed refresh + dedupe so the UI stays current without duplicate noise; Apply opens the original posting --- no auto-apply.}
+  \item {Focused reliability on connector health and query UX so silent scraper rot does not hide open roles.}
 \resumeItemListEnd
 \vspace{-3mm}
 \resumeSubHeadingListEnd
@@ -166,11 +169,11 @@
   \resumeSubItem{Programming: }
     {Python, TypeScript, Java, C++, JavaScript (ES6/ES7), SQL, HTML/CSS}
   \resumeSubItem{Frameworks \& Technologies: }
-    {Node.js, PostgreSQL, Redis, Docker, Spring Boot, React.js, Git, Angular, Better Auth, Express.js, Centrifugo, Solidity, MongoDB, Firebase, Jenkins, Ansible, Liquibase, Playwright}
+    {Node.js, PostgreSQL, Redis, Docker, Playwright, FastAPI, Spring Boot, React.js, Git, Angular, Better Auth, Express.js, Centrifugo, Solidity, Circom, ZoKrates, MongoDB, Firebase, Jenkins, Ansible, Liquibase}
   \resumeSubItem{Cloud: }
-  {GCP (private runtime, containerized deployments); AWS Certified Cloud Practitioner --- EC2, S3, IAM}
+  {GCP (private runtime, containerized deployments); AWS Certified Cloud Practitioner -- EC2, S3, IAM}
   \resumeSubItem{Achievements: }
-    {Winner, Code for Good --- JPMorgan Chase; Finalist, Flipkart Grid; Finalist, IVP}
+    {Winner, Code for Good -- JPMorgan Chase; Finalist, Flipkart Grid; Finalist, IVP}
   \resumeSubItem{Course Work: }
     {Data Structures \& Algorithms, Microservices \& Distributed Systems, DBMS (NoSQL \& Relational), Operating Systems, Computer Networks, AI / Machine Learning}
 \resumeHeadingSkillEnd

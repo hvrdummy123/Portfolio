@@ -10,7 +10,7 @@ export function SiteFooter() {
     usePrefs();
 
   return (
-    <footer className="mt-auto border-t-2 border-ink bg-surface">
+    <footer className="mt-auto border-t-2 border-border bg-surface">
       <div className="container-site flex flex-col gap-6 py-10 md:flex-row md:items-start md:justify-between">
         <div>
           <div className="flex items-center gap-2">
@@ -54,7 +54,6 @@ export function SiteFooter() {
           <Link href="/notes">Notes</Link>
           <Link href="/resumes?from=footer">Résumé</Link>
           <Link href="/recruiter">Recruiter</Link>
-          <Link href="/changelog">Changelog</Link>
           <Link href="/contact">Contact</Link>
         </div>
 

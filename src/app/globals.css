@@ -1,33 +1,39 @@
 @import "tailwindcss";
 
 :root {
-  /* Phase 3 tokens — light */
-  --cream: #fbf8f4;
+  /* Phase 3 tokens — light (pink accent system) */
+  --cream: #fff8f6;
   --paper: #ffffff;
-  --blush: #ffc7b2;
-  --lavender: #b9a4f0;
+  --blush: #ffc2d4;
+  --lavender: #ffb6d0;
   --mint: #bde8d4;
   --butter: #ffe9a8;
   --sky: #bfddf7;
   --peach: #ffc7b2;
-  --ink: #2b2733;
-  --ink-soft: #6b6475;
-  --line: #e5dfea;
-  --berry: #5b43c4;
-  --grape: #5b43c4;
+  --ink: #2b2228;
+  --ink-soft: #6f5f68;
+  --line: #f0dde6;
+  --berry: #d94884;
+  --grape: #d94884;
   --leaf: #3f9b7a;
   --tomato: #c2410c;
-  --lilac: #b9a4f0;
-  --lilac-text: #5b43c4;
+  --lilac: #ffb6d0;
+  --lilac-text: #d94884;
 
-  --bg: #fbf8f4;
+  --bg: #fff8f6;
   --surface: #ffffff;
-  --surface-2: #f3eef8;
+  --surface-2: #fff0f4;
   --accent: var(--lilac-text);
   --accent-2: var(--lilac);
   --shadow: 4px 4px 0 0 var(--ink);
+  --border: var(--ink);
   --radius: 12px;
-  --radius-pixel: 4px;
+  --radius-pixel: 6px;
+  --diagram-1: var(--surface-2);
+  --diagram-2: var(--mint);
+  --diagram-3: var(--sky);
+  --diagram-4: var(--butter);
+  --diagram-5: var(--blush);
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -43,29 +49,35 @@
 }
 
 [data-theme="dark"] {
-  --bg: #16131c;
-  --surface: #1f1a28;
-  --surface-2: #2a2436;
-  --cream: #16131c;
-  --paper: #1f1a28;
-  --blush: #c49a88;
-  --lavender: #9b8bc4;
+  --bg: #161014;
+  --surface: #21181d;
+  --surface-2: #2d2228;
+  --cream: #161014;
+  --paper: #21181d;
+  --blush: #d89aaa;
+  --lavender: #e8a0b8;
   --mint: #8fb9a8;
   --butter: #c9b87a;
   --sky: #8fadd4;
-  --peach: #c49a80;
-  --ink: #f1edf7;
-  --ink-soft: #a79fb5;
-  --line: #3a3348;
-  --berry: #c4b0ff;
-  --grape: #c4b0ff;
+  --peach: #d4a08e;
+  --ink: #f8eef2;
+  --ink-soft: #b8a4ae;
+  --line: #46343c;
+  --berry: #ff9ec4;
+  --grape: #ff9ec4;
   --leaf: #5ec49a;
   --tomato: #e07050;
-  --lilac: #9b8bc4;
-  --lilac-text: #c4b0ff;
-  --accent: var(--lilac-text);
+  --lilac: #e8a0b8;
+  --lilac-text: #e0578f;
+  --accent: var(--berry);
   --accent-2: var(--lilac);
-  --shadow: 4px 4px 0 0 #0a0810;
+  --shadow: 4px 4px 0 0 #0a0708;
+  --border: #e8d0da;
+  --diagram-1: #32262c;
+  --diagram-2: color-mix(in srgb, var(--mint) 58%, #21181d);
+  --diagram-3: color-mix(in srgb, var(--sky) 58%, #21181d);
+  --diagram-4: color-mix(in srgb, var(--butter) 52%, #21181d);
+  --diagram-5: color-mix(in srgb, var(--blush) 52%, #21181d);
 }
 
 @theme inline {
@@ -87,7 +99,8 @@
   --color-grape: var(--grape);
   --color-leaf: var(--leaf);
   --color-tomato: var(--tomato);
-  --font-display: var(--font-pixelify);
+  --color-border: var(--border);
+  --font-display: var(--font-outfit);
   --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-jetbrains);
 }
@@ -96,11 +109,12 @@ html {
   scroll-behavior: smooth;
 }
 
-@media (prefers-reduced-motion: reduce),
-html.reduce-motion {
-  scroll-behavior: auto;
-}
+/* Keep media + class rules structurally distinct — Turbopack/LightningCSS
+   wrongly merges identical declarations into invalid `@media …, html.class`. */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   *,
   *::before,
   *::after {
@@ -109,12 +123,18 @@ html.reduce-motion {
     transition-duration: 0.01ms !important;
   }
 }
+
+html.reduce-motion {
+  --motion-mode: reduce;
+  scroll-behavior: auto;
+}
 html.reduce-motion *,
 html.reduce-motion *::before,
 html.reduce-motion *::after {
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
+  transition-delay: 0ms !important;
 }
 
 body {
@@ -174,7 +194,7 @@ a:hover {
 }
 
 .display {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-family: var(--font-outfit), var(--font-dm-sans), system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.15;
@@ -216,7 +236,7 @@ h2.display {
   background: var(--surface);
   color: var(--ink);
   padding: 0.5rem 1rem;
-  border: 2px solid var(--ink);
+  border: 2px solid var(--border);
 }
 
 .skip-link:focus {
@@ -224,7 +244,7 @@ h2.display {
 }
 
 .win {
-  border: 2px solid var(--ink);
+  border: 2px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
   box-shadow: var(--shadow);
@@ -235,11 +255,12 @@ h2.display {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-bottom: 2px solid var(--ink);
+  border-bottom: 2px solid var(--border);
   background: var(--surface-2);
   padding: 0.45rem 0.75rem;
   font-family: var(--font-pixelify), monospace;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
 }
 
 .win-dots {
@@ -250,7 +271,7 @@ h2.display {
 .win-dots span {
   width: 8px;
   height: 8px;
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--border);
   border-radius: 999px;
   background: var(--blush);
 }
@@ -268,9 +289,10 @@ h2.display {
 }
 
 .win-statusbar {
-  border-top: 2px solid var(--ink);
+  border-top: 2px solid var(--border);
   padding: 0.4rem 0.75rem;
-  background: var(--cream);
+  background: var(--surface-2);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
   font-size: 0.75rem;
   color: var(--ink-soft);
 }
@@ -279,21 +301,22 @@ h2.display {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.15rem 0.65rem;
-  border: 2px solid var(--ink);
+  padding: 0.25rem 0.7rem;
+  border: 1.5px solid var(--border);
   border-radius: 999px;
-  font-size: 0.72rem;
-  font-family: var(--font-pixelify), monospace;
+  font-size: 0.78rem;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 500;
   background: var(--surface-2);
   color: var(--ink);
 }
 
-.tag-backend { background: var(--lavender); }
-.tag-ai { background: var(--mint); }
-.tag-blockchain { background: var(--butter); }
-.tag-frontend { background: var(--sky); }
-.tag-infra { background: var(--peach); }
-.tag-fintech { background: var(--blush); }
+.tag-backend { background: color-mix(in srgb, var(--lavender) 35%, var(--surface)); }
+.tag-ai { background: color-mix(in srgb, var(--mint) 35%, var(--surface)); }
+.tag-blockchain { background: color-mix(in srgb, var(--butter) 35%, var(--surface)); }
+.tag-frontend { background: color-mix(in srgb, var(--sky) 35%, var(--surface)); }
+.tag-infra { background: color-mix(in srgb, var(--peach) 35%, var(--surface)); }
+.tag-fintech { background: color-mix(in srgb, var(--blush) 35%, var(--surface)); }
 
 .btn {
   display: inline-flex;
@@ -301,27 +324,28 @@ h2.display {
   justify-content: center;
   gap: 0.35rem;
   min-height: 44px;
-  padding: 0.55rem 1rem;
-  border: 2px solid var(--ink);
+  padding: 0.55rem 1.1rem;
+  border: 2px solid var(--border);
   border-radius: var(--radius-pixel);
   background: var(--lilac-text);
   color: #fbf8f4;
-  font-family: var(--font-pixelify), monospace;
-  font-size: 0.85rem;
-  box-shadow: 3px 3px 0 var(--ink);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  box-shadow: 3px 3px 0 var(--border);
   text-decoration: none;
   transition: transform var(--motion), box-shadow var(--motion);
 }
 
 .btn:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0 var(--ink);
+  box-shadow: 5px 5px 0 var(--border);
   color: #fbf8f4;
 }
 
 .btn:active {
   transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--ink);
+  box-shadow: 1px 1px 0 var(--border);
 }
 
 .btn-secondary {
@@ -337,6 +361,7 @@ h2.display {
   background: transparent;
   box-shadow: none;
   color: var(--ink);
+  border-color: transparent;
 }
 
 .section-pad {
@@ -345,7 +370,7 @@ h2.display {
 
 .pixel-border,
 .card {
-  border: 2px solid var(--ink);
+  border: 2px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   background: var(--surface);
@@ -367,7 +392,7 @@ h2.display {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0.25rem;
-  border-top: 2px solid var(--ink);
+  border-top: 2px solid var(--border);
   background: var(--surface);
   padding: 0.4rem 0.5rem calc(0.4rem + env(safe-area-inset-bottom));
 }
@@ -388,8 +413,9 @@ h2.display {
   border-radius: 8px;
   text-decoration: none;
   color: var(--ink-soft);
-  font-size: 0.65rem;
-  font-family: var(--font-pixelify), monospace;
+  font-size: 0.7rem;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-weight: 500;
 }
 
 .mobile-tab[data-active="true"] {
@@ -402,20 +428,68 @@ h2.display {
 }
 .card-lift:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 0 var(--ink);
+  box-shadow: 6px 6px 0 0 var(--border);
 }
 
 .callout {
-  border: 2px solid var(--ink);
+  border: 2px solid var(--border);
   border-radius: var(--radius);
-  padding: 1rem 1.1rem;
-  background: var(--surface-2);
+  padding: 1rem 1.15rem;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.callout .eyebrow {
+  color: var(--ink-soft);
+}
+.callout-body {
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.55;
 }
 .callout-warning {
-  background: color-mix(in srgb, var(--butter) 55%, var(--surface));
+  background: color-mix(in srgb, var(--butter) 22%, var(--surface));
+  border-color: color-mix(in srgb, var(--butter) 55%, var(--border));
 }
 .callout-info {
-  background: color-mix(in srgb, var(--sky) 55%, var(--surface));
+  background: color-mix(in srgb, var(--sky) 18%, var(--surface));
+  border-color: color-mix(in srgb, var(--sky) 50%, var(--border));
+}
+
+.case-section {
+  scroll-margin-top: 5.5rem;
+}
+.case-section + .case-section {
+  margin-top: 2.75rem;
+  padding-top: 2.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--border) 55%, transparent);
+}
+.case-section h2.display {
+  font-size: clamp(1.35rem, 1.2vw + 1rem, 1.75rem);
+  margin-bottom: 0.85rem;
+}
+.case-section ul {
+  margin: 0;
+  padding-left: 1.15rem;
+}
+.diagram-frame {
+  overflow-x: auto;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+}
+.diagram-frame svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 720px;
+  color: var(--ink);
+}
+.diagram-caption {
+  margin-top: 0.65rem;
+  font-size: 0.875rem;
+  color: var(--ink-soft);
 }
 
 .toc-sticky {

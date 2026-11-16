@@ -22,7 +22,7 @@ export function ProjectMedia({ slug }: { slug: string }) {
               alt={caption}
               width={900}
               height={560}
-              className="h-auto w-full border-2 border-ink"
+              className="h-auto w-full border-2 border-border"
               unoptimized
             />
             <figcaption className="mt-2 text-xs text-ink-soft">{caption}</figcaption>

@@ -74,7 +74,7 @@ export function OutboxLab() {
         ))}
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 font-[family-name:var(--font-pixelify)] text-xs">
+      <div className="flex flex-wrap items-center gap-2 font-medium text-xs">
         <span className="tag">Client</span>
         <span>→</span>
         <span className="tag tag-backend">API</span>
@@ -133,7 +133,7 @@ export function OutboxLab() {
               msgs.map((m) => (
                 <li
                   key={m.id}
-                  className="flex items-center justify-between rounded-lg border-2 border-ink bg-cream px-3 py-2 text-sm"
+                  className="flex items-center justify-between rounded-lg border-2 border-border bg-cream px-3 py-2 text-sm"
                 >
                   <span>{m.text}</span>
                   <span className="tag">{m.state}</span>

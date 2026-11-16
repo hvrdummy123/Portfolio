@@ -6,20 +6,24 @@ export const projects: Project[] = [
     slug: "d2c-ecommerce",
     title: "D2C E-Commerce Platform",
     pitch:
-      "Indian D2C beverage commerce on Medusa v2 — phone-first, WhatsApp post-purchase, COD-ready.",
+      "Shopify-style D2C commerce on Medusa v2 — demo built and served to clients; phone-first, COD, WhatsApp post-purchase.",
     year: 2026,
-    status: "in-progress",
+    status: "built",
     kind: "personal",
-    roles: ["backend", "fullstack", "quant-fintech"],
+    roles: ["backend", "fullstack"],
     weight: {
-      backend: 90,
-      fullstack: 95,
-      "ai-agents": 40,
-      blockchain: 50,
-      "quant-fintech": 80,
+      backend: 88,
+      fullstack: 92,
+      "ai-agents": 35,
+      blockchain: 40,
+      "quant-fintech": 55,
     },
     stack: [
-      { name: "Medusa.js", layer: "commerce", why: "Open-source modular commerce primitives" },
+      {
+        name: "Medusa.js",
+        layer: "commerce",
+        why: "Open-source modular commerce primitives as a Shopify-style core",
+      },
       { name: "Node.js", layer: "backend" },
       { name: "React.js", layer: "frontend" },
       { name: "TypeScript", layer: "language" },
@@ -28,26 +32,33 @@ export const projects: Project[] = [
     ],
     stats: [
       {
+        label: "Client demos",
+        value: "Served",
+        source: "resume / client delivery",
+      },
+      {
         label: "10k DAU topology",
         value: "Designed",
         source: "mwm-system-design.md",
       },
     ],
     links: {},
-    domainTags: ["backend", "frontend", "fintech"],
-    featured: true,
-    sourceNote: "Source is private / proprietary design + resume-backed build.",
+    domainTags: ["backend", "frontend"],
+    featured: false,
+    sourceNote: "Demo platform built and served to clients; source remains private.",
     qa: [
       {
         q: "Why Medusa v2 instead of Shopify or from-scratch?",
-        a: "Medusa gives self-hosted commerce primitives (cart, order, fulfillment modules) without reinventing them, while custom modules cover Indian phone-auth, Razorpay, Shiprocket, and WhatsApp.",
+        a: "Medusa gives self-hosted commerce primitives (cart, order, fulfillment modules) without reinventing them — a Shopify-style replacement you control — while custom modules cover Indian phone-auth, Razorpay, Shiprocket, and WhatsApp.",
       },
     ],
     decisions: [
       {
-        context: "Indian D2C users are mobile-centric and often prefer COD.",
-        decision: "Phone+password auth at launch; Razorpay + COD; WhatsApp for post-purchase.",
-        consequence: "Lower SMS cost before PMF; familiar Indian payment UX; no native app required (PWA).",
+        context: "Indian D2C merchants need phone-first checkout and COD without locking into Shopify.",
+        decision:
+          "Phone+password auth at launch; Razorpay + COD; WhatsApp for post-purchase on a Medusa modular core.",
+        consequence:
+          "Familiar Indian payment UX; lower SMS cost before PMF; merchants get a self-hosted storefront/backend demo they can extend.",
       },
     ],
     roadmap: [
@@ -120,9 +131,12 @@ export const projects: Project[] = [
     ],
     decisions: [
       {
-        context: "LLM agent evals often reward fluent explanations over correct side effects.",
-        decision: "Seeded payments simulator + graders on final world state with mutation-tested scorers.",
-        consequence: "Oracle 100%; Naive fails adversarial/fault tasks; 64/64 mutation kill rate.",
+        context:
+          "LLM agent evals often reward fluent explanations over correct side effects.",
+        decision:
+          "Seeded payments simulator + graders on final world state with mutation-tested scorers.",
+        consequence:
+          "Oracle 100%; Naive fails adversarial/fault tasks; 64/64 mutation kill rate.",
       },
     ],
     roadmap: ["Optional provider baselines", "More fault taxonomies"],
@@ -172,9 +186,12 @@ export const projects: Project[] = [
     ],
     decisions: [
       {
-        context: "Traditional KYC leaks full identity documents to every verifier.",
-        decision: "Circom circuit + snarkJS proofs; Solidity verifier + role registry on Hardhat.",
-        consequence: "On-chain auditability with minimal disclosure; /try sandbox for visitors.",
+        context:
+          "Traditional KYC leaks full identity documents to every verifier.",
+        decision:
+          "Circom circuit + snarkJS proofs; Solidity verifier + role registry on Hardhat.",
+        consequence:
+          "On-chain auditability with minimal disclosure; /try sandbox for visitors.",
       },
     ],
     roadmap: ["Expand attribute set beyond state-of-residence"],
@@ -196,8 +213,18 @@ export const projects: Project[] = [
       "quant-fintech": 100,
     },
     stack: [
-      { name: "Python", layer: "engine", why: "Numerical/strategy simulation", alternative: "C++ engine" },
-      { name: "Node/Express", layer: "api", why: "REST surface for the UI", alternative: "FastAPI-only" },
+      {
+        name: "Python",
+        layer: "engine",
+        why: "Numerical/strategy simulation",
+        alternative: "C++ engine",
+      },
+      {
+        name: "Node/Express",
+        layer: "api",
+        why: "REST surface for the UI",
+        alternative: "FastAPI-only",
+      },
       { name: "React/Redux", layer: "frontend" },
       { name: "MongoDB", layer: "data" },
       { name: "SQLite", layer: "data" },
@@ -205,7 +232,12 @@ export const projects: Project[] = [
       { name: "Jest", layer: "testing" },
     ],
     stats: [
-      { label: "NSE records", value: "180,000+", source: "resume", href: "/work/etf-backtesting" },
+      {
+        label: "NSE records",
+        value: "180,000+",
+        source: "resume",
+        href: "/work/etf-backtesting",
+      },
       { label: "Full simulation", value: "< 3 s", source: "resume" },
       { label: "REST avg latency", value: "~120 ms", source: "resume" },
       { label: "Dashboard render", value: "< 700 ms", source: "resume" },
@@ -213,7 +245,8 @@ export const projects: Project[] = [
     links: {},
     domainTags: ["fintech", "backend", "frontend"],
     featured: true,
-    sourceNote: "Source not public. Visuals on this site use synthetic illustrative data.",
+    sourceNote:
+      "Source not public. Visuals on this site use synthetic illustrative data.",
     qa: [
       {
         q: "Why Python for the engine and Node for the API?",
@@ -223,7 +256,8 @@ export const projects: Project[] = [
     decisions: [
       {
         context: "Need interactive dashboards over large OHLCV history.",
-        decision: "Normalize OHLCV in a market-data pipeline; expose results via REST + Plotly.",
+        decision:
+          "Normalize OHLCV in a market-data pipeline; expose results via REST + Plotly.",
         consequence: "Simulations <3s; dashboards <700ms.",
       },
     ],
@@ -266,8 +300,10 @@ export const projects: Project[] = [
     decisions: [
       {
         context: "Language apps rarely force real speaking practice.",
-        decision: "Local-first coach with STT → LLM → TTS and dictionary overlays.",
-        consequence: "No account/subscription; free-tier LLM 429s are an honest limit.",
+        decision:
+          "Local-first coach with STT → LLM → TTS and dictionary overlays.",
+        consequence:
+          "No account/subscription; free-tier LLM 429s are an honest limit.",
       },
     ],
     roadmap: [
@@ -326,8 +362,10 @@ export const projects: Project[] = [
     ],
     decisions: [
       {
-        context: "Black-box RCA tools invent tidy root causes from incomplete data.",
-        decision: "Explainable analytics first; LLM optional and redacted; abstain when thin.",
+        context:
+          "Black-box RCA tools invent tidy root causes from incomplete data.",
+        decision:
+          "Explainable analytics first; LLM optional and redacted; abstain when thin.",
         consequence: "Auditable multi-factor leans instead of fake certainty.",
       },
     ],
@@ -370,7 +408,8 @@ export const projects: Project[] = [
     decisions: [
       {
         context: "Many careers sites lack public ATS APIs.",
-        decision: "Fallback chain: JSON-LD → sitemap → XHR → HTML → Playwright.",
+        decision:
+          "Fallback chain: JSON-LD → sitemap → XHR → HTML → Playwright.",
         consequence: "Broader coverage with explicit source-health signals.",
       },
     ],
@@ -424,9 +463,12 @@ export const projects: Project[] = [
     ],
     decisions: [
       {
-        context: "Realtime chat must not lose messages if the relay or broker restarts.",
-        decision: "Persist via a PostgreSQL transactional outbox before delivery through Centrifugo/Redis.",
-        consequence: "Messages survive relay crashes; 25 failure/edge-case scenarios covered in testing.",
+        context:
+          "Realtime chat must not lose messages if the relay or broker restarts.",
+        decision:
+          "Persist via a PostgreSQL transactional outbox before delivery through Centrifugo/Redis.",
+        consequence:
+          "Messages survive relay crashes; 25 failure/edge-case scenarios covered in testing.",
       },
     ],
     roadmap: [],

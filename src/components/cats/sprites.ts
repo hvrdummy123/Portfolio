@@ -25,7 +25,7 @@ export type CatPaletteName = "cream" | "lavender" | "tuxedo" | "ginger";
 
 export const PALETTES: Record<CatPaletteName, string[]> = {
   cream: ["transparent", "#3B3355", "#F5E6C8", "#FFF8F0", "#FFD6E0", "#3B3355", "#B8456F"],
-  lavender: ["transparent", "#3B3355", "#D9C8F5", "#F4EEFF", "#FFD6E0", "#3B3355", "#6C5BD6"],
+  lavender: ["transparent", "#3B3355", "#FFB6D0", "#FFF0F4", "#FFD6E0", "#3B3355", "#D94884"],
   tuxedo: ["transparent", "#3B3355", "#6B6285", "#FFF8F0", "#FFD6E0", "#3B3355", "#B8456F"],
   ginger: ["transparent", "#3B3355", "#E8A05A", "#FFE8CC", "#FFD6E0", "#3B3355", "#B8456F"],
 };

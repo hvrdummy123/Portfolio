@@ -55,8 +55,8 @@
   
       <div class="job">
         <div class="job-head">
-          <strong>SDE | Atrium - AI Powered E-Commerce Startup (Pre-launch)</strong>
-          <em>Aug 2026 -- Present</em>
+          <strong>SDE | Atrium - E-Commerce Startup (Pre-launch)</strong>
+          <em>Aug 2026 – Present</em>
         </div>
         <p class="stack"><em>TypeScript, React (Vite), Next.js, Node.js, PostgreSQL, Redis, Python, Centrifugo, Better Auth, Docker, GCP; AI-assisted development (Claude Code, Codex)</em></p>
         <ul><li>Built the authentication module on Better Auth for a template-driven marketplace platform (Shopify-style), implementing separate merchant and consumer auth planes with Postgres-backed sessions and accounts.</li><li>Engineered a real-time chat pipeline using a PostgreSQL transactional outbox, relay service, Centrifugo, and Redis, designed and tested against 25 failure and edge-case scenarios so messages are persisted atomically before delivery and not lost if the relay or broker restarts; built the React + Vite chat interface on top.</li><li>Helped build the internal admin dashboard in Next.js (App Router) and TypeScript, packaged as a standalone non-root container on a private GCP runtime; implemented the charts as hand-rolled SVG with no chart libraries, and used postgres for data access and jose for JWT verification.</li><li>Built an AI chatroom CLI for multi-agent planning: one shared Markdown transcript across a human and two agents (Claude in plan mode, Codex in a read-only sandbox), with explicit @claude/@codex/@both routing and no agent-to-agent loops.</li></ul>
@@ -64,7 +64,7 @@
       <div class="job">
         <div class="job-head">
           <strong>ITD Intern | Nomura Services India Pvt. Ltd.</strong>
-          <em>Jan 2026 -- Jun 2026</em>
+          <em>Jan 2026 – Jun 2026</em>
         </div>
         <p class="stack"><em>Java, Spring Boot, React.js, Python, Jenkins, Liquibase, Docker, Ansible, Playwright, Git</em></p>
         <ul><li>Integrated Spring Boot backend services with React interfaces for an enterprise real estate platform, driving design decisions across distributed, multi-tiered systems.</li><li>Built Python batch pipelines with algorithmic validation and retry logic for scheduled data processing; containerized the workflow with Docker, cutting execution time from 240 min to 58 min (76% faster).</li><li>Automated database versioning and deployment via Liquibase and Jenkins CI/CD, and established containerized, tested release pipelines with Ansible and Playwright, improving deployment speed and release consistency across environments.</li></ul>
@@ -73,25 +73,25 @@
   
       <div class="project">
         <div class="job-head"><strong>Privacy-Preserving KYC Verification Platform</strong><em>2026</em></div>
-        <p class="stack"><em>Tools: React.js, Node.js, Express.js, Solidity, Ethereum, ZoKrates, IPFS, MetaMask</em></p>
-        <ul><li>Designed a full-stack KYC platform separating credential issuance, zero-knowledge proof generation, and verification into modular services for privacy-preserving identity verification.</li><li>Built Solidity smart contracts for credential issuance, revocation, and zk-SNARK verification with immutable on-chain auditability on Ethereum and used Circom circuits for proofs.</li><li>Integrated React workflows with Node.js APIs and ZoKrates-generated proofs, enabling selective attribute disclosure with proof generation under 2 seconds.</li></ul>
+        <p class="stack"><em>Tools: React.js, Node.js, Express.js, Solidity, Ethereum, Circom, ZoKrates, IPFS, MetaMask</em></p>
+        <ul><li>Designed a full-stack KYC stack separating credential issuance, zero-knowledge proof generation, and verification into modular services for privacy-preserving identity checks.</li><li>Built Solidity contracts for issuance, revocation, and zk-SNARK verification with immutable on-chain auditability on Ethereum; Circom circuits for proof generation.</li><li>Integrated React + Node.js APIs with ZoKrates/Circom proofs so verifiers get selective attribute disclosure without raw PII.</li><li>Achieved proof generation under 2 seconds for the selective-disclosure workflow claimed on the résumé, with MetaMask-driven local testnet flows.</li></ul>
       </div>
       <div class="project">
         <div class="job-head"><strong>D2C E-Commerce Platform</strong><em>2026</em></div>
         <p class="stack"><em>Tools: Medusa.js, Node.js, React.js, PostgreSQL, REST APIs</em></p>
-        <ul><li>Architected and built a full featured headless e-commerce platform on Medusa.js with a decoupled React storefront and Node.js backend, separating catalog, cart, checkout, order, and fulfillment domains.</li><li>Extended Medusa's core commerce framework with custom backend workflows and REST APIs, implementing end-to-end cart/checkout flows -- variant handling, pricing, validation, order state transitions -- backed by a relational PostgreSQL data model.</li><li>Designed configurable, multi-region shipping and fulfillment workflows and structured the system for extensibility (payments, auth, promotions, notifications) without major architectural rework.</li></ul>
+        <ul><li>Architected and built a Shopify-style headless commerce platform on Medusa.js with a decoupled React storefront and Node.js backend, separating catalog, cart, checkout, order, and fulfillment domains.</li><li>Extended Medusa with custom workflows and REST APIs for end-to-end cart/checkout — variant handling, pricing, validation, and order state transitions — on a relational PostgreSQL model.</li><li>Designed configurable multi-region shipping/fulfillment and extension points (payments, auth, promotions, notifications) so merchants can grow without a rewrite.</li><li>Delivered working demos to clients as a self-hosted Shopify-style replacement for Indian D2C (phone-first checkout, COD, WhatsApp post-purchase).</li></ul>
       </div>
       <div class="project">
         <div class="job-head"><strong>PayBench (Agent Payment Benchmark)</strong><em>2026</em></div>
-        <p class="stack"><em>Tools: Python, TypeScript, Node.js, double-entry ledger, mutation-tested graders</em></p>
-        <ul><li>Built a seeded payments simulator with a double-entry ledger and scripted faults including TIMEOUT_AFTER_COMMIT so agents are graded on final world state, not chat fluency.</li><li>Designed policy-aware graders (P1-P9) and mutation-tested scorers to a 64/64 kill rate, separating Oracle (idempotent) from Naive (double-pay) behavior.</li><li>Shipped playground and compare media that demonstrate verify-before-retry and idempotency-key replay under ambiguous timeouts.</li></ul>
+        <p class="stack"><em>Tools: Python, TypeScript, Node.js, double-entry ledger, mutation-tested graders, GitHub Actions</em></p>
+        <ul><li>Built a 50-task (25 core) agent payments benchmark with a double-entry ledger and 8 fault types — including TIMEOUT_AFTER_COMMIT — so agents are scored on final world state, not chat fluency.</li><li>Designed policy checkers P1–P9 and mutation-tested scorers to a 64/64 (100%) kill rate, catching graders that can be fooled into false passes.</li><li>Separated Oracle (idempotent, pass@1 1.00 on core) from Naive (double-pay under ambiguous timeouts) reference agents for calibrate-able evals.</li><li>Shipped playground/compare flows that demonstrate verify-before-retry and idempotency-key replay when the API lies after money already moved.</li></ul>
       </div>
   <h2>Technical Skills</h2>
   <ul>
     <li><strong>Programming: </strong>Java, Python, C++, JavaScript (ES6/ES7), TypeScript, SQL, HTML/CSS</li>
-    <li><strong>Frameworks &amp; Technologies: </strong>Solidity, React.js, Node.js, Spring Boot, Git, Angular, Redis, Better Auth, Express.js, Centrifugo, PostgreSQL, MongoDB, Firebase, Jenkins, Docker, Ansible, Liquibase, Playwright</li>
-    <li><strong>Cloud: </strong>GCP (private runtime, containerized deployments); AWS Certified Cloud Practitioner — EC2, S3, IAM</li>
-    <li><strong>Achievements: </strong>Winner, Code for Good — JPMorgan Chase; Finalist, Flipkart Grid; Finalist, IVP</li>
+    <li><strong>Frameworks &amp; Technologies: </strong>Solidity, Circom, ZoKrates, React.js, Node.js, Spring Boot, Git, Angular, Redis, Better Auth, Express.js, FastAPI, Centrifugo, PostgreSQL, MongoDB, Firebase, Jenkins, Docker, Ansible, Liquibase, Playwright</li>
+    <li><strong>Cloud: </strong>GCP (private runtime, containerized deployments); AWS Certified Cloud Practitioner – EC2, S3, IAM</li>
+    <li><strong>Achievements: </strong>Winner, Code for Good – JPMorgan Chase; Finalist, Flipkart Grid; Finalist, IVP</li>
     <li><strong>Course Work: </strong>Data Structures &amp; Algorithms, Microservices &amp; Distributed Systems, DBMS (NoSQL &amp; Relational), Operating Systems, Computer Networks, AI / Machine Learning</li>
   </ul>
 </body>

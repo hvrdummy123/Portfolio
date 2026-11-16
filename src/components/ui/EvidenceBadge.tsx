@@ -28,7 +28,7 @@ export function EvidenceBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded border border-ink/40 bg-surface px-1.5 py-0.5 text-[10px] uppercase tracking-wide text-ink-soft",
+        "inline-flex items-center rounded border border-border/50 bg-surface px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-ink-soft",
         className,
       )}
       title={meta.tip}
