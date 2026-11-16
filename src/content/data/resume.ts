@@ -400,6 +400,19 @@ export function projectsForVariant(variant: ResumeVariant) {
 export function pdfFilename(slug: string) {
   const label =
     slug === "ai-agents"
+      ? "AI_Agents"
+      : slug === "quant-fintech"
+        ? "Quant_Fintech"
+        : slug === "fullstack"
+          ? "Fullstack"
+          : slug.charAt(0).toUpperCase() + slug.slice(1);
+  return `Harshita_Ranka_Resume_${label}.pdf`;
+}
+
+/** Legacy filenames kept as redirects/aliases during transition. */
+export function pdfFilenameLegacy(slug: string) {
+  const label =
+    slug === "ai-agents"
       ? "AI-Agents"
       : slug === "quant-fintech"
         ? "Quant-Fintech"

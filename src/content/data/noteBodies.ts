@@ -26,9 +26,11 @@ export const noteBodies: Record<string, string[]> = {
     "Alternatives: Shopify (less control / India COD friction), from-scratch Express (reinvent cart/order), email-first auth (worse fit). Phone+password at launch keeps SMS cost at zero until PMF.",
   ],
   "batch-240-to-58": [
-    "A scheduled batch that takes four hours is not just slow — it compresses the release window and amplifies failure cost.",
-    "At Nomura, containerizing the Python pipeline with validation and retry logic cut runtime from 240 to 58 minutes (76%). Pair that with Liquibase/Jenkins/Ansible/Playwright and releases stop being folklore.",
-    "Alternatives: keep the bare-metal/cron path and tune queries only — helps, but doesn’t buy reproducible environments. Containers made the speedup shippable across machines.",
+    "A scheduled batch that takes four hours is not just slow — it compresses the release window and amplifies failure cost. When the job owns the night, every retry eats the morning release.",
+    "At Nomura I worked on Python batch pipelines with algorithmic validation and retry logic, then containerized the workflow with Docker. The same run dropped from about 240 minutes to 58 (76% faster). That is the entire public claim: problem, approach, outcome.",
+    "Releases were automated with Liquibase for database versioning, Jenkins CI/CD, and Ansible plus Playwright for tested, containerized deploys across environments. The point was consistency, not a stage-by-stage timing autopsy.",
+    "What I would do differently next time: publish a one-page runbook for the failure modes the retries cover, so the next owner inherits the invariants instead of rediscovering them under pressure.",
+    "Alternatives we rejected: keep the bare-metal/cron path and tune queries only — that can help latency, but it does not buy reproducible environments. Containers made the speedup shippable across machines.",
   ],
 };
 

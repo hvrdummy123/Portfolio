@@ -34,6 +34,12 @@ export function SiteFooter() {
             <Link href="/arcade" className="text-ink-soft">
               Arcade
             </Link>
+            <Link href="/about#colophon" className="text-ink-soft">
+              Colophon
+            </Link>
+            <a href="/rss.xml" className="text-ink-soft">
+              RSS
+            </a>
             <a href={siteConfig.links.linkedin} target="_blank" rel="noreferrer">
               LinkedIn
             </a>
@@ -47,6 +53,8 @@ export function SiteFooter() {
         <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
           <Link href="/notes">Notes</Link>
           <Link href="/resumes?from=footer">Résumé</Link>
+          <Link href="/recruiter">Recruiter</Link>
+          <Link href="/changelog">Changelog</Link>
           <Link href="/contact">Contact</Link>
         </div>
 

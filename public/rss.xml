@@ -1,8 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>Harshita Ranka Notes</title>
-    <link>https://harshitaranka.dev</link>
-    <description>Notebook — essays and labs</description>
+    <title>Harshita Ranka — Notes</title>
+    <link>https://portfolio-psi-lovat-90.vercel.app</link>
+    <description>Design notes from Harshita Ranka's portfolio</description>
+    <item>
+      <title><![CDATA[A transactional outbox for real-time chat, tested against 25 failure scenarios]]></title>
+      <link>https://portfolio-psi-lovat-90.vercel.app/notes/chat-outbox-25-failures</link>
+      <guid>https://portfolio-psi-lovat-90.vercel.app/notes/chat-outbox-25-failures</guid>
+      <pubDate>Thu, 15 Oct 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Persist atomically before delivery — then kill the relay on purpose.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Grading the graders: mutation testing a benchmark's scorers (64/64)]]></title>
+      <link>https://portfolio-psi-lovat-90.vercel.app/notes/grading-the-graders</link>
+      <guid>https://portfolio-psi-lovat-90.vercel.app/notes/grading-the-graders</guid>
+      <pubDate>Thu, 08 Oct 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[If your grader can be fooled, your leaderboard is fiction. PayBench kills 64/64 scorer mutations.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Did the payment go through? Designing a benchmark where agents can double-pay]]></title>
+      <link>https://portfolio-psi-lovat-90.vercel.app/notes/paybench-ambiguous-timeout</link>
+      <guid>https://portfolio-psi-lovat-90.vercel.app/notes/paybench-ambiguous-timeout</guid>
+      <pubDate>Thu, 01 Oct 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[TIMEOUT_AFTER_COMMIT is the villain: the money moved, the API lied, and naive retries mint duplicates.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Zero-knowledge KYC: proving you're over 18 without showing your birthday]]></title>
+      <link>https://portfolio-psi-lovat-90.vercel.app/notes/zk-kyc-over-18</link>
+      <guid>https://portfolio-psi-lovat-90.vercel.app/notes/zk-kyc-over-18</guid>
+      <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[Issuance, proof, verification — selective disclosure that still leaves an on-chain audit trail.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[Designing an Indian D2C platform on Medusa v2: phone-first auth, COD, WhatsApp]]></title>
+      <link>https://portfolio-psi-lovat-90.vercel.app/notes/d2c-medusa-india</link>
+      <guid>https://portfolio-psi-lovat-90.vercel.app/notes/d2c-medusa-india</guid>
+      <pubDate>Wed, 12 Aug 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[What you deliberately don't run at 10k DAU matters as much as what you do.]]></description>
+    </item>
+    <item>
+      <title><![CDATA[From 240 to 58 minutes: containerizing a batch pipeline]]></title>
+      <link>https://portfolio-psi-lovat-90.vercel.app/notes/batch-240-to-58</link>
+      <guid>https://portfolio-psi-lovat-90.vercel.app/notes/batch-240-to-58</guid>
+      <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
+      <description><![CDATA[How validation, retries, and Docker cut a batch pipeline from 240 minutes to 58 — a 76% speedup.]]></description>
+    </item>
   </channel>
 </rss>

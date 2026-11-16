@@ -15,7 +15,10 @@
     "content:check": "node scripts/content-check.mjs",
     "resumes:build": "tsx scripts/resumes-build.ts",
     "resumes:install-browser": "playwright install chromium",
-    "prebuild": "pnpm lint:copy && pnpm check:content && pnpm check:resume"
+    "generate:rss": "node scripts/generate-rss.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prebuild": "pnpm lint:copy && pnpm check:content && pnpm check:resume && pnpm generate:rss"
   },
   "dependencies": {
     "clsx": "^2.1.1",

@@ -6,23 +6,23 @@ import { ZkCatsLab } from "@/components/labs/ZkCatsLab";
 import { OutboxLab } from "@/components/labs/OutboxLab";
 import { OrderLifecycleLab } from "@/components/labs/OrderLifecycleLab";
 import { BacktestToy } from "@/components/labs/BacktestToy";
+import { IdempotencyLab } from "@/components/labs/IdempotencyLab";
+import { LookaheadLab } from "@/components/labs/LookaheadLab";
+import { LabRunner } from "@/components/labs/LabRunner";
+import { getLabBySlug } from "@/content/data/labsCatalog";
 
-const labs = {
-  "paybench-timeout": {
-    title: "You are the agent",
-    Component: PaybenchLab,
-  },
-  "zk-cats": { title: "Zero-knowledge, explained with cats", Component: ZkCatsLab },
-  "outbox-playground": { title: "Outbox playground", Component: OutboxLab },
-  "d2c-order-lifecycle": {
-    title: "D2C order-lifecycle simulator",
-    Component: OrderLifecycleLab,
-  },
-  "backtest-toy": { title: "Backtest toy", Component: BacktestToy },
+const labComponents = {
+  "paybench-timeout": PaybenchLab,
+  "zk-cats": ZkCatsLab,
+  "outbox-playground": OutboxLab,
+  "d2c-order-lifecycle": OrderLifecycleLab,
+  "backtest-toy": BacktestToy,
+  "idempotency-keys": IdempotencyLab,
+  "lookahead-bias": LookaheadLab,
 } as const;
 
 export function generateStaticParams() {
-  return Object.keys(labs).map((slug) => ({ slug }));
+  return Object.keys(labComponents).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
@@ -31,7 +31,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const lab = labs[slug as keyof typeof labs];
+  const lab = getLabBySlug(slug);
   return { title: lab?.title ?? "Lab" };
 }
 
@@ -41,18 +41,26 @@ export default async function LabPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const lab = labs[slug as keyof typeof labs];
-  if (!lab) notFound();
-  const Comp = lab.Component;
+  const meta = getLabBySlug(slug);
+  const Lab = labComponents[slug as keyof typeof labComponents];
+  if (!meta || !Lab) notFound();
 
   return (
     <div className="container-site section-pad">
       <Link href="/labs" className="text-sm">
         ← Labs
       </Link>
-      <h1 className="display mt-2 text-4xl text-ink">{lab.title}</h1>
+      <h1 className="display mt-2 text-4xl text-ink">{meta.title}</h1>
       <div className="mt-6">
-        <Comp />
+        <LabRunner
+          meta={{
+            goal: meta.goal,
+            steps: meta.steps,
+            caseHref: meta.caseHref,
+            caseLabel: meta.caseLabel,
+          }}
+          Lab={Lab}
+        />
       </div>
     </div>
   );

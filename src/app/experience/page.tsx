@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { resume } from "@/content/data/resume";
+import { profile } from "@/content/profile";
 import { Window } from "@/components/ui/Window";
 import { Chip } from "@/components/ui/Chip";
 import { PixelCat } from "@/components/cats/PixelCat";
@@ -45,7 +46,6 @@ function formatDates(start: string, end: string) {
 
 export default function ExperiencePage() {
   const { identity, experience } = resume;
-  const certUrl = identity.certification.verificationUrl;
 
   return (
     <div className="container-site section-pad pb-16">
@@ -142,13 +142,8 @@ export default function ExperiencePage() {
           </div>
           <Window title="cert.badge">
             <h2 className="display text-xl text-ink">Certification</h2>
-            <p className="mt-2">{identity.certification.name}</p>
-            <p className="text-sm text-ink-soft">{identity.certification.topics.join(", ")}</p>
-            {certUrl ? (
-              <a href={certUrl} className="mt-2 inline-block text-sm" target="_blank" rel="noreferrer">
-                Verify credential
-              </a>
-            ) : null}
+            <p className="mt-2">{profile.certification.name}</p>
+            <p className="text-sm text-ink-soft">{profile.certification.topics.join(" · ")}</p>
           </Window>
         </div>
       </div>
@@ -157,16 +152,18 @@ export default function ExperiencePage() {
         <h2 className="display text-2xl text-ink">Achievements</h2>
         <p className="mt-1 text-sm text-ink-soft">Hackathons, olympiads, and math competitions.</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {identity.achievements.map((a) => {
-            const math = /INMO|RMO|math/i.test(a);
-            const jpm = /JPMorgan|Code for Good/i.test(a);
+          {profile.achievements.map((a) => {
+            const math = /INMO|RMO|math/i.test(a.title);
             return (
               <Window
-                key={a}
-                title={math ? "math.trophy" : jpm ? "cfg.trophy" : "trophy.card"}
+                key={a.id}
+                title={math ? "math.trophy" : a.id === "jpmorgan-cfg" ? "cfg.trophy" : "trophy.card"}
                 className={math ? "ring-2 ring-butter" : undefined}
               >
-                <p className="text-sm font-medium text-ink">{a}</p>
+                <p className="text-sm font-medium text-ink">{a.title}</p>
+                {"detail" in a && a.detail ? (
+                  <p className="mt-2 text-xs text-ink-soft">{a.detail}</p>
+                ) : null}
               </Window>
             );
           })}
@@ -175,7 +172,13 @@ export default function ExperiencePage() {
 
       <section className="mt-10">
         <h2 className="display text-xl text-ink">Coursework</h2>
-        <p className="mt-2 text-sm text-ink-soft">{identity.coursework.join(" · ")}</p>
+        <div className="mt-3 flex flex-wrap gap-2">
+          {profile.coursework.map((c) => (
+            <Chip key={c} tone="backend">
+              {c}
+            </Chip>
+          ))}
+        </div>
       </section>
     </div>
   );
