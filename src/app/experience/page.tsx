@@ -98,9 +98,10 @@ export default function ExperiencePage() {
               <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-ink-soft">
                 {job.bullets.map((b) => {
                   const href =
-                    ("projectSlug" in b && b.projectSlug
+                    BULLET_LINKS[b.id] ??
+                    ("projectSlug" in b && typeof b.projectSlug === "string"
                       ? `/work/${b.projectSlug}`
-                      : BULLET_LINKS[b.id]) ?? null;
+                      : null);
                   return (
                     <li key={b.id}>
                       <span className="text-ink">{b.text}</span>

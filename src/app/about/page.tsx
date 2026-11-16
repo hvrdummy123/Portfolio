@@ -33,7 +33,7 @@ export default function AboutPage() {
       >
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
           <div className="shrink-0 rounded-lg border-2 border-ink bg-blush/40 p-4">
-            <PixelCat pose="think" scale={4} title="Portrait placeholder" />
+            <PixelCat pose="think" scale={4} title="Harshita Ranka" />
           </div>
           <div>
             <p className="display text-xl">Software Engineer</p>
